@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SetupEnemy();
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class Enemy : MonoBehaviour
         
     }
     // Set up Character Abilities
-    void SetupPlayer()
+    void SetupEnemy()
     {
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
