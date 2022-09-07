@@ -51,6 +51,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        locomotion = true;
         SetupPlayer();
     }
 
@@ -62,6 +63,7 @@ public class Player : MonoBehaviour
             Xinput = Input.GetAxis("Horizontal");
             Yinput = Input.GetAxis("Vertical");
         }
+        Walk();
     }
 
     // Set up Character Abilities
@@ -115,6 +117,7 @@ public class Player : MonoBehaviour
     // player movement
     public void Walk()
     {
+        rigid.velocity = new Vector2(Xinput * characterSpeed, rigid.velocity.y);
 
     }
 
