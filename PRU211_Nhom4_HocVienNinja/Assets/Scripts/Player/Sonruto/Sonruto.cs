@@ -6,14 +6,22 @@ public class Sonruto : Player
 {
 
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         characterName = "Sonruto";
+        totalHealthPoint = 100;
+        currentHealthPoint = totalHealthPoint;
+        totalChakra = 100;
+        currentChakra = totalChakra;
+        characterAttackRange = 5;
+        characterDamage = 10;
+        characterSpeed = 10;
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
-        
+        base.Update();
     }
 }

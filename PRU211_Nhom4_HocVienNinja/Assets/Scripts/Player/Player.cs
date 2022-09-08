@@ -49,21 +49,25 @@ public class Player : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         locomotion = true;
         SetupPlayer();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
         if (locomotion)
         {
             Xinput = Input.GetAxis("Horizontal");
             Yinput = Input.GetAxis("Vertical");
         }
+        isWalking = Mathf.Abs(Xinput) > 0;
         Walk();
+        Jump();
+
+        normalAttack();
     }
 
     // Set up Character Abilities
@@ -74,20 +78,19 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         col = GetComponent<Collider2D>();
         trailRenderer = GetComponent<TrailRenderer>();
-        characterName = "";
-        totalHealthPoint = 100;
-        currentHealthPoint = totalHealthPoint;
-        totalChakra = 100;
-        currentChakra = totalChakra;
-        characterAttackRange = 5;
-        characterDamage = 10;
-        characterSpeed = 10;
     }
 
     // Normal Attack
     public void normalAttack()
     {
-
+        if (Input.GetKeyDown(KeyCode.J) && !canCombo && isGrounded)
+        {
+            canCombo = true;
+            //characterSpeed = 0;
+            //canTurn = false;
+            animator.SetTrigger("Attack" + combo);
+            Debug.Log("ok");
+        }
     }
 
     // Abilites
@@ -118,6 +121,15 @@ public class Player : MonoBehaviour
     public void Walk()
     {
         rigid.velocity = new Vector2(Xinput * characterSpeed, rigid.velocity.y);
+        if (Xinput < -0.01 && facingRight)
+        {
+            Flip();
+        }
+        else if (Xinput > 0.01 && !facingRight)
+        {
+            Flip();
+        }
+        animator.SetBool("Run", isWalking);
 
     }
 
@@ -130,7 +142,16 @@ public class Player : MonoBehaviour
     // player Jump
     public void Jump()
     {
-
+        if (Input.GetKeyDown(KeyCode.Space) && canJump > 0)
+        {
+            rigid.velocity = new Vector2(rigid.velocity.x, 10);
+            animator.SetTrigger("Jump");
+            isGrounded = false;
+            canJump--;
+            combo = 0;
+            canCombo = false;
+        }
+        animator.SetBool("isGround", isGrounded);
     }
 
     //player Die
@@ -206,6 +227,24 @@ public class Player : MonoBehaviour
 
         return closestEnemy;
     }
+
+    public void Startcombo()
+    {
+        canCombo = false;
+        if (combo < 3)
+        {
+            combo++;
+        }
+    }
+
+    public void Finishcombo()
+    {
+        canCombo = false;
+        //characterSpeed = 10;
+        combo = 0;
+        //canTurn = true;
+    }
+
     // Set up just Jump when on Ground
     private void OnCollisionEnter2D(Collision2D other)
     {
