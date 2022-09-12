@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Sonruto : Player
 {
+    public Transform placeRasengan;
+    public GameObject Rasengan;
+    public AudioClip clip;
+    public AudioSource source;
 
     // Start is called before the first frame update
     new void Start()
@@ -23,5 +27,20 @@ public class Sonruto : Player
     new void Update()
     {
         base.Update();
+        thirdSkill();
+    }
+    public void Playsound()
+    {
+        source.clip = clip;
+        source.Play();
+    }
+    public override void thirdSkill()
+    {
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            animator.SetTrigger("Rasengan");
+            Instantiate(Rasengan, placeRasengan.position, placeRasengan.rotation);           
+        }
+        
     }
 }
