@@ -6,16 +6,18 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Summon
+  - Home
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Ground
+  - Bullet
   - 
   - 
   - 

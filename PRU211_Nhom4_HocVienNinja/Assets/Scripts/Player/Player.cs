@@ -4,93 +4,174 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Common Abilities
-    public string characterName { get; set; }
-    public int totalHealthPoint { get; set; }
-    public int currentHealthPoint { get; set; }
-    public int totalChakra { get; set; }
-    public int currentChakra { get; set; }
-    public int characterSpeed { get; set; }
-    public int characterDamage { get; set; }
-    public int characterAttackRange { get; set; }
-    public bool isHurt { get; set; }
+    // Common Abilities SQL
+    public string CharacterID;
+    public string CharacterName;
+    public int TotalHealthPoint;
+    public int TotalChakra;
+    public int CharacterSpeed;
+    public int CharacterDamage;
+    public string CharacterImage;
+    public string Description;
 
+    // Setting Logic Abilities
+    public float CooldownFirstSkill;
+
+    public int CostFirstSkill;
+
+    public float CooldownSecondSkill;
+
+    public int CostSecondSkill;
+
+    public float CooldownThirdSkill;
+
+    public int CostThirdSkill;
+
+    // UI Health and Chakra
+
+    public HealthBar HealthBar;
+
+    public ChakraBar ChakraBar;
 
     // Setting Component
-    public Rigidbody2D rigid;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
-    public Collider2D col;
-    public TrailRenderer trailRenderer;
+    public Rigidbody2D Rigid;
+    public Animator Animator;
+    public SpriteRenderer SpriteRenderer;
+    public Collider2D Col;
+    public TrailRenderer TrailRenderer;
+    public StaticController staticController;
 
     // Setting Normal Attack
-    public Transform attackPoint;
-    public float attackRange;
-    public LayerMask layerToAttack;
+    public Transform AttackPoint;
+    public LayerMask LayerToAttack;
 
     // Dashing
-    public bool canDash = true;
-    public bool isDashing;
-    public float dashingPower;
-    public float dashingTime;
-    public float dashingCooldown;
+    private bool CanDash = true;
+    private bool IsDashing;
+    private float DashingPower = 24f;
+    private float DashingTime = 0.2f;
+    private float DashingCooldown = 1;
 
     // Setting Player ( Attack Combo, Move, Interact with Enviroment)
-    private bool isGrounded;
+    private bool IsGrounded;
     public static float Yinput, Xinput;
-    private int canJump = 0;
-    private bool facingRight = true;
-    public int combo;
-    public bool canCombo;
-
-    public bool locomotion;
-    public bool isWalking;
-    public bool canTurn;
-
+    private int CanJump = 0;
+    public bool FacingRight;
+    public int Combo;
+    public bool CanCombo;
+    public bool IsSkilling;
+    public bool IsHurt;
+    public float AttackRange;
+    public int CurrentHealthPoint;
+    public int CurrentChakra;
+    public bool IsWalking;
+    public bool CanTurn;
+    public float ReloadFirstSkill;
+    public float ReloadSecondSkill;
+    public float ReloadThirdSkill;
+    public int PlayerNumber;
+    
 
     // Start is called before the first frame update
     public void Start()
     {
-        locomotion = true;
+        FacingRight = true;
+        CanTurn = true;
         SetupPlayer();
+        InvokeRepeating(nameof(RegenChakra), 1f, 2f);
+        
     }
 
-    // Update is called once per frame
+    //Update is called once per frame
     public void Update()
     {
-        if (locomotion)
+        if (IsDashing)
         {
-            Xinput = Input.GetAxis("Horizontal");
-            Yinput = Input.GetAxis("Vertical");
+            return;
         }
-        isWalking = Mathf.Abs(Xinput) > 0;
+        if (!IsSkilling)
+        {
+            Xinput = Input.GetAxis(staticController.Horizontal);
+            Yinput = Input.GetAxis(staticController.Vertical);
+        }
+        IsWalking = Mathf.Abs(Xinput) > 0;
         Walk();
         Jump();
+        Dashing();
+        NormalAttack();
+    }
+    public void SetHealthBar()
+    {
+        HealthBar.SetHealth(CurrentHealthPoint, TotalHealthPoint);
+    }
+    public void SetChakrahBar()
+    {
+        ChakraBar.SetChakra(CurrentChakra, TotalChakra);
+    }
 
-        normalAttack();
+    void RegenChakra()
+    {
+        if(CurrentChakra >= TotalChakra)
+        {
+            CurrentChakra = TotalChakra;
+        }
+        else
+        {
+            CurrentChakra += 1;
+        }
+        
     }
 
     // Set up Character Abilities
     void SetupPlayer()
     {
-        animator = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        col = GetComponent<Collider2D>();
-        trailRenderer = GetComponent<TrailRenderer>();
+        Animator = GetComponent<Animator>();
+        Rigid = GetComponent<Rigidbody2D>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Col = GetComponent<Collider2D>();
+        TrailRenderer = GetComponent<TrailRenderer>();
+        staticController = GetComponent<StaticController>();
+    }
+    public void StartSkill()
+    {
+        Time.timeScale = 0f;
+        CanTurn = false;
+        CharacterSpeed = 0;
+        IsSkilling = true;
+    }
+    public void EndSkill()
+    {
+        Time.timeScale = 1f;
+        CanTurn = true;
+        CharacterSpeed = 10;
+        IsSkilling = false;
+
+    }
+    // execute Normal Attack
+    public void NormalAttack()
+    {
+            if (Input.GetKeyDown(staticController.NormalAttackKey) && !CanCombo && IsGrounded && !IsSkilling)
+            {
+                CanCombo = true;
+                CharacterSpeed = 0;
+                CanTurn = false;
+                Animator.SetTrigger("Attack" + Combo);
+            }
     }
 
-    // Normal Attack
-    public void normalAttack()
+    // give damage for normalAttack
+    public void DamageNormalAttack()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !canCombo && isGrounded)
+        Collider2D[] HitEnemy = Physics2D.OverlapCircleAll(AttackPoint.position, AttackRange, LayerToAttack);
+
+        if (HitEnemy != null)
         {
-            canCombo = true;
-            //characterSpeed = 0;
-            //canTurn = false;
-            animator.SetTrigger("Attack" + combo);
-            Debug.Log("ok");
+            foreach (Collider2D Enemy in HitEnemy)
+            {
+                Enemy.GetComponent<Enemy>().TakeDamagebyMelee(10);
+            }
         }
+
     }
 
     // Abilites
@@ -100,94 +181,105 @@ public class Player : MonoBehaviour
     }
 
     // First Skill
-    public virtual void firstSkill()
+    public virtual void FirstSkill()
     {
 
     }
 
     // Second Skill
-    public virtual void secondSkill()
+    public virtual void SecondSkill()
     {
 
     }
 
     // Third Skill
-    public virtual void thirdSkill()
+    public virtual void ThirdSkill()
     {
 
     }
 
-    // player movement
+    //// player movement
     public void Walk()
     {
-        rigid.velocity = new Vector2(Xinput * characterSpeed, rigid.velocity.y);
-        if (Xinput < -0.01 && facingRight)
-        {
-            Flip();
-        }
-        else if (Xinput > 0.01 && !facingRight)
-        {
-            Flip();
-        }
-        animator.SetBool("Run", isWalking);
-
+            Rigid.velocity = new Vector2(Xinput * CharacterSpeed, Rigid.velocity.y);
+            if (Xinput < -0.01 && FacingRight && CanTurn)
+            {
+                Flip();
+            }
+            else if (Xinput > 0.01 && !FacingRight && CanTurn)
+            {
+                Flip();
+            }
+            Animator.SetBool("Run", IsWalking);
     }
 
     // player Dashing
     public void Dashing()
     {
-
+        if(Input.GetKeyDown(staticController.DashKey) && CanDash)
+        {
+            StartCoroutine(Dash());
+        }
     }
 
-    // player Jump
+    //// player Jump
     public void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump > 0)
+        if (Input.GetKeyDown(staticController.JumpKey) && CanJump > 0 && !IsSkilling)
         {
-            rigid.velocity = new Vector2(rigid.velocity.x, 10);
-            animator.SetTrigger("Jump");
-            isGrounded = false;
-            canJump--;
-            combo = 0;
-            canCombo = false;
-        }
-        animator.SetBool("isGround", isGrounded);
-    }
+            Rigid.velocity = new Vector2(Rigid.velocity.x, 10);
+            Animator.SetTrigger("Jump");
+            IsGrounded = false;
+            CanJump--;
+            Combo = 0;
+            CanCombo = false;
+            CanTurn = true;
+            CharacterSpeed = 10;
 
+        }
+        Animator.SetBool("isGround", IsGrounded);
+    }
     //player Die
     public void Die()
     {
 
     }
 
-    // turn Player left or right
-    private void Flip()
+    //// turn Player left or right
+    public void Flip()
     {
-        facingRight = !facingRight;
+        FacingRight = !FacingRight;
         transform.Rotate(0, 180, 0);
     }
 
 
     // get Hit by Enemy then decrease health point
-    public void TakeDamage(int Damage)
+    public void TakeDamageforPlayer(int Damage)
     {
-        if (isHurt)
+        if (IsHurt)
         {
             return;
         }
         else
         {
-            currentHealthPoint -= Damage;
+            CurrentHealthPoint -= Damage;
             StartCoroutine(DamageAnimation());
-          //Debug.Log(currentHealthPoint);
         }
 
     }
+    public void TakeDamageforSummon(int Damage)
+    {
+        CurrentHealthPoint -= Damage;
+        StartCoroutine(DamageAnimationforSummon());
+        SetHealthBar();
+
+    }
+
     // When Play was hit by Enemy, play red animation
-    IEnumerator DamageAnimation()
+    public IEnumerator DamageAnimation()
     {
         SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
-        isHurt = true;
+        IsHurt = true;
         for (int i = 0; i < 10; i++)
         {
             foreach (SpriteRenderer sr in srs)
@@ -204,11 +296,17 @@ public class Player : MonoBehaviour
 
             yield return new WaitForSeconds(.1f);
         }
-        isHurt = false;
+        IsHurt = false;
     }
+    public IEnumerator DamageAnimationforSummon()
+    {
+        SpriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(.2f);
+        SpriteRenderer.color = Color.white;
 
+    }
     // find closest Enemy
-    public Enemy findClostestEnemy()
+    public Enemy FindClostestEnemy(int Range)
     {
         float distanceToClosestEnemy = Mathf.Infinity;
         Enemy closestEnemy = null;
@@ -218,7 +316,7 @@ public class Player : MonoBehaviour
         {
             float distanceToEnemy = (currentEnemy.transform.position - this.transform.position).sqrMagnitude;
             string checkTag = currentEnemy.gameObject.tag;
-            if (distanceToEnemy < distanceToClosestEnemy)
+            if (distanceToEnemy < distanceToClosestEnemy && Vector2.Distance(currentEnemy.transform.position, transform.position) <= Range)
             {
                 distanceToClosestEnemy = distanceToEnemy;
                 closestEnemy = currentEnemy;
@@ -230,29 +328,48 @@ public class Player : MonoBehaviour
 
     public void Startcombo()
     {
-        canCombo = false;
-        if (combo < 3)
+        CanCombo = false;
+        if (Combo < 3)
         {
-            combo++;
+            Combo++;
         }
     }
 
     public void Finishcombo()
     {
-        canCombo = false;
-        //characterSpeed = 10;
-        combo = 0;
-        //canTurn = true;
+        CanCombo = false;
+        CharacterSpeed = 10;
+        Combo = 0;
+        CanTurn = true;
     }
 
-    // Set up just Jump when on Ground
-    private void OnCollisionEnter2D(Collision2D other)
+    private IEnumerator Dash()
     {
-        if (other.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-            canJump = 2;
-        }
+        CanDash = false;
+        IsDashing = true;
+        float origialGravity = Rigid.gravityScale;
+        Rigid.gravityScale = 0f;
+        Rigid.velocity = new Vector2(transform.right.x * 2 * DashingPower, 0f);
+        yield return new WaitForSeconds(DashingTime);
+        Rigid.gravityScale = origialGravity;
+        IsDashing = false;
+        yield return new WaitForSeconds(DashingCooldown);
+        CanDash = true;
+    }
 
+    //// Set up just Jump when on Ground
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            IsGrounded = true;
+            CanJump = 2;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
 }
