@@ -882,7 +882,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: -0.17500949, y: -0.14755487}
+  m_Offset: {x: 0.00835669, y: -0.014524639}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -893,7 +893,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.0599608, y: 0.7578263}
+  m_Size: {x: 1.9012873, y: 1.0238868}
   m_EdgeRadius: 0
 --- !u!50 &2265219895190153994
 Rigidbody2D:
@@ -928,7 +928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62d237dbab87d524691bf5e10b8bed7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterID: 
+  CharacterID: 0
   CharacterName: 
   TotalHealthPoint: 0
   TotalChakra: 0
@@ -936,6 +936,7 @@ MonoBehaviour:
   CharacterDamage: 0
   CharacterImage: 
   Description: 
+  AbilitiesID: 0
   CooldownFirstSkill: 0
   CostFirstSkill: 0
   CooldownSecondSkill: 0
@@ -949,15 +950,12 @@ MonoBehaviour:
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
   TrailRenderer: {fileID: 0}
+  staticController: {fileID: 0}
+  Source: {fileID: 1835142366577262194}
   AttackPoint: {fileID: 0}
   LayerToAttack:
     serializedVersion: 2
     m_Bits: 8
-  CanDash: 1
-  IsDashing: 0
-  DashingPower: 0
-  DashingTime: 0
-  DashingCooldown: 0
   FacingRight: 0
   Combo: 0
   CanCombo: 0
@@ -974,7 +972,6 @@ MonoBehaviour:
   FirePoint: {fileID: 2265219894806552682}
   Bullet: {fileID: 2000570433042563334, guid: 7b17e71c8278ef944968fb6b4fbfd7f4, type: 3}
   SpecialBullet: {fileID: 3698836826933953408, guid: a374c27b7001c2d4389e1df6c0d8c379, type: 3}
-  Source: {fileID: 1835142366577262194}
   ClipNormal: {fileID: 8300000, guid: 72d984e0f4e3f384a9d1a3371d90658f, type: 3}
   ClipSpecial: {fileID: 8300000, guid: b90ef873bf7f3c04fb401050ea688832, type: 3}
 --- !u!82 &1835142366577262194

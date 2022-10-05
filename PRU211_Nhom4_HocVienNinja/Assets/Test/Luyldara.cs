@@ -27,7 +27,7 @@ public class Luyldara : Enemy
     public bool ActiveSixPathFlyUp;
     public bool ActiveFlyToSky;
 
-    Player player;
+    Character player;
     private Rigidbody2D rb;
 
     private void Awake()

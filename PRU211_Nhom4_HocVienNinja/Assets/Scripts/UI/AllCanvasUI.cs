@@ -6,8 +6,7 @@ using TMPro;
 public class AllCanvasUI : MonoBehaviour
 {
 
-    public Player Player = null;
-    public Player[] GetAllPlayer;
+    public Character Player;
 
     [Header("Health & Chakra")]
     [SerializeField] private Image CurrentHealth;
@@ -15,6 +14,11 @@ public class AllCanvasUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI NumberHealth;
     [SerializeField] private TextMeshProUGUI NumberChakra;
 
+    [Header("Avatar")]
+    [SerializeField] private Image Avatar;
+    [SerializeField] private Image FirstSkillImage;
+    [SerializeField] private Image SecondSkillImage;
+    [SerializeField] private Image ThrirdSkillImage;
 
     [Header("Skill")]
     [SerializeField] private Image CurrentCooldownFirstSkill;
@@ -29,16 +33,22 @@ public class AllCanvasUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CostFirstSkill;
     [SerializeField] private TextMeshProUGUI CostSecondSkill;
     [SerializeField] private TextMeshProUGUI CostThirdSkill;
-
+    CharacterDAO characterDAO;
 
     // Start is called before the first frame update
     void Start()
     {
-       
-        
-        CostFirstSkill.text = "0";
-        CostSecondSkill.text = "0";
-        CostThirdSkill.text = "0";
+
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+        characterDAO = GetComponent<CharacterDAO>();
+        CharacterEntity character = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
+        Avatar.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"Avatar");
+        FirstSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"FirstSkill");
+        SecondSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"SecondSkill");
+        ThrirdSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"ThirdSkill");
+        CostFirstSkill.text = Player.CostFirstSkill.ToString();
+        CostSecondSkill.text = Player.CostSecondSkill.ToString();
+        CostThirdSkill.text = Player.CostThirdSkill.ToString();
         CurrentHealth.fillAmount = 1f;
         CurrentChakra.fillAmount = 1f;
         CurrentCooldownFirstSkill.fillAmount = 0f;
@@ -54,28 +64,6 @@ public class AllCanvasUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.gameObject.name.Equals("PlayerOneUI"))
-        {
-            GetAllPlayer = GameObject.FindObjectsOfType<Player>();
-            foreach (Player player in GetAllPlayer)
-            {
-                if (player.PlayerNumber == 1)
-                {
-                    Player = player;
-                }
-            }
-        }
-        else
-        {
-            GetAllPlayer = GameObject.FindObjectsOfType<Player>();
-            foreach (Player player in GetAllPlayer)
-            {
-                if (player.PlayerNumber == 2)
-                {
-                    Player = player;
-                }
-            }
-        }
         CurrentHealth.fillAmount = Player.CurrentHealthPoint / (float) Player.TotalHealthPoint;
         CurrentChakra.fillAmount = Player.CurrentChakra / (float) Player.TotalChakra;
         NumberHealth.text = Player.CurrentHealthPoint + " / " + Player.TotalHealthPoint;

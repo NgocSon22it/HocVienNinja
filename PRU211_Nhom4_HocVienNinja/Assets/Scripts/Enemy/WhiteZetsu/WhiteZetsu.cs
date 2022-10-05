@@ -7,14 +7,19 @@ public class WhiteZetsu : Enemy
     public float Distance;
     public float Timer; //Timer for cooldown between attacks
 
-    private Player Player;
+    private Character Player;
     private float IntTimer;
     private bool AttackMode;
 
+
+    public BoxCollider2D EnemyCollier;
+    public BoxCollider2D EnemyBlockCollier;
+
     new void Start()
     {
+        Physics2D.IgnoreCollision(EnemyBlockCollier, EnemyCollier, true);
         EnemyName = "Zetsu";
-        EnemyAttackRange = 3;
+        EnemyAttackRange = 4;
         TotalHealthPoint = 500;
         CurrentHealthPoint = 500;
         EnemySpeed = 5;
@@ -43,12 +48,10 @@ public class WhiteZetsu : Enemy
     {
         Animator.SetBool("Walk", true);
 
-        if (!Animator.GetCurrentAnimatorStateInfo(0).IsName("Enemy_attack"))
-        {
-            Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
+        Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
 
-            transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
-        }
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
+
         if(transform.position.x > Player.transform.position.x && FacingRight)
         {
             Flip();

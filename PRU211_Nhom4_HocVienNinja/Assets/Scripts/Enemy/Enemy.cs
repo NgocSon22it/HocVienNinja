@@ -64,12 +64,12 @@ public class Enemy : MonoBehaviour
             {
                 if(Player.gameObject.CompareTag("Summon"))
                 {
-                    Player.GetComponent<Player>().TakeDamageforSummon(50);
+                    Player.GetComponent<Character>().TakeDamageforSummon(50);
 
                 }
                 else
                 {
-                    Player.GetComponent<Player>().TakeDamageforPlayer(10);
+                    Player.GetComponent<Character>().TakeDamageforPlayer(10);
                 }
                 
             }
@@ -166,15 +166,15 @@ public class Enemy : MonoBehaviour
     }
 
     // find closest Player to hit
-    public Player FindClostestPlayer(int Range)
+    public Character FindClostestPlayer(int Range)
     {
         float distanceToClosestPlayer = Mathf.Infinity;
-        Player closestPlayer = null;
-        Player[] allPlayer = GameObject.FindObjectsOfType<Player>();
+        Character closestPlayer = null;
+        Character[] allPlayer = GameObject.FindObjectsOfType<Character>();
 
-        foreach (Player currentPlayer in allPlayer)
+        foreach (Character currentPlayer in allPlayer)
         {
-            float distanceToEnemy = (currentPlayer.transform.position - this.transform.position).sqrMagnitude;
+            float distanceToEnemy = (currentPlayer.transform.GetChild(0).position - this.transform.position).sqrMagnitude;
             if (distanceToEnemy < distanceToClosestPlayer && Vector2.Distance(currentPlayer.transform.position, transform.position) <= Range)
             {
                 distanceToClosestPlayer = distanceToEnemy;

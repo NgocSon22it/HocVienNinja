@@ -12,11 +12,11 @@ public class Deadline : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.GetComponent<Player>().TakeDamageforPlayer(10);
+            collision.GetComponent<Character>().TakeDamageforPlayer(10);
         }
         if (collision.gameObject.CompareTag("Summon"))
         {
-            collision.GetComponent<Player>().TakeDamageforSummon(100);
+            collision.GetComponent<Character>().TakeDamageforSummon(100);
         }
     }
 }

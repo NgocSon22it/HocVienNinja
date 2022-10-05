@@ -9,13 +9,7 @@ public class SettingMenu : MonoBehaviour
 
      public Slider MusicSlider;
      public Slider SoundSlider;
-
-     List<Charac> list;
-     int index;
     private static int Map;
-
-    // 1 = 1 player, 2 = player
-    public static int Mode;
     public void PlayGame()
     {
         SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
@@ -43,8 +37,5 @@ public class SettingMenu : MonoBehaviour
     {
 
     }
-    public void PlayMode(int mode)
-    {
-        Mode = mode;
-    }
+
 }
