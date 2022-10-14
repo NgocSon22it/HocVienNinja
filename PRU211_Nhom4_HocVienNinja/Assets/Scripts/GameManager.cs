@@ -17,17 +17,22 @@ public class GameManager : MonoBehaviour
     Character player;
     private void Start()
     {
-        StartCoroutine(ActiveBarUI());
+        characterDAO = GetComponent<CharacterDAO>();
+        CharacterEntity character = characterDAO.GetCharacterbyID(2);
+        Score = character.CharacterID;
+        ScoreUI.text = Score.ToString();
+        /*StartCoroutine(ActiveBarUI());
         characterDAO = GetComponent<CharacterDAO>();
         ScoreUI.text = Score.ToString();
         CharacterEntity character = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
         Debug.Log("Character/" + character.CharacterName);
         
-        GameObject instance = Instantiate(Resources.Load("Character/" + character.CharacterName, typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
+        GameObject instance = Instantiate(Resources.Load("Character/" + character.CharacterName, typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;*/
 
     }
     private void Update()
     {
+        
         ScoreUI.text = Score.ToString();
     }
 

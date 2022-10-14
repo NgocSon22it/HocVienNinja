@@ -14,20 +14,18 @@ public class Gamakichi : Character
     public AudioClip ClipSpecial;
 
     Enemy ClostestEnemy;
-    private void Awake()
+    // Start is called before the first frame update
+    new void Start()
     {
+        CharacterName = "Gamakichi";
         CurrentHealthPoint = 300;
         TotalHealthPoint = 300;
         TotalChakra = 100;
         CurrentChakra = 0;
         SetHealthBar();
         SetChakrahBar();
-        CharacterName = "Gamakichi";
-    }
-    // Start is called before the first frame update
-    new void Start()
-    {
-        base.Start();
+        FacingRight = true;
+        SetupComponent();
     }
     // Update is called once per frame
     new void Update()

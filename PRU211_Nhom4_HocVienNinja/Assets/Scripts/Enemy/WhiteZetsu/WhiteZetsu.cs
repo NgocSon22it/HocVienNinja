@@ -11,17 +11,13 @@ public class WhiteZetsu : Enemy
     private float IntTimer;
     private bool AttackMode;
 
-
-    public BoxCollider2D EnemyCollier;
-    public BoxCollider2D EnemyBlockCollier;
-
     new void Start()
     {
-        Physics2D.IgnoreCollision(EnemyBlockCollier, EnemyCollier, true);
         EnemyName = "Zetsu";
         EnemyAttackRange = 4;
         TotalHealthPoint = 500;
         CurrentHealthPoint = 500;
+        EnemyDamage = 10;
         EnemySpeed = 5;
         Timer = 2f;
         base.Start();
@@ -50,7 +46,9 @@ public class WhiteZetsu : Enemy
 
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
 
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
+        Vector2 newPosition = Vector2.MoveTowards(Rigid.position, targetPosition, EnemySpeed * Time.deltaTime);
+
+        Rigid.MovePosition(newPosition);
 
         if(transform.position.x > Player.transform.position.x && FacingRight)
         {

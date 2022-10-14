@@ -111,9 +111,9 @@ TextureImporter:
         x: 169
         y: 155
         width: 110
-        height: 165
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 143
+      alignment: 9
+      pivot: {x: 0.55, y: 0.6}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,12 +129,12 @@ TextureImporter:
       name: SummonGamakichi_1
       rect:
         serializedVersion: 2
-        x: 370
-        y: 144
+        x: 369
+        y: 142
         width: 110
-        height: 179
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 157
+      alignment: 9
+      pivot: {x: 0.55, y: 0.64}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,12 +150,12 @@ TextureImporter:
       name: SummonGamakichi_2
       rect:
         serializedVersion: 2
-        x: 570
-        y: 136
-        width: 142
-        height: 187
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 568
+        y: 135
+        width: 128
+        height: 158
+      alignment: 9
+      pivot: {x: 0.6, y: 0.64}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -268,6 +268,27 @@ TextureImporter:
       bones: []
       spriteID: 6632ad473f512724589c8ebe03b147b0
       internalID: -1454769348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummonGamakichi_4
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 137
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46a73eb8f918d534a96ac77b4de3593f
+      internalID: -880150675
       vertices: []
       indices: 
       edges: []

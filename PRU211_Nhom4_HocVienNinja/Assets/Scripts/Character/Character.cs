@@ -72,12 +72,13 @@ public class Character : MonoBehaviour
     public float ReloadFirstSkill;
     public float ReloadSecondSkill;
     public float ReloadThirdSkill;
-    
+    public int Jumppower;
+    public GameObject blurCamera;
 
     // Start is called before the first frame update
     public void Start()
     {
-        SetupComponent();
+        SetupComponent();       
         CharacterEntity character = characterDAO.GetCharacterbyID(2);
         InvokeRepeating(nameof(RegenChakra), 1f, 2f);
         CharacterName = character.CharacterName;
@@ -136,7 +137,7 @@ public class Character : MonoBehaviour
     }
 
     // Set up Character Abilities
-    void SetupComponent()
+    public void SetupComponent()
     {
         Animator = GetComponent<Animator>();
         Rigid = GetComponent<Rigidbody2D>();
@@ -150,6 +151,7 @@ public class Character : MonoBehaviour
     public void StartSkill()
     {
         Time.timeScale = 0f;
+        blurCamera.SetActive(true);
         CanTurn = false;
         CharacterSpeed = 0;
         IsSkilling = true;
@@ -157,6 +159,7 @@ public class Character : MonoBehaviour
     public void EndSkill()
     {
         Time.timeScale = 1f;
+        blurCamera.SetActive(false);
         CanTurn = true;
         CharacterSpeed = 10;
         IsSkilling = false;
@@ -183,7 +186,7 @@ public class Character : MonoBehaviour
         {
             foreach (Collider2D Enemy in HitEnemy)
             {
-                Enemy.GetComponent<Enemy>().TakeDamagebyMelee(10);
+                Enemy.GetComponent<Enemy>().TakeDamage(10);
             }
         }
 
@@ -242,7 +245,7 @@ public class Character : MonoBehaviour
     {
         if (Input.GetKeyDown(staticController.JumpKey) && CanJump > 0 && !IsSkilling)
         {
-            Rigid.velocity = new Vector2(Rigid.velocity.x, 10);
+            Rigid.velocity = new Vector2(Rigid.velocity.x, Jumppower);
             Animator.SetTrigger("Jump");
             IsGrounded = false;
             CanJump--;
@@ -269,24 +272,27 @@ public class Character : MonoBehaviour
 
 
     // get Hit by Enemy then decrease health point
-    public void TakeDamageforPlayer(int Damage)
+    public void TakeDamage(int Damage)
     {
-        if (IsHurt)
+        if (this.gameObject.CompareTag("Player"))
         {
-            return;
+            if (IsHurt)
+            {
+                return;
+            }
+            else
+            {
+                CurrentHealthPoint -= Damage;
+                StartCoroutine(DamageAnimation());
+            }
         }
         else
         {
             CurrentHealthPoint -= Damage;
-            StartCoroutine(DamageAnimation());
+            StartCoroutine(DamageAnimationforSummon());
+            SetHealthBar();
         }
-
-    }
-    public void TakeDamageforSummon(int Damage)
-    {
-        CurrentHealthPoint -= Damage;
-        StartCoroutine(DamageAnimationforSummon());
-        SetHealthBar();
+        
 
     }
 
@@ -375,7 +381,7 @@ public class Character : MonoBehaviour
     //// Set up just Jump when on Ground
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Floor"))
         {
             IsGrounded = true;
             CanJump = 2;

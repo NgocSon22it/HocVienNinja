@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2870367257389720339}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.97, y: 0.31, z: 0}
+  m_LocalPosition: {x: 1.754, y: 0.328, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -115,10 +115,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1903058011
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1495285529, guid: 0920eeb434c927a4b86e99bb96de4dae, type: 3}
+  m_Sprite: {fileID: -696855018, guid: 994a148a89c0eec4790f39482892f777, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,7 +144,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 5
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.8253968, y: 2.6190476}
+    oldSize: {x: 2, y: 2.7}
     newSize: {x: 2, y: 2.7}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -212,7 +212,7 @@ MonoBehaviour:
   CharacterName: 
   TotalHealthPoint: 0
   TotalChakra: 0
-  CharacterSpeed: 0
+  CharacterSpeed: 10
   CharacterDamage: 0
   CharacterImage: 
   Description: 
@@ -246,10 +246,12 @@ MonoBehaviour:
   CurrentHealthPoint: 0
   CurrentChakra: 0
   IsWalking: 0
-  CanTurn: 0
+  CanTurn: 1
   ReloadFirstSkill: 0
   ReloadSecondSkill: 0
   ReloadThirdSkill: 0
+  Jumppower: 23
+  blurCamera: {fileID: 0}
   PlaceRasengan: {fileID: 2870367258232778801}
   PlaceRasengan1: {fileID: 2870367257875993174}
   PlaceRasengan2: {fileID: 2870367257389720338}
@@ -258,6 +260,7 @@ MonoBehaviour:
   ClipSummomGamakichi: {fileID: 8300000, guid: f11eb503ef5b7864fa40a4de5abf5d34, type: 3}
   PlaceGamakichi: {fileID: 2870367259068413776}
   Gamakichi: {fileID: 3100147155963678491, guid: d7352009688c7c4468e3de47cab30c47, type: 3}
+  RasenShuriken: {fileID: 8041670265703657061, guid: e72942f6839adfc43bf6382c112d1623, type: 3}
 --- !u!82 &2870367257546121180
 AudioSource:
   m_ObjectHideFlags: 0
@@ -365,7 +368,7 @@ PlatformEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1152
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
@@ -429,7 +432,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2870367257875993175}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0.65, z: 0}
+  m_LocalPosition: {x: -0.918, y: 0.595, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -460,7 +463,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2870367258232778802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.35, y: -0.21, z: 0}
+  m_LocalPosition: {x: -0.949, y: -0.21, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

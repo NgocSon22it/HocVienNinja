@@ -22,7 +22,7 @@ public class RasenganDamage : MonoBehaviour
         {
             foreach (Collider2D enemy in hitEnemy)
             {
-                enemy.GetComponent<Enemy>().TakeDamagebyMelee(100);
+                enemy.GetComponent<Enemy>().TakeDamage(100);
             }
         }
     }

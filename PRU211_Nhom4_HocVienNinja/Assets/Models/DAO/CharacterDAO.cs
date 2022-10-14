@@ -7,7 +7,8 @@ using UnityEngine;
 
 public class CharacterDAO : MonoBehaviour 
 {
-    string ConnectionStr = "Server=(local);uid=sa;pwd=123456;Database=Ninja;Trusted_Connection=True;";
+
+    string ConnectionStr = new HocVienNinjaConnect().GetConnectHocVienNinja();
 
     public List<CharacterEntity> GetAllCharacter()
     {
@@ -18,7 +19,7 @@ public class CharacterDAO : MonoBehaviour
             {
                 connection.Open();
                 SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "select * from [Character]";
+                cmd.CommandText = "select * from [Character] where Expected = 1";
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
@@ -91,4 +92,5 @@ public class CharacterDAO : MonoBehaviour
 
         return null;
     }
+
 }

@@ -28,9 +28,9 @@ public class Chidori : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.CompareTag("Enemy") && CancauseDamage)
+        if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss")) && CancauseDamage)
         {
-            collision.GetComponent<Enemy>().TakeDamagebyMelee(300);
+            collision.GetComponent<Enemy>().TakeDamage(300);
         }
     }
 }

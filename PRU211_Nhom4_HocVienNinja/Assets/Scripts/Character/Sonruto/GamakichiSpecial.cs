@@ -10,9 +10,9 @@ public class GamakichiSpecial : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
-            collision.GetComponent<Enemy>().TakeDamagebyFar(30);
+            collision.GetComponent<Enemy>().TakeDamage(30);
         }
     }
 

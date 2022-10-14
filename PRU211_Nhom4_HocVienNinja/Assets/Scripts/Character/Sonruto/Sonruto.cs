@@ -16,6 +16,9 @@ public class Sonruto : Character
 
     public Transform PlaceGamakichi;
     public GameObject Gamakichi;
+
+
+    public GameObject RasenShuriken;
     private void Awake()
     {
         CostFirstSkill = 5;
@@ -54,7 +57,7 @@ public class Sonruto : Character
     {
         if (Input.GetKeyDown(staticController.FirstSkill) && ReloadFirstSkill <= 0f && CurrentChakra >= CostFirstSkill)
         {
-            Animator.SetTrigger("StrongAttack");
+            Animator.SetTrigger("RasenShuriken");
             CurrentChakra -= CostFirstSkill;
             ReloadFirstSkill = CooldownFirstSkill;
         }
@@ -96,10 +99,14 @@ public class Sonruto : Character
         StartCoroutine(MoveRasengan());
 
     }
+
+    public void CallRasenShuriken()
+    {
+        StartCoroutine(MoveRasenShuriken());
+    }
     public void CallGamakichi()
     {
         Instantiate(Gamakichi, PlaceGamakichi.position, Quaternion.identity);
-
     }
 
     IEnumerator MoveRasengan()
@@ -108,6 +115,14 @@ public class Sonruto : Character
         yield return new WaitForSecondsRealtime(3.9f);
         BulletIns.transform.position = PlaceRasengan1.position;
         yield return new WaitForSecondsRealtime(0.3f);
+        BulletIns.transform.position = PlaceRasengan2.position;
+    }
+    IEnumerator MoveRasenShuriken()
+    {
+        GameObject BulletIns = Instantiate(RasenShuriken, PlaceRasengan.position, PlaceRasengan.rotation);
+        yield return new WaitForSecondsRealtime(.85f);
+        BulletIns.transform.position = PlaceRasengan1.position;
+        yield return new WaitForSecondsRealtime(0.35f);
         BulletIns.transform.position = PlaceRasengan2.position;
     }
     private void OnDrawGizmos()

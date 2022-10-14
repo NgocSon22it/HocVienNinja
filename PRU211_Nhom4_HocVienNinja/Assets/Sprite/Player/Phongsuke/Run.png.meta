@@ -192,7 +192,7 @@ TextureImporter:
       name: Run_4
       rect:
         serializedVersion: 2
-        x: 212
+        x: 211
         y: 15
         width: 119
         height: 150
@@ -214,7 +214,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 437
-        y: 14
+        y: 13
         width: 109
         height: 159
       alignment: 0

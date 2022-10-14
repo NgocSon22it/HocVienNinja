@@ -26,10 +26,11 @@ public class Enemy : MonoBehaviour
     public Transform AttackPoint;
     public LayerMask LayerToAttack;
     public float Range;
+
     // Start is called before the first frame update
     public void Start()
     {
-        SetupEnemy();
+        SetupComponent();
     }
 
     // Update is called once per frame
@@ -38,13 +39,17 @@ public class Enemy : MonoBehaviour
         
     }
     // Set up Character Abilities
-    void SetupEnemy()
+    void SetupComponent()
     {
         Animator = GetComponent<Animator>();
         Rigid = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Col = GetComponent<Collider2D>();
-        SetHealthBar();
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            SetHealthBar();
+        }
+            
     }
 
     // Abilites
@@ -64,12 +69,12 @@ public class Enemy : MonoBehaviour
             {
                 if(Player.gameObject.CompareTag("Summon"))
                 {
-                    Player.GetComponent<Character>().TakeDamageforSummon(50);
+                    Player.GetComponent<Character>().TakeDamage(EnemyDamage);
 
                 }
                 else
                 {
-                    Player.GetComponent<Character>().TakeDamageforPlayer(10);
+                    Player.GetComponent<Character>().TakeDamage(EnemyDamage);
                 }
                 
             }
@@ -123,34 +128,35 @@ public class Enemy : MonoBehaviour
         FacingRight = !FacingRight;
         transform.Rotate(0, 180, 0);
     }
-
+    public void handleRotation(Transform PlayerPositon)
+    {
+        if (transform.GetChild(0).position.x > PlayerPositon.GetChild(0).position.x && FacingRight)
+        {
+            Flip();
+        }
+        else if (transform.GetChild(0).position.x < PlayerPositon.GetChild(0).position.x && !FacingRight)
+        {
+            Flip();
+        }
+    }
     public void SetHealthBar()
     {
         HealthBar.SetHealth(CurrentHealthPoint, TotalHealthPoint);
 
     }
     // get Hit by Player then decrease health point
-    public void TakeDamagebyFar(int Damage)
+    public void TakeDamage(int Damage)
     {
 
         CurrentHealthPoint -= Damage;
-        SetHealthBar();
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            Animator.SetTrigger("Hurt");
+            SetHealthBar();
+        }       
         StartCoroutine(DamageAnimation());
     }
-    public void TakeDamagebyMelee(int Damage)
-    {
 
-        CurrentHealthPoint -= Damage;
-        Animator.SetTrigger("Hurt");
-        SetHealthBar();
-        StartCoroutine(DamageAnimation());
-    }
-    public void TakeDamageToBoss(int Damage)
-    {
-
-        CurrentHealthPoint -= Damage;
-        StartCoroutine(DamageAnimation());
-    }
 
     // play red when get hit by Player
     IEnumerator DamageAnimation()
