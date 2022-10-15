@@ -25,16 +25,12 @@ public class SkillDAO : MonoBehaviour
 
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    SkillEntity a = new SkillEntity
+                    SkillEntity a = new()
                     {
-                        SkillID = Convert.ToInt32(dr["Skill_ID"]),
                         Name = dr["Name"].ToString(),
                         Chakra = Convert.ToInt32(dr["Chakra"]),
                         Damage = Convert.ToInt32(dr["Damage"]),
-                        Cooldown = (float) dr["Damage"],
-                        Description = dr["Description"].ToString(),
-                        Link = dr["Link"].ToString(),
-                        Delete = Convert.ToBoolean(dr["Link"])
+                        Cooldown = Convert.ToInt32(dr["Cooldown"]),
                     };
                     connection.Close();
                     return a;

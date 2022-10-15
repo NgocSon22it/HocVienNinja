@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillEntity : MonoBehaviour
+public class SkillEntity
 {
     public int SkillID;
     public string Name;

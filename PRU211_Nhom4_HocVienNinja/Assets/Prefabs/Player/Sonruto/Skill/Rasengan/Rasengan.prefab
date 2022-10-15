@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2947518306348665058}
   - component: {fileID: 5267377765566266685}
   - component: {fileID: 2151145613931673103}
+  - component: {fileID: -6351410043256396708}
   m_Layer: 0
   m_Name: Rasengan
   m_TagString: Untagged
@@ -143,7 +144,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b304665b38d5643b5e85d467d10637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 0
+  Chakra: 0
+  Cooldown: 0
   Explosion: {fileID: 8875463463750162164, guid: b463f68de7f0c924398854d96371038c, type: 3}
+  AttackPoint: {fileID: 0}
+  Range: 5
+  LayerToAttack:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!73398921 &5267377765566266685
 VFXRenderer:
   serializedVersion: 1
@@ -182,7 +191,7 @@ VFXRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1489771853
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
 --- !u!2083052967 &2151145613931673103
 VisualEffect:
@@ -221,3 +230,15 @@ VisualEffect:
       m_Array: []
     m_Bool:
       m_Array: []
+--- !u!114 &-6351410043256396708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574829488965895948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea7c62490ca4ce4a8b0e7a1be91a9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

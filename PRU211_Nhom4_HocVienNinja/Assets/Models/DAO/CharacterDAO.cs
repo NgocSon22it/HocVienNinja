@@ -10,47 +10,6 @@ public class CharacterDAO : MonoBehaviour
 
     string ConnectionStr = new HocVienNinjaConnect().GetConnectHocVienNinja();
 
-    public List<CharacterEntity> GetAllCharacter()
-    {
-        List<CharacterEntity> list = new List<CharacterEntity>();
-        using (SqlConnection connection = new SqlConnection(ConnectionStr))
-        {
-            try
-            {
-                connection.Open();
-                SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "select * from [Character] where Expected = 1";
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dataTable = new DataTable();
-                adapter.Fill(dataTable);
-
-
-                foreach (DataRow dr in dataTable.Rows)
-                {
-                    list.Add(new CharacterEntity
-                    {
-                        CharacterID = Convert.ToInt32(dr["Cha_ID"]),
-                        CharacterName = dr["Name"].ToString(),
-                        TotalHealthPoint = Convert.ToInt32(dr["Health"]),
-                        TotalChakra = Convert.ToInt32(dr["Chakra"]),
-                        CharacterDamage = Convert.ToInt32(dr["Damage"]),
-                        CharacterSpeed = Convert.ToInt32(dr["Speed"]),
-                        Description = dr["Description"].ToString(),
-                        AbilitiesID = Convert.ToInt32(dr["Abi_ID"]),
-                        CharacterImage = dr["Link"].ToString()
-                    });
-                }
-
-            }
-            finally
-            {
-                connection.Close();
-
-            }
-        }
-
-        return list;
-    }
     public CharacterEntity GetCharacterbyID(int id)
     {
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
@@ -67,7 +26,7 @@ public class CharacterDAO : MonoBehaviour
 
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    CharacterEntity a = new CharacterEntity
+                    CharacterEntity a = new()
                     {
                         CharacterID = Convert.ToInt32(dr["Cha_ID"]),
                         CharacterName = dr["Name"].ToString(),
@@ -93,4 +52,7 @@ public class CharacterDAO : MonoBehaviour
         return null;
     }
 
+
+
+    
 }

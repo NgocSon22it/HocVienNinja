@@ -4756,7 +4756,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1489771853
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 4
   m_MeshDistribution: 0
@@ -4801,6 +4801,7 @@ GameObject:
   - component: {fileID: 8810030313763785259}
   - component: {fileID: 7417425525621595185}
   - component: {fileID: -2446445546351231593}
+  - component: {fileID: 8182305648606811753}
   m_Layer: 0
   m_Name: RasenShurikenSound
   m_TagString: Untagged
@@ -4874,6 +4875,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323c375060a7cfe40817f7151d5f1e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 0
+  Chakra: 0
+  Cooldown: 0
   Source: {fileID: -2446445546351231593}
   RasenShurikenSound: {fileID: 8300000, guid: 5f7fc41ba496a2744bb1651d0cc84068, type: 3}
 --- !u!82 &-2446445546351231593
@@ -4972,6 +4976,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8182305648606811753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8041670265703657061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea7c62490ca4ce4a8b0e7a1be91a9ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8041670265703657063
 GameObject:
   m_ObjectHideFlags: 0
@@ -9728,7 +9744,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1489771853
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0

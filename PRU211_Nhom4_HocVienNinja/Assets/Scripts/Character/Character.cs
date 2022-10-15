@@ -89,9 +89,6 @@ public class Character : MonoBehaviour
         AttackRange = 3f;
         CharacterDamage = character.CharacterDamage;
         CharacterSpeed = character.CharacterSpeed;
-        CooldownFirstSkill = 1;
-        CooldownSecondSkill = 1;
-        CooldownThirdSkill = 1;
         FacingRight = true;
         CanTurn = true;
     }

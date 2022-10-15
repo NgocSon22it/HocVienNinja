@@ -9,25 +9,23 @@ public class GameManager : MonoBehaviour
     public static int Score;
 
     public TextMeshProUGUI ScoreUI;
-
-    public GameObject BarUI;
-
-    CharacterDAO characterDAO;
     public Transform SpawnPoint;
+    public GameObject BarUI;
     Character player;
     private void Start()
     {
-        characterDAO = GetComponent<CharacterDAO>();
-        CharacterEntity character = characterDAO.GetCharacterbyID(2);
-        Score = character.CharacterID;
+        Score = 100;
         ScoreUI.text = Score.ToString();
-        /*StartCoroutine(ActiveBarUI());
-        characterDAO = GetComponent<CharacterDAO>();
-        ScoreUI.text = Score.ToString();
-        CharacterEntity character = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
-        Debug.Log("Character/" + character.CharacterName);
+        StartCoroutine(ActiveBarUI());
+        if(SelectCharacter.CharacterID == 1)
+        {
+            GameObject instance = Instantiate(Resources.Load("Character/Sonruto", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
+        }
+        else
+        {
+            GameObject instance = Instantiate(Resources.Load("Character/Phongsuke", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
+        }
         
-        GameObject instance = Instantiate(Resources.Load("Character/" + character.CharacterName, typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;*/
 
     }
     private void Update()
@@ -38,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator ActiveBarUI()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         BarUI.SetActive(true);
     }
 }

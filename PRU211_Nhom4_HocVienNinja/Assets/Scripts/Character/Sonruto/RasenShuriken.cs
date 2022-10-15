@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RasenShuriken : MonoBehaviour
+public class RasenShuriken : Skill
 {
     private Rigidbody2D rb;
     public AudioSource Source;
@@ -11,6 +11,8 @@ public class RasenShuriken : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        SkillDAO skillDAO = GetComponent<SkillDAO>();
+        Damage = skillDAO.GetSkillbyID(1).Damage;
         StartCoroutine(SetSpeed());
     }
 
@@ -18,7 +20,7 @@ public class RasenShuriken : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
-            collision.GetComponent<Enemy>().TakeDamage(30);
+            collision.GetComponent<Enemy>().TakeDamage(Damage);
         }
     }
     IEnumerator SetSpeed()

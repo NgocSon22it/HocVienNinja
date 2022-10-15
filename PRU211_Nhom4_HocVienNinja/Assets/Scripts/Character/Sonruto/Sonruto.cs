@@ -10,25 +10,28 @@ public class Sonruto : Character
     public Transform PlaceRasengan2;
     public GameObject Rasengan;
 
-
     public AudioClip ClipRasengan;
     public AudioClip ClipSummomGamakichi;   
+
 
     public Transform PlaceGamakichi;
     public GameObject Gamakichi;
 
-
     public GameObject RasenShuriken;
     private void Awake()
     {
-        CostFirstSkill = 5;
-        CostSecondSkill = 20;
-        CostThirdSkill = 30;
+        SkillDAO skillDAO = GetComponent<SkillDAO>();
+        CostFirstSkill = skillDAO.GetSkillbyID(1).Chakra;
+        CooldownFirstSkill = skillDAO.GetSkillbyID(1).Cooldown;
+        CostSecondSkill = skillDAO.GetSkillbyID(2).Chakra;
+        CooldownSecondSkill = skillDAO.GetSkillbyID(2).Cooldown;
+        CostThirdSkill = skillDAO.GetSkillbyID(3).Chakra;
+        CooldownThirdSkill = skillDAO.GetSkillbyID(3).Cooldown;
     }
 
     // Start is called before the first frame update
     new void Start()
-    {       
+    {
         base.Start();     
     }
 
@@ -87,7 +90,6 @@ public class Sonruto : Character
             Animator.SetTrigger("Rasengan");
             CurrentChakra -= CostThirdSkill;
             ReloadThirdSkill = CooldownThirdSkill;
-
         }
         else if (ReloadThirdSkill > 0)
         {

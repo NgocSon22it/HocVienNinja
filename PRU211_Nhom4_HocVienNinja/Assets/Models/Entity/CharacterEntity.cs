@@ -13,4 +13,15 @@ public class CharacterEntity
     public string CharacterImage;
     public string Description;
     public int AbilitiesID;
+
+    public CharacterEntity()
+    {
+
+    }
+    public CharacterEntity(int CharacterID, string CharacterName, string CharacterImage)
+    {
+        this.CharacterID = CharacterID;
+        this.CharacterName = CharacterName;
+        this.CharacterImage = CharacterImage;
+    }
 }

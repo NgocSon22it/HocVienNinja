@@ -7,26 +7,30 @@ using UnityEngine.SceneManagement;
 public class SelectCharacter : MonoBehaviour
 {
     public Image PlayerImage;
+
     public TextMeshProUGUI PlayerName;
 
     public static int CharacterID;
+
     int index;
     List<CharacterEntity> list;
-    CharacterDAO characterDAO;
     // Start is called before the first frame update
     void Start()
     {
-        characterDAO = GetComponent<CharacterDAO>();
-        list = characterDAO.GetAllCharacter();
+        list = new List<CharacterEntity>();
         index = 0;
+        CharacterEntity Sonruto = new CharacterEntity(1, "Sonruto", "CharacterImage/Sonruto");
+        CharacterEntity Phongsuke = new CharacterEntity(2, "Phongsuke", "CharacterImage/Phongsuke");
+        list.Add(Sonruto);
+        list.Add(Phongsuke);
         SetSprite();
     }
 
     public void SetSprite()
     {
         PlayerName.text = list[index].CharacterName.ToString();
-        PlayerImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(list[index].CharacterImage.Remove(0,1));
-        Debug.Log(list[index].CharacterImage.Remove(0,1));
+        PlayerImage.GetComponent<Image>().sprite = Resources.Load<Sprite>(list[index].CharacterImage);
+        Debug.Log(list[index].CharacterImage);
     }
     public void NextOption()
     {

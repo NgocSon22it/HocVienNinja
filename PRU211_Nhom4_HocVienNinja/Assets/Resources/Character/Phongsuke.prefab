@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 1058614630}
   - component: {fileID: 7087799128381317113}
   m_Layer: 6
-  m_Name: Sasuke
+  m_Name: Phongsuke
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
