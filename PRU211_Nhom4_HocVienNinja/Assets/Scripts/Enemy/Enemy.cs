@@ -27,6 +27,9 @@ public class Enemy : MonoBehaviour
     public LayerMask LayerToAttack;
     public float Range;
 
+    // Information
+    public int Score;
+    public int Coin;
     // Start is called before the first frame update
     public void Start()
     {
@@ -67,16 +70,7 @@ public class Enemy : MonoBehaviour
         {
             foreach (Collider2D Player in HitPlayer)
             {
-                if(Player.gameObject.CompareTag("Summon"))
-                {
-                    Player.GetComponent<Character>().TakeDamage(EnemyDamage);
-
-                }
-                else
-                {
-                    Player.GetComponent<Character>().TakeDamage(EnemyDamage);
-                }
-                
+             Player.GetComponent<Character>().TakeDamage(EnemyDamage);
             }
         }
 
@@ -119,7 +113,8 @@ public class Enemy : MonoBehaviour
     // enemy Die
     public void Die()
     {
-        GameManager.Score += 10;
+        GameManager.Score += Score;
+        GameManager.Coin += Coin;
         Destroy(gameObject);
     }
     // turn enemy left or right
@@ -150,8 +145,7 @@ public class Enemy : MonoBehaviour
 
         CurrentHealthPoint -= Damage;
         if (this.gameObject.CompareTag("Enemy"))
-        {
-            Animator.SetTrigger("Hurt");
+        {           
             SetHealthBar();
         }       
         StartCoroutine(DamageAnimation());

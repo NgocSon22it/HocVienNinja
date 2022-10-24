@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class HocVienNinjaConnect
 {
-    string Server = "ninjagame.database.windows.net";
-    string id = "ninjagame";
-    string password = "NinjaS31504!";
+    string Server = "localhost";
+    string id = "sa";
+    string password = "123456";
     string database = "Ninja";
     public string GetConnectHocVienNinja()
     {

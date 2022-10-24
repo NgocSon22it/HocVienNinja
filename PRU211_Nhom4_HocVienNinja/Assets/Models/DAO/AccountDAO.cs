@@ -11,6 +11,43 @@ public class AccountDAO : MonoBehaviour
 {
     string ConnectionStr = new HocVienNinjaConnect().GetConnectHocVienNinja();
 
+    public AccountEntity GetAccountbyID(int IdAccount)
+    {
+        using (SqlConnection connection = new SqlConnection(ConnectionStr))
+        {
+            try
+            {
+                connection.Open();
+                SqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = "select * from Account where Acc_ID = " + IdAccount;
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    AccountEntity a = new AccountEntity
+                    {
+                        AccountID = Convert.ToInt32(dr["Acc_ID"]),
+                        Username = dr["UserName"].ToString(),
+                        Password = dr["PassWord"].ToString(),
+                        Name = dr["Name"].ToString(),
+                        Coin = Convert.ToInt32(dr["Coin"]),
+                    };
+                    connection.Close();
+                    return a;
+                }
+            }
+            finally
+            {
+                connection.Close();
+            }
+
+        }
+
+        return null;
+    }
     public AccountEntity CheckLogin(string username, string password)
     {
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
@@ -107,6 +144,19 @@ public class AccountDAO : MonoBehaviour
             }
         }
         return null;
+    }
+    public void CreateScore(int IdAccount, int Score)
+    {
+        using (SqlConnection connection = new SqlConnection(ConnectionStr))
+        {
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "Insert into Score values(@id, @score, SWITCHOFFSET(GETDATE(),'+07:00'), 0)";
+            cmd.Parameters.AddWithValue("@id", IdAccount);
+            cmd.Parameters.AddWithValue("@score", Score);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
     }
     public static string GetMD5(string str)
     {

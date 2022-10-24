@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Luyldara : Enemy
 {
+    [Header("Ability")]
+    public SixPaths[] SixPaths;
+    public Transform rotationCenter;
+    float posX, posY;
+    public float rotationRadius = 5f;
+    public float angularSpeed = 2f;
+    public bool isStart;
+
+
     [Header("First Skill")]
     public Transform FirstSkillPoint;
     public GameObject DeadlineBullet;
@@ -28,22 +37,19 @@ public class Luyldara : Enemy
     public GameObject[] SixPathsObject;
     private void Awake()
     {
-        /*for (int i = 0; i < 6; i ++)
-        {
-            Paths[i].GetComponent<Rigidbody2D>().isKinematic = true;
-        }*/
-        Rigid = GetComponent<Rigidbody2D>();
         TotalHealthPoint = 2000;
         CurrentHealthPoint = 2000;
         TurnOffLazer();
     }
+
+    new void Start()
+    {
+        base.Start();
+    }
     // Update is called once per frame
     new void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            StartCoroutine(Move());
-        }
+        SixPathsMoveCircle();
     }
     public void TurnOffLazer()
     {
@@ -51,6 +57,33 @@ public class Luyldara : Enemy
         {
             line.enabled = false;
         }
+    }
+
+    public void TurnOnCollider()
+    {
+        Col.enabled = true;
+    }
+    public void TurnOffCollider()
+    {
+        Col.enabled = false;
+    }
+    public void SixPathsMoveCircle()
+    {
+        if (isStart)
+        {
+            foreach (SixPaths path in SixPaths)
+            {
+                posX = rotationCenter.position.x + Mathf.Cos(path.angle) * rotationRadius;
+                posY = rotationCenter.position.y + Mathf.Sin(path.angle) * rotationRadius;
+                path.transform.position = new Vector2(posX, posY);
+
+                path.angle = path.angle + Time.deltaTime * angularSpeed;
+                if (path.angle >= 360f)
+                {
+                    path.angle = path.DefaultAngle;
+                }
+            }
+        } 
     }
     IEnumerator ExecuteThirdSkill()
     {
@@ -66,15 +99,14 @@ public class Luyldara : Enemy
     }
     IEnumerator ExecuteSecondSkill()
     {
-        yield return new WaitForSeconds(1f);
-        Character player = FindClostestPlayer(100);
-        handleRotation(player.transform);
+        yield return new WaitForSeconds(1f);       
         for (int i = 0; i < 3; i++)
         {
+            Character player = FindClostestPlayer(100);
             Vector2 DirectionToPlayer = player.transform.GetChild(0).position - transform.GetChild(0).position;
             DirectionToPlayer.Normalize();
             GameObject BulletIns = Instantiate(IphoneBullet, SecondSkillPoint.position, SecondSkillPoint.rotation);
-            BulletIns.GetComponent<Rigidbody2D>().AddForce(DirectionToPlayer * 1000);
+            BulletIns.GetComponent<Rigidbody2D>().AddForce(DirectionToPlayer * 1500);
             yield return new WaitForSeconds(1f);
         }
         yield return new WaitForSeconds(3f);
@@ -91,16 +123,24 @@ public class Luyldara : Enemy
         yield return new WaitForSeconds(3f);
         StartCoroutine(Move());
     }
-    IEnumerator Move()
+    public IEnumerator Move()
     {
-        int a = Random.Range(0, 4);
+        int a = Random.Range(0, 5);
         Animator.SetTrigger("Dissappear");
+
         foreach (GameObject path in SixPathsObject)
         {
             path.gameObject.SetActive(false);
         }
         yield return new WaitForSeconds(1f);
-        transform.position = Place[a].position;
+        if(a > 2)
+        {
+            transform.position = Place[3].position;
+        }
+        else
+        {
+            transform.position = Place[a].position;
+        }       
         Animator.SetTrigger("Appear");
         foreach (GameObject path in SixPathsObject)
         {
@@ -108,7 +148,7 @@ public class Luyldara : Enemy
         }
 
 
-        if (a == 3)
+        if (a > 2)
         {
             int b = Random.Range(0, 2);
             if (b == 0)
@@ -135,7 +175,6 @@ public class Luyldara : Enemy
             }
         }
     }
-
     IEnumerator LogicFouthSkill(Transform[] Place)
     {
 
@@ -181,7 +220,6 @@ public class Luyldara : Enemy
         yield return new WaitForSeconds(.5f);
 
     }
-
     IEnumerator ExecuteFouthSkill()
     {
         yield return new WaitForSeconds(.5f);

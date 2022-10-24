@@ -11,15 +11,18 @@ public class Goblin : Enemy
     private float IntTimer;
     private bool AttackMode;
     public int RangeFoundPlayer;
+
     new void Start()
     {
-        EnemyName = "CocRe";
+        EnemyName = "Goblin";
         EnemyAttackRange = 4;
         TotalHealthPoint = 500;
         CurrentHealthPoint = 500;
         EnemyDamage = 10;
         EnemySpeed = 5;
         Timer = 2f;
+        Coin = 30;
+        Score = 50;
         base.Start();
     }
 
@@ -51,13 +54,7 @@ public class Goblin : Enemy
         Rigid.mass = 1;
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
 
-        Vector2 newPosition = Vector2.MoveTowards(Rigid.position, targetPosition, EnemySpeed * Time.fixedDeltaTime);
-
-        Rigid.MovePosition(newPosition);
-
-        
-
-        
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
     }
     public override void NormalAttack()
     {

@@ -224,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Slider: {fileID: 2265219894738749980}
-  HighHealth: {r: 1, g: 0, b: 0.0509634, a: 1}
-  LowHealth: {r: 0, g: 1, b: 0.3226695, a: 1}
+  HighHealth: {r: 0.066957, g: 1, b: 0, a: 1}
+  LowHealth: {r: 1, g: 0.079724684, b: 0, a: 1}
   Offset: {x: 0, y: 2.5, z: 0}
 --- !u!114 &2265219894491029968
 MonoBehaviour:
@@ -837,7 +837,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1489771853
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -2102531678, guid: e466ef03db1135b47897adede9dbbd57, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

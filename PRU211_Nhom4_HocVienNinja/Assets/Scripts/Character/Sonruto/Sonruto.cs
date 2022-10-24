@@ -58,7 +58,7 @@ public class Sonruto : Character
 
     public override void FirstSkill()
     {
-        if (Input.GetKeyDown(staticController.FirstSkill) && ReloadFirstSkill <= 0f && CurrentChakra >= CostFirstSkill)
+        if (Input.GetKeyDown(staticController.FirstSkill) && ReloadFirstSkill <= 0f && CurrentChakra >= CostFirstSkill && !IsSkilling)
         {
             Animator.SetTrigger("RasenShuriken");
             CurrentChakra -= CostFirstSkill;
@@ -71,7 +71,7 @@ public class Sonruto : Character
     }
     public override void SecondSkill()
     {
-        if (Input.GetKeyDown(staticController.SecondSkill) && ReloadSecondSkill <= 0f && CurrentChakra >= CostSecondSkill)
+        if (Input.GetKeyDown(staticController.SecondSkill) && ReloadSecondSkill <= 0f && CurrentChakra >= CostSecondSkill && !IsSkilling)
         {
             Animator.SetTrigger("SummonGamakichi");
             CurrentChakra -= CostSecondSkill;
@@ -85,7 +85,7 @@ public class Sonruto : Character
     }
     public override void ThirdSkill()
     {
-        if (Input.GetKeyDown(staticController.ThirdSkill) && ReloadThirdSkill <= 0f && CurrentChakra >= CostThirdSkill)
+        if (Input.GetKeyDown(staticController.ThirdSkill) && ReloadThirdSkill <= 0f && CurrentChakra >= CostThirdSkill && !IsSkilling)
         {
             Animator.SetTrigger("Rasengan");
             CurrentChakra -= CostThirdSkill;
@@ -101,7 +101,6 @@ public class Sonruto : Character
         StartCoroutine(MoveRasengan());
 
     }
-
     public void CallRasenShuriken()
     {
         StartCoroutine(MoveRasenShuriken());

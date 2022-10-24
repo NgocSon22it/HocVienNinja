@@ -17,8 +17,9 @@ public class Phongsuke : Character
     public float ChidoriDashTime = 0.2f;
     public AudioClip ChidoriSound;
     public GameObject Chidori;
-    public bool IsActive;
     public Chidori ChidoriObject;
+    public Transform FirstChidori;
+    public Transform LastChidori;
 
     //Amaterasu
     public AudioClip AmaterasuSound;
@@ -68,19 +69,14 @@ public class Phongsuke : Character
 
     public override void SecondSkill()
     {
-        if (Input.GetKeyDown(staticController.SecondSkill) && IsActive)
-        {
-            ChidoriObject.CancauseDamage = true;
-            StartCoroutine(ChidoriDash());
-
-        }
-        if (Input.GetKeyDown(staticController.SecondSkill) && !IsActive)
+        if (Input.GetKeyDown(staticController.SecondSkill))
         {
             Source.clip = ChidoriSound;
             Source.Play();
+            Animator.SetTrigger("FirstChidori");
+            Chidori.transform.position = FirstChidori.transform.position;
             Chidori.SetActive(true);
-            IsActive = true;
-            StartCoroutine(ChidoriTurnOff());
+            StartCoroutine(ChidoriLogic());
         } 
     }
 
@@ -97,13 +93,12 @@ public class Phongsuke : Character
         float origialGravity = Rigid.gravityScale;
         Rigid.gravityScale = 0f;
         Rigid.velocity = new Vector2(transform.right.x * 2 * ChidoriDashPower, 0f);        
-        yield return new WaitForSeconds(ChidoriDashTime);
+        yield return new WaitForSecondsRealtime(ChidoriDashTime);
         ChidoriObject.CancauseDamage = false;
         Rigid.gravityScale = origialGravity;
         IsChidoriDash = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
         Chidori.SetActive(false);
-        IsActive = false;
     }
 
     public void KatonSkill()
@@ -111,39 +106,35 @@ public class Phongsuke : Character
         Instantiate(Katon, KatonPoint.position, KatonPoint.rotation);
     }
        
-    IEnumerator ChidoriTurnOff()
+    IEnumerator ChidoriLogic()
     {
-        yield return new WaitForSeconds(5f);
-        IsActive = false;
-        Chidori.SetActive(false);
+        yield return new WaitForSecondsRealtime(1.5f);
+        Animator.SetBool("LastChidori", true);
+        Chidori.transform.position = LastChidori.transform.position;
+        ChidoriObject.CancauseDamage = true;
+        StartCoroutine(ChidoriDash());
+        yield return new WaitForSecondsRealtime(1f);
+        Source.Stop();
+        Animator.SetBool("LastChidori", false);
+        Chidori.SetActive(false);      
     }
 
-    public List<Enemy> FindAllEnemyInRange(int Range)
+    private IEnumerator OpenSharingan()
     {
-        List<Enemy> list = new List<Enemy>();
+        
+        Sharingan.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
         Enemy[] allEnemies = FindObjectsOfType<Enemy>();
 
         foreach (Enemy currentEnemy in allEnemies)
         {
-            if (Vector2.Distance(currentEnemy.transform.position, transform.position) <= Range)
+            if (Vector2.Distance(currentEnemy.transform.position, transform.position) <= 20)
             {
-                list.Add(currentEnemy);
+                Instantiate(Amaterasu, currentEnemy.transform.position, currentEnemy.transform.rotation);
+                Amaterasu.GetComponent<Amaterasu>().Enemy = currentEnemy;
             }
         }
 
-        return list;
-    }
-    private IEnumerator OpenSharingan()
-    {
-        List<Enemy> list = FindAllEnemyInRange(20);
-        Debug.Log(list.Count);
-        Sharingan.SetActive(true);
-        yield return new WaitForSeconds(2f);
-        foreach(Enemy enemy in list)
-        {
-            Instantiate(Amaterasu, enemy.transform.position, enemy.transform.rotation);
-            Amaterasu.GetComponent<Amaterasu>().Enemy = enemy;
-        }
         Sharingan.SetActive(false);
     }
 }

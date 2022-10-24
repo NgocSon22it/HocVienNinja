@@ -149,16 +149,16 @@ public class Character : MonoBehaviour
     {
         Time.timeScale = 0f;
         blurCamera.SetActive(true);
-        CanTurn = false;
         CharacterSpeed = 0;
+        CanTurn = false;
         IsSkilling = true;
     }
     public void EndSkill()
     {
         Time.timeScale = 1f;
         blurCamera.SetActive(false);
-        CanTurn = true;
         CharacterSpeed = 10;
+        CanTurn = true;
         IsSkilling = false;
 
     }
@@ -184,6 +184,10 @@ public class Character : MonoBehaviour
             foreach (Collider2D Enemy in HitEnemy)
             {
                 Enemy.GetComponent<Enemy>().TakeDamage(10);
+                if (Enemy.gameObject.CompareTag("Enemy"))
+                {
+                    Enemy.GetComponent<Animator>().SetTrigger("Hurt");
+                }            
             }
         }
 
@@ -237,6 +241,20 @@ public class Character : MonoBehaviour
         }
     }
 
+    public void UseFirstItem()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            CurrentHealthPoint += 20;
+        }
+    }
+    public  void UseSecondItem()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CurrentChakra += 20;
+        }
+    }
     //// player Jump
     public void Jump()
     {
@@ -378,7 +396,7 @@ public class Character : MonoBehaviour
     //// Set up just Jump when on Ground
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Floor"))
+        if (collision.gameObject.CompareTag("Ground"))
         {
             IsGrounded = true;
             CanJump = 2;

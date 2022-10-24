@@ -7,7 +7,7 @@ public class AllCanvasUI : MonoBehaviour
 {
 
     public Character Player;
-
+    public GameObject PlayerUI;
     [Header("Health & Chakra")]
     [SerializeField] private Image CurrentHealth;
     [SerializeField] private Image CurrentChakra;
@@ -35,40 +35,26 @@ public class AllCanvasUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CostThirdSkill;
     CharacterDAO characterDAO;
 
+    public bool isStart;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
-        characterDAO = GetComponent<CharacterDAO>();
-        CharacterEntity character = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
-        Avatar.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"Avatar");
-        FirstSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"FirstSkill");
-        SecondSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"SecondSkill");
-        ThrirdSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + character.CharacterName +"ThirdSkill");
-        CostFirstSkill.text = Player.CostFirstSkill.ToString();
-        CostSecondSkill.text = Player.CostSecondSkill.ToString();
-        CostThirdSkill.text = Player.CostThirdSkill.ToString();
-        CurrentHealth.fillAmount = 1f;
-        CurrentChakra.fillAmount = 1f;
-        CurrentCooldownFirstSkill.fillAmount = 0f;
-        CurrentCooldownSecondSkill.fillAmount = 0f;
-        CurrentCooldownThirdSkill.fillAmount = 0f;
-        NumberCooldownFirstSkill.text = "";
-        NumberCooldownSecondSkill.text = "";
-        NumberCooldownThirdSkill.text = "";
-        NumberHealth.text = Player.CurrentHealthPoint + " / " + Player.TotalHealthPoint;
-        NumberChakra.text = Player.CurrentChakra + " / " + Player.TotalChakra;
+        
+        StartCoroutine(SetUpUI());
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isStart)
+        {
+            return;
+        }
         CurrentHealth.fillAmount = Player.CurrentHealthPoint / (float) Player.TotalHealthPoint;
         CurrentChakra.fillAmount = Player.CurrentChakra / (float) Player.TotalChakra;
         NumberHealth.text = Player.CurrentHealthPoint + " / " + Player.TotalHealthPoint;
         NumberChakra.text = Player.CurrentChakra + " / " + Player.TotalChakra;
-
         CurrentCooldownFirstSkill.fillAmount = Player.ReloadFirstSkill / Player.CooldownFirstSkill;
         CurrentCooldownSecondSkill.fillAmount = Player.ReloadSecondSkill / Player.CooldownSecondSkill;
         CurrentCooldownThirdSkill.fillAmount = Player.ReloadThirdSkill / Player.CooldownThirdSkill;
@@ -111,5 +97,32 @@ public class AllCanvasUI : MonoBehaviour
             CurrentCooldownThirdSkill.fillAmount = 1f;
         }
 
+    }
+
+    IEnumerator SetUpUI()
+    {
+        yield return new WaitForSeconds(3f);
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+        string CharacterName = Player.gameObject.name.Replace("(Clone)", "");
+        characterDAO = GetComponent<CharacterDAO>();
+        Avatar.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "Avatar");
+        FirstSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "FirstSkill");
+        SecondSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "SecondSkill");
+        ThrirdSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "ThirdSkill");
+        CostFirstSkill.text = Player.CostFirstSkill.ToString();
+        CostSecondSkill.text = Player.CostSecondSkill.ToString();
+        CostThirdSkill.text = Player.CostThirdSkill.ToString();
+        CurrentHealth.fillAmount = 1f;
+        CurrentChakra.fillAmount = 1f;
+        CurrentCooldownFirstSkill.fillAmount = 0f;
+        CurrentCooldownSecondSkill.fillAmount = 0f;
+        CurrentCooldownThirdSkill.fillAmount = 0f;
+        NumberCooldownFirstSkill.text = "";
+        NumberCooldownSecondSkill.text = "";
+        NumberCooldownThirdSkill.text = "";
+        NumberHealth.text = Player.CurrentHealthPoint + " / " + Player.TotalHealthPoint;
+        NumberChakra.text = Player.CurrentChakra + " / " + Player.TotalChakra;
+        isStart = true;
+        PlayerUI.SetActive(true);
     }
 }

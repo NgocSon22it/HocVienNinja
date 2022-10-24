@@ -7,9 +7,8 @@ using UnityEngine.SceneManagement;
 public class SettingMenu : MonoBehaviour
 {
 
-     public Slider MusicSlider;
-     public Slider SoundSlider;
-    private static int Map;
+    public Slider MusicSlider;
+    public Slider SoundSlider;
     public void PlayGame()
     {
         SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
@@ -32,10 +31,6 @@ public class SettingMenu : MonoBehaviour
     public void PlusSoundSlider()
     {
         SoundSlider.value += 5;
-    }
-    public void SelectMap(int Map)
-    {
-
     }
 
 }

@@ -12,6 +12,12 @@ public class LoginScripts : MonoBehaviour
     public TextMeshProUGUI UsernameMessage;
     public TextMeshProUGUI PasswordMessage;
     private AccountDAO accountDAO;
+
+    public GameObject FormMenuUI;
+    public GameObject AllSettingMenuUI;
+
+    public AccountManager accountManager;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +33,14 @@ public class LoginScripts : MonoBehaviour
 
         if(CheckLogin != null)
         {
+            AccountManager.AccountID = CheckLogin.AccountID;
             LoginMessage.text = "";
+            FormMenuUI.SetActive(false);
+            AllSettingMenuUI.SetActive(true);
+            Password.text = "";
+            Username.text = "";
+            LoginMessage.text = "";
+            PasswordMessage.text = "";
         }
         else
         {
