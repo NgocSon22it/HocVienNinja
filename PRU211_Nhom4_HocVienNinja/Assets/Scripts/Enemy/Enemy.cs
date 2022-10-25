@@ -192,23 +192,18 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Floor")
-        {
-            isOnFloor = true;
-        }
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Floor")
         {
             isGround = true;
-            isOnFloor = false ;
-
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Floor")
         {
             isGround = false;
         }
+        
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

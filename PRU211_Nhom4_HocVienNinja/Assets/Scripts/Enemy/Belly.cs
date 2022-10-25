@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : Enemy
+public class Belly : Enemy
 {
     public float Distance;
     public float Timer; //Timer for cooldown between attacks
@@ -13,14 +13,15 @@ public class Goblin : Enemy
     public int RangeFoundPlayer;
     public int JumpPower;
     public float TimeMoveIdle = 3f;
+
     new void Start()
     {
-        EnemyName = "Goblin";
+        EnemyName = "Belly";
         EnemyAttackRange = 4;
         TotalHealthPoint = 500;
         CurrentHealthPoint = 500;
         EnemyDamage = 10;
-        EnemySpeed = 8;
+        EnemySpeed = 6;
         Timer = 2f;
         Coin = 30;
         Score = 50;
@@ -30,7 +31,7 @@ public class Goblin : Enemy
     new void Update()
     {
         Player = FindClostestPlayer(RangeFoundPlayer);
-        if (Player == null)
+        if (Player == null && isGround)
         {
             Animator.SetBool("Walk", true);
             Rigid.velocity = transform.right * EnemySpeed;
@@ -43,7 +44,6 @@ public class Goblin : Enemy
         }
         if (Player != null && !AttackMode && IntTimer <= 0)
         {
-            RangeFoundPlayer = 300;
             Walk();
         }
 
@@ -58,13 +58,14 @@ public class Goblin : Enemy
         {
             RangeFoundPlayer = 200;
         }
+
+
     }
 
     public override void Walk()
     {
         Animator.SetBool("Walk", true);
         Rigid.mass = 1;
-
         handleRotation(Player.transform);
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
@@ -74,7 +75,7 @@ public class Goblin : Enemy
 
     public override void Jump()
     {
-        if (isNearFloor && isGround)
+        if (!isOnFloor && Player.isOnFloor && isNearFloor)
         {
             Rigid.velocity = new Vector2(.2f, 1.3f) * JumpPower;
         }

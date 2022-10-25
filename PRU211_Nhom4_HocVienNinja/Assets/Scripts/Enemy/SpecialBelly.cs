@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Goblin : Enemy
+public class SpecialBelly : Enemy
 {
     public float Distance;
     public float Timer; //Timer for cooldown between attacks
@@ -11,16 +11,17 @@ public class Goblin : Enemy
     private float IntTimer;
     private bool AttackMode;
     public int RangeFoundPlayer;
-    public int JumpPower;
     public float TimeMoveIdle = 3f;
+
+    public int JumpPower;
     new void Start()
     {
-        EnemyName = "Goblin";
+        EnemyName = "Belly";
         EnemyAttackRange = 4;
         TotalHealthPoint = 500;
         CurrentHealthPoint = 500;
         EnemyDamage = 10;
-        EnemySpeed = 8;
+        EnemySpeed = 5;
         Timer = 2f;
         Coin = 30;
         Score = 50;
@@ -43,7 +44,6 @@ public class Goblin : Enemy
         }
         if (Player != null && !AttackMode && IntTimer <= 0)
         {
-            RangeFoundPlayer = 300;
             Walk();
         }
 
@@ -58,6 +58,8 @@ public class Goblin : Enemy
         {
             RangeFoundPlayer = 200;
         }
+
+
     }
 
     public override void Walk()
@@ -65,18 +67,18 @@ public class Goblin : Enemy
         Animator.SetBool("Walk", true);
         Rigid.mass = 1;
 
+
         handleRotation(Player.transform);
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
-
         Jump();
     }
 
     public override void Jump()
     {
-        if (isNearFloor && isGround)
+        if (isGround && isNearFloor)
         {
-            Rigid.velocity = new Vector2(.2f, 1.3f) * JumpPower;
+            Rigid.velocity = new Vector2(.5f, 1.5f) * JumpPower;
         }
 
     }
@@ -109,5 +111,4 @@ public class Goblin : Enemy
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(AttackPoint.position, Range);
     }
-
 }
