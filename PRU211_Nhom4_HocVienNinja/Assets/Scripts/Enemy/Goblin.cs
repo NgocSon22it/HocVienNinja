@@ -11,6 +11,7 @@ public class Goblin : Enemy
     private float IntTimer;
     private bool AttackMode;
     public int RangeFoundPlayer;
+    public int JumpPower;
 
     new void Start()
     {
@@ -41,7 +42,7 @@ public class Goblin : Enemy
         }
         NormalAttack();
         base.Update();
-        if(CurrentHealthPoint < TotalHealthPoint)
+        if (CurrentHealthPoint < TotalHealthPoint)
         {
             RangeFoundPlayer = 200;
         }
@@ -50,11 +51,31 @@ public class Goblin : Enemy
     public override void Walk()
     {
         Animator.SetBool("Walk", true);
-        handleRotation(Player.transform);
         Rigid.mass = 1;
-        Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
 
-        transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
+        if(isOnFloor && !Player.isOnFloor)
+        {
+            Rigid.velocity = transform.right * 5;
+        }
+        else
+        {
+            handleRotation(Player.transform);
+            Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
+            transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
+        }
+
+        
+
+        Jump();
+    }
+
+    public override void Jump()
+    {
+        if (!isOnFloor && Player.isOnFloor && isNearFloor)
+        {
+            Rigid.velocity = new Vector2(.2f, 1.3f) * JumpPower;
+        }
+
     }
     public override void NormalAttack()
     {

@@ -74,7 +74,7 @@ public class Character : MonoBehaviour
     public float ReloadThirdSkill;
     public int Jumppower;
     public GameObject blurCamera;
-
+    public bool isOnFloor;
     // Start is called before the first frame update
     public void Start()
     {
@@ -110,6 +110,8 @@ public class Character : MonoBehaviour
         Jump();
         Dashing();
         NormalAttack();
+        UseFirstItem();
+        UseSecondItem();
     }
     public void SetHealthBar()
     {
@@ -246,6 +248,10 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             CurrentHealthPoint += 20;
+            if(CurrentHealthPoint > TotalHealthPoint)
+            {
+                CurrentHealthPoint = TotalHealthPoint;
+            }
         }
     }
     public  void UseSecondItem()
@@ -253,6 +259,10 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             CurrentChakra += 20;
+            if (CurrentChakra > TotalChakra)
+            {
+                CurrentChakra = TotalChakra;
+            }
         }
     }
     //// player Jump
@@ -400,6 +410,13 @@ public class Character : MonoBehaviour
         {
             IsGrounded = true;
             CanJump = 2;
+            isOnFloor = false;
+        }
+        if (collision.gameObject.CompareTag("Floor"))
+        {
+            IsGrounded = true;
+            CanJump = 2;
+            isOnFloor = true;
         }
     }
 

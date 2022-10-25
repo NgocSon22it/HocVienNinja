@@ -973,6 +973,7 @@ MonoBehaviour:
   ReloadThirdSkill: 0
   Jumppower: 0
   blurCamera: {fileID: 0}
+  isOnFloor: 0
   FirePoint: {fileID: 2265219894806552682}
   Bullet: {fileID: 2000570433042563334, guid: 7b17e71c8278ef944968fb6b4fbfd7f4, type: 3}
   SpecialBullet: {fileID: 3698836826933953408, guid: a374c27b7001c2d4389e1df6c0d8c379, type: 3}
@@ -1085,7 +1086,7 @@ PlatformEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 1152
+    m_Bits: 7296
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0

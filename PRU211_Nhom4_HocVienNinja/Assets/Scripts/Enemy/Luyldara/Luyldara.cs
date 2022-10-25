@@ -200,10 +200,10 @@ public class Luyldara : Enemy
             RaycastHit2D[] hit = Physics2D.RaycastAll(transform.GetChild(0).position, direction.normalized, direction.magnitude);
             foreach (RaycastHit2D rayinfo in hit)
             {
-                Character enemy = rayinfo.transform.GetComponent<Character>();
-                if (enemy != null)
+                Character character = rayinfo.transform.GetComponent<Character>();
+                if (character != null)
                 {
-                    enemy.TakeDamage(10);
+                    character.TakeDamage(10);
                 }
 
             }

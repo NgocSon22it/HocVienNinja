@@ -61,7 +61,7 @@ public class Phongsuke : Character
 
     public override void FirstSkill()
     {
-        if (Input.GetKeyDown(staticController.FirstSkill))
+        if (Input.GetKeyDown(staticController.FirstSkill) && ReloadFirstSkill <= 0f && CurrentChakra >= CostFirstSkill && !IsSkilling)
         {
             Animator.SetTrigger("Katon");
         }
@@ -69,7 +69,7 @@ public class Phongsuke : Character
 
     public override void SecondSkill()
     {
-        if (Input.GetKeyDown(staticController.SecondSkill))
+        if (Input.GetKeyDown(staticController.SecondSkill) && ReloadSecondSkill <= 0f && CurrentChakra >= CostSecondSkill && !IsSkilling)
         {
             Source.clip = ChidoriSound;
             Source.Play();
@@ -82,7 +82,7 @@ public class Phongsuke : Character
 
     public override void ThirdSkill()
     {
-        if (Input.GetKeyDown(staticController.ThirdSkill))
+        if (Input.GetKeyDown(staticController.ThirdSkill) && ReloadThirdSkill <= 0f && CurrentChakra >= CostThirdSkill && !IsSkilling)
         {
             StartCoroutine(OpenSharingan());
         }
@@ -122,6 +122,7 @@ public class Phongsuke : Character
     private IEnumerator OpenSharingan()
     {
         
+        StartSkill();
         Sharingan.SetActive(true);
         yield return new WaitForSecondsRealtime(2f);
         Enemy[] allEnemies = FindObjectsOfType<Enemy>();
@@ -134,7 +135,7 @@ public class Phongsuke : Character
                 Amaterasu.GetComponent<Amaterasu>().Enemy = currentEnemy;
             }
         }
-
         Sharingan.SetActive(false);
+        EndSkill();
     }
 }

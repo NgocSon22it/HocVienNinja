@@ -26,10 +26,15 @@ public class Enemy : MonoBehaviour
     public Transform AttackPoint;
     public LayerMask LayerToAttack;
     public float Range;
+    public bool isOnFloor;
+    public bool isNearFloor;
+    public bool isGround;
+
 
     // Information
     public int Score;
     public int Coin;
+    
     // Start is called before the first frame update
     public void Start()
     {
@@ -185,4 +190,38 @@ public class Enemy : MonoBehaviour
         return closestPlayer;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Floor")
+        {
+            isOnFloor = true;
+        }
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGround = true;
+            isOnFloor = false ;
+
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGround = false;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            isNearFloor = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            isNearFloor = false;
+        }
+    }
 }
