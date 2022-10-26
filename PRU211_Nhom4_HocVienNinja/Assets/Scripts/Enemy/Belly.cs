@@ -22,7 +22,7 @@ public class Belly : Enemy
         CurrentHealthPoint = 500;
         EnemyDamage = 10;
         EnemySpeed = 6;
-        Timer = 2f;
+        Timer = 1.8f;
         Coin = 30;
         Score = 50;
         base.Start();
@@ -54,10 +54,6 @@ public class Belly : Enemy
         }
         NormalAttack();
         base.Update();
-        if (CurrentHealthPoint < TotalHealthPoint)
-        {
-            RangeFoundPlayer = 200;
-        }
 
 
     }
@@ -69,18 +65,9 @@ public class Belly : Enemy
         handleRotation(Player.transform);
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
-
-        Jump();
     }
 
-    public override void Jump()
-    {
-        if (!isOnFloor && Player.isOnFloor && isNearFloor)
-        {
-            Rigid.velocity = new Vector2(.2f, 1.3f) * JumpPower;
-        }
 
-    }
     public override void NormalAttack()
     {
         if (Player != null)

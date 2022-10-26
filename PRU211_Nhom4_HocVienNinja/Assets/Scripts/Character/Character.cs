@@ -43,6 +43,9 @@ public class Character : MonoBehaviour
     public StaticController staticController;
     public AudioSource Source;
     public CharacterDAO characterDAO;
+    public AudioSource AttackSource;
+    public AudioClip NormalAttackClip;
+    public AudioClip ThirdAttackClip;
 
     // Setting Normal Attack
     public Transform AttackPoint;
@@ -75,11 +78,14 @@ public class Character : MonoBehaviour
     public int Jumppower;
     public GameObject blurCamera;
     public bool isOnFloor;
+    public bool IsStart;
+    public bool IsReachPortal;
     // Start is called before the first frame update
     public void Start()
     {
-        SetupComponent();       
-        CharacterEntity character = characterDAO.GetCharacterbyID(2);
+        StartCoroutine(StartGame());
+        SetupComponent();
+        CharacterEntity character = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
         InvokeRepeating(nameof(RegenChakra), 1f, 2f);
         CharacterName = character.CharacterName;
         TotalHealthPoint = character.TotalHealthPoint;
@@ -96,6 +102,10 @@ public class Character : MonoBehaviour
     //Update is called once per frame
     public void Update()
     {
+        if (!IsStart)
+        {
+            return;
+        }
         if (IsDashing)
         {
             return;
@@ -124,7 +134,7 @@ public class Character : MonoBehaviour
 
     void RegenChakra()
     {
-        if(CurrentChakra >= TotalChakra)
+        if (CurrentChakra >= TotalChakra)
         {
             CurrentChakra = TotalChakra;
         }
@@ -132,7 +142,7 @@ public class Character : MonoBehaviour
         {
             CurrentChakra += 1;
         }
-        
+
     }
 
     // Set up Character Abilities
@@ -145,6 +155,7 @@ public class Character : MonoBehaviour
         TrailRenderer = GetComponent<TrailRenderer>();
         staticController = GetComponent<StaticController>();
         Source = GetComponent<AudioSource>();
+        AttackSource = GetComponentInChildren<AudioSource>();
         characterDAO = GetComponent<CharacterDAO>();
     }
     public void StartSkill()
@@ -167,15 +178,25 @@ public class Character : MonoBehaviour
     // execute Normal Attack
     public void NormalAttack()
     {
-            if (Input.GetKeyDown(staticController.NormalAttackKey) && !CanCombo && IsGrounded && !IsSkilling)
-            {
-                CanCombo = true;
-                CharacterSpeed = 0;
-                CanTurn = false;
-                Animator.SetTrigger("Attack" + Combo);
-            }
+        if (Input.GetKeyDown(staticController.NormalAttackKey) && !CanCombo && IsGrounded && !IsSkilling)
+        {
+            
+            CanCombo = true;
+            CharacterSpeed = 0;
+            CanTurn = false;
+            Animator.SetTrigger("Attack" + Combo);
+        }
     }
-
+    public void PlaySoundAttack()
+    {
+        AttackSource.clip = NormalAttackClip;
+        AttackSource.Play();
+    }
+    public void PlaySoundThirdAttack()
+    {
+        AttackSource.clip = ThirdAttackClip;
+        AttackSource.Play();
+    }
     // give damage for normalAttack
     public void DamageNormalAttack()
     {
@@ -185,11 +206,11 @@ public class Character : MonoBehaviour
         {
             foreach (Collider2D Enemy in HitEnemy)
             {
-                Enemy.GetComponent<Enemy>().TakeDamage(10);
+                Enemy.GetComponent<Enemy>().TakeDamage(CharacterDamage);
                 if (Enemy.gameObject.CompareTag("Enemy"))
                 {
                     Enemy.GetComponent<Animator>().SetTrigger("Hurt");
-                }            
+                }
             }
         }
 
@@ -222,22 +243,22 @@ public class Character : MonoBehaviour
     //// player movement
     public void Walk()
     {
-            Rigid.velocity = new Vector2(Xinput * CharacterSpeed, Rigid.velocity.y);
-            if (Xinput < -0.01 && FacingRight && CanTurn)
-            {
-                Flip();
-            }
-            else if (Xinput > 0.01 && !FacingRight && CanTurn)
-            {
-                Flip();
-            }
-            Animator.SetBool("Run", IsWalking);
+        Rigid.velocity = new Vector2(Xinput * CharacterSpeed, Rigid.velocity.y);
+        if (Xinput < -0.01 && FacingRight && CanTurn)
+        {
+            Flip();
+        }
+        else if (Xinput > 0.01 && !FacingRight && CanTurn)
+        {
+            Flip();
+        }
+        Animator.SetBool("Run", IsWalking);
     }
 
     // player Dashing
     public void Dashing()
     {
-        if(Input.GetKeyDown(staticController.DashKey) && CanDash)
+        if (Input.GetKeyDown(staticController.DashKey) && CanDash)
         {
             StartCoroutine(Dash());
         }
@@ -248,13 +269,13 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             CurrentHealthPoint += 20;
-            if(CurrentHealthPoint > TotalHealthPoint)
+            if (CurrentHealthPoint > TotalHealthPoint)
             {
                 CurrentHealthPoint = TotalHealthPoint;
             }
         }
     }
-    public  void UseSecondItem()
+    public void UseSecondItem()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -283,9 +304,13 @@ public class Character : MonoBehaviour
         Animator.SetBool("isGround", IsGrounded);
     }
     //player Die
-    public void Die()
+    public bool Die()
     {
-
+        if(CurrentHealthPoint <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 
     //// turn Player left or right
@@ -317,7 +342,7 @@ public class Character : MonoBehaviour
             StartCoroutine(DamageAnimationforSummon());
             SetHealthBar();
         }
-        
+
 
     }
 
@@ -420,6 +445,19 @@ public class Character : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Portal"))
+        {
+            IsReachPortal = true;
+        }
+    }
+
+    IEnumerator StartGame()
+    {
+        yield return new WaitForSeconds(3f);
+        IsStart = true;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;

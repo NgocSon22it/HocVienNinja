@@ -45,7 +45,7 @@ AudioSource:
   m_GameObject: {fileID: 1574829488965895948}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 2def746b82a2f254e976eb5fdf58f059, type: 2}
   m_audioClip: {fileID: 8300000, guid: 22a7dc3c93f77234a982f21daa4bb705, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -148,7 +148,6 @@ MonoBehaviour:
   Chakra: 0
   Cooldown: 0
   Explosion: {fileID: 8875463463750162164, guid: b463f68de7f0c924398854d96371038c, type: 3}
-  AttackPoint: {fileID: 0}
   Range: 5
   LayerToAttack:
     serializedVersion: 2

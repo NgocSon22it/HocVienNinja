@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GamakichiSpecial : MonoBehaviour
 {
+    public AudioSource HitSound;
     private void Start()
     {
         StartCoroutine(DestroyBullet());
@@ -12,6 +13,7 @@ public class GamakichiSpecial : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
+            HitSound.Play();
             collision.GetComponent<Enemy>().TakeDamage(30);
         }
     }

@@ -19,7 +19,7 @@ public class Rasengan : Skill
     IEnumerator SetupRasengan()
     {
         yield return new WaitForSecondsRealtime(4.5f);
-        Instantiate(Explosion, transform.position, transform.rotation);             
+        GameObject a = Instantiate(Explosion, transform.position, transform.rotation);             
         yield return new WaitForSecondsRealtime(0.3f);
         Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(transform.position, Range, LayerToAttack);
 
@@ -30,6 +30,7 @@ public class Rasengan : Skill
                 enemy.GetComponent<Enemy>().TakeDamage(Damage);
             }
         }
+        Destroy(a, 5f);
         Destroy(gameObject);
     }
 }

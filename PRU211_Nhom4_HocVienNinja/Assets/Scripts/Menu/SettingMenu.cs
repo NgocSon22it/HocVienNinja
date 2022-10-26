@@ -4,33 +4,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
+
 public class SettingMenu : MonoBehaviour
 {
 
-    public Slider MusicSlider;
-    public Slider SoundSlider;
+    public Toggle MusicCheckBox;
+    public Toggle SoundCheckBox;
+
+    public AudioMixer MusicAudioMixer;
+    public AudioMixer SoundAudioMixer;
+
+    public static bool MusicStatus = true;
+    public static bool SoundStatus = true;
+
+    private void Start()
+    {
+        MusicCheckBox.isOn = MusicStatus;
+        SoundCheckBox.isOn = SoundStatus;
+    }
     public void PlayGame()
     {
-        SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
-    public void MinusMusicSlider()
+    public void ToggleMusic()
     {
-        MusicSlider.value -= 5;
+        if (MusicCheckBox.isOn)
+        {
+            MusicAudioMixer.SetFloat("Volume", 0f);
+            MusicStatus = true;
+        }
+        else
+        {
+            MusicAudioMixer.SetFloat("Volume", -80f);
+            MusicStatus = false;
+        }
+    }
+    public void ToggleSound()
+    {
+        if (SoundCheckBox.isOn)
+        {
+            SoundAudioMixer.SetFloat("Volume", 0f);
+            SoundStatus = true;
+        }
+        else
+        {
+            SoundAudioMixer.SetFloat("Volume", -80f);
+            SoundStatus = false;
+        }
     }
 
-    public void PlusMusicSlider()
-    {
-        MusicSlider.value += 5;
-    }
-
-    public void MinusSoundSlider()
-    {
-        SoundSlider.value -= 5;
-    }
-
-    public void PlusSoundSlider()
-    {
-        SoundSlider.value += 5;
-    }
 
 }

@@ -101,7 +101,7 @@ public class AllCanvasUI : MonoBehaviour
 
     IEnumerator SetUpUI()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(.1f);
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
         string CharacterName = Player.gameObject.name.Replace("(Clone)", "");
         characterDAO = GetComponent<CharacterDAO>();

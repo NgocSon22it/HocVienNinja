@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GamakichiBullet : MonoBehaviour
 {
+    public AudioSource HitSound;
     private void Start()
     {
         StartCoroutine(DestroyBullet());
@@ -13,6 +14,7 @@ public class GamakichiBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
+            HitSound.Play();
             collision.GetComponent<Enemy>().TakeDamage(10);
             Destroy(gameObject);
         }

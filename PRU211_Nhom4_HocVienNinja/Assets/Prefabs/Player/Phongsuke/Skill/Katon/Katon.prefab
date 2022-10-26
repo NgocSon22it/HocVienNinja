@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3922657350342958566}
   - component: {fileID: 1633361571731835221}
   - component: {fileID: 706801421805557316}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Katon
-  m_TagString: Untagged
+  m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,7 +349,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7919878490494356873, guid: 9981e4cec22644c10bd12f28ca683bae, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7919878490494356873, guid: 9981e4cec22644c10bd12f28ca683bae, type: 3}
       propertyPath: m_SortingLayerID
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3495699196929113995, guid: 3cf692a56f30a4c2ba321db57e966c0e, type: 3}
       propertyPath: m_SortingLayer
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3495699196929113995, guid: 3cf692a56f30a4c2ba321db57e966c0e, type: 3}
       propertyPath: m_SortingLayerID

@@ -150,7 +150,7 @@ public class AccountDAO : MonoBehaviour
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
         {
             SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "Insert into Score values(@id, @score, SWITCHOFFSET(GETDATE(),'+07:00'), 0)";
+            cmd.CommandText = "Insert into Score values(@id, @score, GETDATE(), 0)";
             cmd.Parameters.AddWithValue("@id", IdAccount);
             cmd.Parameters.AddWithValue("@score", Score);
             connection.Open();

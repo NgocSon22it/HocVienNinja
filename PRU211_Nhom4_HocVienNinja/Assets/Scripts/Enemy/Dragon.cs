@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpecialBelly : Enemy
+public class Dragon : Enemy
 {
     public float Distance;
     public float Timer; //Timer for cooldown between attacks
@@ -11,17 +11,17 @@ public class SpecialBelly : Enemy
     private float IntTimer;
     private bool AttackMode;
     public int RangeFoundPlayer;
+    public int JumpPower;
     public float TimeMoveIdle = 3f;
-
     new void Start()
     {
-        EnemyName = "Belly";
+        EnemyName = "Goblin";
         EnemyAttackRange = 4;
         TotalHealthPoint = 500;
         CurrentHealthPoint = 500;
         EnemyDamage = 10;
-        EnemySpeed = 6;
-        Timer = 1.5f;
+        EnemySpeed = 8;
+        Timer = 2f;
         Coin = 30;
         Score = 50;
         base.Start();
@@ -43,6 +43,7 @@ public class SpecialBelly : Enemy
         }
         if (Player != null && !AttackMode && IntTimer <= 0)
         {
+            RangeFoundPlayer = 300;
             Walk();
         }
 
@@ -53,17 +54,30 @@ public class SpecialBelly : Enemy
         }
         NormalAttack();
         base.Update();
+        if (CurrentHealthPoint < TotalHealthPoint)
+        {
+            RangeFoundPlayer = 300;
+        }
     }
 
     public override void Walk()
     {
         Animator.SetBool("Walk", true);
         Rigid.mass = 1;
-
-
         handleRotation(Player.transform);
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);
+
+        Jump();
+    }
+
+    public override void Jump()
+    {
+        if (isNearFloor && isGround)
+        {
+            Rigid.velocity = new Vector2(.2f, 1.3f) * JumpPower;
+        }
+
     }
     public override void NormalAttack()
     {
@@ -94,4 +108,5 @@ public class SpecialBelly : Enemy
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(AttackPoint.position, Range);
     }
+
 }

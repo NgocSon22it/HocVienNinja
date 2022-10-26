@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4870030517758886}
   - component: {fileID: 198866534812435342}
   - component: {fileID: 199831446352202148}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ElectricitySphere
-  m_TagString: Untagged
+  m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

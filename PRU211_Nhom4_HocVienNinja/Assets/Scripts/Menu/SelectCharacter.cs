@@ -54,6 +54,8 @@ public class SelectCharacter : MonoBehaviour
     public void PlayGame()
     {
         CharacterID = list[index].CharacterID;
+        GameManager.Score = 0;
+        GameManager.Coin = 0;
         SceneManager.LoadScene(SelectMap.MapName, LoadSceneMode.Single);
     }
 }

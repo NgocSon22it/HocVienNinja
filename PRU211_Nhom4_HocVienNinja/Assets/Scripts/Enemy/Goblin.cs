@@ -21,7 +21,7 @@ public class Goblin : Enemy
         CurrentHealthPoint = 500;
         EnemyDamage = 10;
         EnemySpeed = 8;
-        Timer = 2f;
+        Timer = 1.5f;
         Coin = 30;
         Score = 50;
         base.Start();
@@ -56,7 +56,7 @@ public class Goblin : Enemy
         base.Update();
         if (CurrentHealthPoint < TotalHealthPoint)
         {
-            RangeFoundPlayer = 200;
+            RangeFoundPlayer = 300;
         }
     }
 

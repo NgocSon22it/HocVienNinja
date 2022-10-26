@@ -8,6 +8,6 @@ public class AudioSetting : MonoBehaviour
     public AudioMixer audioMixer;
     public void SetVolume(float Volume)
     {
-        audioMixer.SetFloat("Volume", Volume);
+        audioMixer.SetFloat("Volume", 0);
     }
 }
