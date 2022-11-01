@@ -98,6 +98,10 @@ public class Dragon : Enemy
         }
 
     }
+    public void PlaySoundAttack()
+    {
+        Source.Play();
+    }
     public void Fire()
     {
 

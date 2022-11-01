@@ -6,13 +6,16 @@ public class Spike : MonoBehaviour
 {
 
     private EdgeCollider2D edgeCollider2D;
-
+    public AudioSource BatViSource;
     private void Start()
     {
         edgeCollider2D = GetComponent<EdgeCollider2D>();
         edgeCollider2D.enabled = false;
     }
-
+    public void PlaySoundBatVi()
+    {
+        BatViSource.Play();
+    }
     public void TurnOnCollider()
     {
         edgeCollider2D.enabled = true;

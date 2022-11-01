@@ -43,7 +43,7 @@ public class Luyldara : Enemy
     public GameObject[] SixPathsObject;
     public bool IsOut;
 
-
+    public AudioClip LazerClip;
     private void Awake()
     {
         TotalHealthPoint = 1;
@@ -109,6 +109,7 @@ public class Luyldara : Enemy
 
 
     }
+    
     IEnumerator ExecuteSecondSkill()
     {
         Source.clip = SecondSkillSound;
@@ -210,7 +211,8 @@ public class Luyldara : Enemy
         {
             lineRenderer[i].enabled = false;
         }
-
+        Source.clip = LazerClip;
+        Source.Play();
         for (int i = 4; i < 8; i++)
         {
             lineRenderer[i].enabled = true;

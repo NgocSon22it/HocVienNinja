@@ -26,8 +26,6 @@ public class AccountManager : MonoBehaviour
             FormMenu.SetActive(true);
             AllMenu.SetActive(false);
         }        
-       
-
     }
 
 
