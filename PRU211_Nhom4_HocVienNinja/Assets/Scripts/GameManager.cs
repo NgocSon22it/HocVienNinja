@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject BarUI;
 
     public GameObject SettingMenu;
+    public GameObject Option;
+    public GameObject Confirm;
     public bool isPause;
 
     public GameObject ScoreMenu;
@@ -32,41 +34,39 @@ public class GameManager : MonoBehaviour
     {
         isEnd = false;
         isPause = false;
+        StartCoroutine(SetUpUI());
         accountDAO = GetComponent<AccountDAO>();
         ScoreUI.text = Score.ToString();
-        CoinUI.text = Coin.ToString();
-        StartCoroutine(ActiveBarUI());
-        if (SelectCharacter.CharacterID == 1)
-        {
-            player = Instantiate(Resources.Load("Character/Sonruto", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
-        }
-        else
-        {
-            player = Instantiate(Resources.Load("Character/Phongsuke", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
-        }
+        CoinUI.text = Coin.ToString();       
     }
     private void Update()
     {
         CoinUI.text = Coin.ToString();
         ScoreUI.text = Score.ToString();
-        ScorePointOutMenu.text = Coin.ToString();
-        if (Input.GetKeyDown(KeyCode.Escape) && !isPause && !isEnd)
+        ScorePointOutMenu.text = Score.ToString();
+        if(player != null)
         {
-            SettingMenu.SetActive(true);
-            OnSetting();
+            if (Input.GetKeyDown(KeyCode.Escape) && !isPause && !isEnd)
+            {
+                SettingMenu.SetActive(true);
+                Option.SetActive(true);
+                Confirm.SetActive(false);
+                OnSetting();
+            }
+            else if (Input.GetKeyDown(KeyCode.Escape) && isPause && !isEnd)
+            {
+                SettingMenu.SetActive(false);
+                OutSetting();
+            }
+            if (player.GetComponent<Character>().IsReachPortal || player.GetComponent<Character>().Die())
+            {
+                isEnd = true;
+                ScoreMenu.SetActive(true);
+                ScorePointMenu.text = Score.ToString();
+                Time.timeScale = 0f;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Escape) && isPause && !isEnd)
-        {
-            SettingMenu.SetActive(false);
-            OutSetting();
-        }
-        if(player.GetComponent<Character>().IsReachPortal)
-        {
-            isEnd = true;
-            ScoreMenu.SetActive(true);
-            ScorePointMenu.text = Score.ToString();
-            Time.timeScale = 0f;
-        }
+        
     }
 
     public void OnSetting()
@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
         isPause = true;
     }
-
     public void OutSetting()
     {
         Time.timeScale = 1f;
@@ -83,21 +82,37 @@ public class GameManager : MonoBehaviour
     public void SaveButton()
     {
         accountDAO.CreateScore(AccountManager.AccountID, Score);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 1, AccountManager.ItemOneQuantity);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 2, AccountManager.ItemTwoQuantity);
+        accountDAO.UpdateCoin(AccountManager.AccountID, Coin);
         Time.timeScale = 1f;
         SceneManager.LoadScene("GameMenu", LoadSceneMode.Single);
     }
     public void DoNotSaveButton()
     {
+        accountDAO.updateAccountItem(AccountManager.AccountID, 1, AccountManager.ItemOneQuantity);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 2, AccountManager.ItemTwoQuantity);
+        accountDAO.UpdateCoin(AccountManager.AccountID, Coin);
         Time.timeScale = 1f;
         SceneManager.LoadScene("GameMenu", LoadSceneMode.Single);
     }
-    IEnumerator ActiveBarUI()
-    {
-        yield return new WaitForSeconds(3f);
-        BarUI.SetActive(true);
-    }
     public void BackToMainMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("GameMenu", LoadSceneMode.Single);
+    }
+    public IEnumerator SetUpUI()
+    {
+        yield return new WaitForSeconds(1f);
+        if (SelectCharacter.CharacterID == 1)
+        {
+            player = Instantiate(Resources.Load("Character/Sonruto", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
+        }
+        else
+        {
+            player = Instantiate(Resources.Load("Character/Phongsuke", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
+        }
+        yield return new WaitForSeconds(1f);
+        BarUI.SetActive(true);
     }
 }

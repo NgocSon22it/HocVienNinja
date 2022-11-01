@@ -2,42 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Amaterasu : MonoBehaviour
+public class Amaterasu : Skill
 {
-    public Enemy Enemy;
-    public float TimeToDamage;
-    private float TimeCause;
-
+    public GameObject Enemy;
+    public float TimeToDamage = 0.5f;
     private void Start()
     {
-        StartCoroutine(FireStop());
+        SkillDAO skillDAO = GetComponent<SkillDAO>();
+        Damage = skillDAO.GetSkillbyID(1005).Damage;
     }
     // Update is called once per frame
     void Update()
     {
-        if(Enemy != null)
+        if(Enemy != null && Enemy.GetComponent<Collider2D>().enabled)
         {
-            this.transform.position = Enemy.transform.GetChild(0).position;
-            if (TimeCause <= 0)
+            TimeToDamage -= Time.deltaTime;
+            transform.position = Enemy.transform.position;
+            if (TimeToDamage <= 0)
             {
-                Enemy.GetComponent<Enemy>().TakeDamage(20);
-                TimeCause = TimeToDamage;
-            }
-            else
-            {
-                TimeCause -= Time.deltaTime;
+                Enemy.GetComponent<Enemy>().TakeDamage(Damage);
+                TimeToDamage = 0.5f;
             }
         }
         else
         {
             Destroy(gameObject);
         }  
-    }
-
-
-    IEnumerator FireStop()
-    {
-        yield return new WaitForSeconds(10f);
-        Destroy(gameObject);
     }
 }

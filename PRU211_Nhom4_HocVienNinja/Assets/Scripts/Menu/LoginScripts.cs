@@ -34,6 +34,8 @@ public class LoginScripts : MonoBehaviour
         if(CheckLogin != null)
         {
             AccountManager.AccountID = CheckLogin.AccountID;
+            AccountManager.AccountFullName = CheckLogin.Name;
+            AccountManager.AccountCoin = CheckLogin.Coin;
             LoginMessage.text = "";
             FormMenuUI.SetActive(false);
             AllSettingMenuUI.SetActive(true);

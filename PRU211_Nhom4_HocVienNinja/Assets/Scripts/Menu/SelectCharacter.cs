@@ -56,6 +56,7 @@ public class SelectCharacter : MonoBehaviour
         CharacterID = list[index].CharacterID;
         GameManager.Score = 0;
         GameManager.Coin = 0;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SelectMap.MapName, LoadSceneMode.Single);
     }
 }

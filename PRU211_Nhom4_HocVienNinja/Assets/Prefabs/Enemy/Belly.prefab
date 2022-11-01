@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4851723400011294327}
   - component: {fileID: 4851723400011294326}
   - component: {fileID: 4851723400011294312}
+  - component: {fileID: 240124022382250437}
   m_Layer: 3
   m_Name: Belly
   m_TagString: Enemy
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 228110319
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -594098904, guid: 0e7c2989a611b154190f40048847d58c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -176,6 +177,7 @@ MonoBehaviour:
   Animator: {fileID: 0}
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
+  Source: {fileID: 0}
   FacingRight: 1
   AttackPoint: {fileID: 4851723401268303101}
   LayerToAttack:
@@ -190,8 +192,19 @@ MonoBehaviour:
   Distance: 0
   Timer: 0
   RangeFoundPlayer: 20
-  JumpPower: 20
   TimeMoveIdle: 2
+--- !u!114 &240124022382250437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4851723400011294322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1927822e298fdb439a372aec4d2f6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4851723401268303100
 GameObject:
   m_ObjectHideFlags: 0

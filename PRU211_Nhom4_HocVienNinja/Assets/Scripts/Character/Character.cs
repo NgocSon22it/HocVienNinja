@@ -41,19 +41,26 @@ public class Character : MonoBehaviour
     public Collider2D Col;
     public TrailRenderer TrailRenderer;
     public StaticController staticController;
-    public AudioSource Source;
+    public AudioSource SkillSource;
     public CharacterDAO characterDAO;
+
     public AudioSource AttackSource;
     public AudioClip NormalAttackClip;
     public AudioClip ThirdAttackClip;
 
+
+    public AudioSource UidaSource;
+
+    public AudioSource EffectSource;
+    public AudioClip[] EffectClip;
+    public GameObject[] Effect;
     // Setting Normal Attack
     public Transform AttackPoint;
     public LayerMask LayerToAttack;
 
     // Dashing
     private bool CanDash = true;
-    private bool IsDashing;
+    public bool IsDashing;
     private float DashingPower = 24f;
     private float DashingTime = 0.2f;
     private float DashingCooldown = 1;
@@ -83,9 +90,8 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        StartCoroutine(StartGame());
         SetupComponent();
-        CharacterEntity character = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
+        CharacterEntity character = characterDAO.GetCharacterbyID(2);
         InvokeRepeating(nameof(RegenChakra), 1f, 2f);
         CharacterName = character.CharacterName;
         TotalHealthPoint = character.TotalHealthPoint;
@@ -154,8 +160,6 @@ public class Character : MonoBehaviour
         Col = GetComponent<Collider2D>();
         TrailRenderer = GetComponent<TrailRenderer>();
         staticController = GetComponent<StaticController>();
-        Source = GetComponent<AudioSource>();
-        AttackSource = GetComponentInChildren<AudioSource>();
         characterDAO = GetComponent<CharacterDAO>();
     }
     public void StartSkill()
@@ -180,7 +184,7 @@ public class Character : MonoBehaviour
     {
         if (Input.GetKeyDown(staticController.NormalAttackKey) && !CanCombo && IsGrounded && !IsSkilling)
         {
-            
+
             CanCombo = true;
             CharacterSpeed = 0;
             CanTurn = false;
@@ -266,24 +270,35 @@ public class Character : MonoBehaviour
 
     public void UseFirstItem()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) && AccountManager.ItemOneQuantity > 0)
         {
+            EffectSource.clip = EffectClip[0];
+            EffectSource.Play();
+            GameObject effect = Instantiate(Effect[0], transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
             CurrentHealthPoint += 20;
             if (CurrentHealthPoint > TotalHealthPoint)
             {
                 CurrentHealthPoint = TotalHealthPoint;
             }
+            AccountManager.ItemOneQuantity--;
         }
     }
     public void UseSecondItem()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && AccountManager.ItemTwoQuantity > 0)
         {
+            EffectSource.clip = EffectClip[1];
+            EffectSource.Play();
+            GameObject effect = Instantiate(Effect[1], transform.position, Quaternion.identity);
+            Destroy(effect, 3f);
             CurrentChakra += 20;
             if (CurrentChakra > TotalChakra)
             {
                 CurrentChakra = TotalChakra;
             }
+            AccountManager.ItemTwoQuantity--;
+
         }
     }
     //// player Jump
@@ -306,7 +321,7 @@ public class Character : MonoBehaviour
     //player Die
     public bool Die()
     {
-        if(CurrentHealthPoint <= 0)
+        if (CurrentHealthPoint <= 0)
         {
             return true;
         }
@@ -333,6 +348,7 @@ public class Character : MonoBehaviour
             else
             {
                 CurrentHealthPoint -= Damage;
+                UidaSource.Play();
                 StartCoroutine(DamageAnimation());
             }
         }
@@ -340,7 +356,6 @@ public class Character : MonoBehaviour
         {
             CurrentHealthPoint -= Damage;
             StartCoroutine(DamageAnimationforSummon());
-            SetHealthBar();
         }
 
 
@@ -349,22 +364,14 @@ public class Character : MonoBehaviour
     // When Play was hit by Enemy, play red animation
     public IEnumerator DamageAnimation()
     {
-        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
         IsHurt = true;
         for (int i = 0; i < 10; i++)
         {
-            foreach (SpriteRenderer sr in srs)
-            {
-                sr.color = Color.red;
-            }
+            SpriteRenderer.color = Color.red;
 
             yield return new WaitForSeconds(.1f);
 
-            foreach (SpriteRenderer sr in srs)
-            {
-                sr.color = Color.white;
-            }
-
+            SpriteRenderer.color = Color.white;
             yield return new WaitForSeconds(.1f);
         }
         IsHurt = false;
@@ -386,14 +393,12 @@ public class Character : MonoBehaviour
         foreach (Enemy currentEnemy in allEnemies)
         {
             float distanceToEnemy = (currentEnemy.transform.position - this.transform.position).sqrMagnitude;
-            string checkTag = currentEnemy.gameObject.tag;
             if (distanceToEnemy < distanceToClosestEnemy && Vector2.Distance(currentEnemy.transform.position, transform.position) <= Range)
             {
                 distanceToClosestEnemy = distanceToEnemy;
                 closestEnemy = currentEnemy;
             }
         }
-
         return closestEnemy;
     }
 
@@ -431,18 +436,13 @@ public class Character : MonoBehaviour
     //// Set up just Jump when on Ground
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Floor"))
         {
             IsGrounded = true;
             CanJump = 2;
             isOnFloor = false;
         }
-        if (collision.gameObject.CompareTag("Floor"))
-        {
-            IsGrounded = true;
-            CanJump = 2;
-            isOnFloor = true;
-        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -453,11 +453,6 @@ public class Character : MonoBehaviour
         }
     }
 
-    IEnumerator StartGame()
-    {
-        yield return new WaitForSeconds(3f);
-        IsStart = true;
-    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan;

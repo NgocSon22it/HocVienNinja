@@ -15,16 +15,19 @@ public class Goblin : Enemy
     public float TimeMoveIdle = 3f;
     new void Start()
     {
-        EnemyName = "Goblin";
-        EnemyAttackRange = 4;
-        TotalHealthPoint = 500;
-        CurrentHealthPoint = 500;
-        EnemyDamage = 10;
-        EnemySpeed = 8;
-        Timer = 1.5f;
-        Coin = 30;
-        Score = 50;
         base.Start();
+        EnemyEntity enemyEntity = enemyDAO.GetEnemybyID(2);
+        EnemyName = enemyEntity.EnemyName;
+        TotalHealthPoint = enemyEntity.TotalHealthPoint;
+        CurrentHealthPoint = TotalHealthPoint;
+        EnemyDamage = enemyEntity.EnemyDamage;
+        EnemySpeed = enemyEntity.EnemySpeed;
+        Coin = enemyEntity.EnemyCoin;
+        Timer = 1.5f;
+        Score = 350;
+        RangeFoundPlayer = 30;
+        JumpPower = 20;
+        EnemyAttackRange = 4;
     }
 
     new void Update()

@@ -20,7 +20,9 @@ public class Enemy : MonoBehaviour
     public Animator Animator;
     public SpriteRenderer SpriteRenderer;
     public Collider2D Col;
+    public AudioSource Source;
     public bool FacingRight = true;
+    public EnemyDAO enemyDAO;
 
     // Setting Normal Attack
     public Transform AttackPoint;
@@ -44,7 +46,10 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        
+        if (this.gameObject.CompareTag("Enemy"))
+        {
+            SetHealthBar();
+        }
     }
     // Set up Character Abilities
     void SetupComponent()
@@ -53,11 +58,8 @@ public class Enemy : MonoBehaviour
         Rigid = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Col = GetComponent<Collider2D>();
-        if (this.gameObject.CompareTag("Enemy"))
-        {
-            SetHealthBar();
-        }
-            
+        Source = GetComponent<AudioSource>();
+        enemyDAO = GetComponent<EnemyDAO>();           
     }
 
     // Abilites
@@ -142,7 +144,6 @@ public class Enemy : MonoBehaviour
     public void SetHealthBar()
     {
         HealthBar.SetHealth(CurrentHealthPoint, TotalHealthPoint);
-
     }
     // get Hit by Player then decrease health point
     public void TakeDamage(int Damage)
@@ -150,8 +151,18 @@ public class Enemy : MonoBehaviour
 
         CurrentHealthPoint -= Damage;
         if (this.gameObject.CompareTag("Enemy"))
-        {           
-            SetHealthBar();
+        {                       
+            if (CurrentHealthPoint <= 0)
+            {
+                Die();
+            }
+        }
+        else
+        {
+            if (CurrentHealthPoint <= 0)
+            {
+                Animator.SetTrigger("RunOut");
+            }
         }       
         StartCoroutine(DamageAnimation());
     }
@@ -160,10 +171,7 @@ public class Enemy : MonoBehaviour
     // play red when get hit by Player
     IEnumerator DamageAnimation()
     {
-        if (CurrentHealthPoint <= 0)
-        {
-            Die();
-        }
+        
         SpriteRenderer sp = GetComponent<SpriteRenderer>();
         sp.color = Color.red;
         yield return new WaitForSeconds(.2f);

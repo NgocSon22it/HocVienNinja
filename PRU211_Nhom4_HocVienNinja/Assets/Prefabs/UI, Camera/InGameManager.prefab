@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5958540062711228014}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -593.8219, y: -812.4054, z: 2.9225256}
+  m_LocalPosition: {x: -663.1, y: -818.3, z: 2.9225256}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -83,10 +83,11 @@ MonoBehaviour:
   SpawnPoint: {fileID: 5958540062711228015}
   BarUI: {fileID: 0}
   SettingMenu: {fileID: 0}
-  SettingIcon: {fileID: 0}
   isPause: 0
-  DieMenu: {fileID: 0}
-  isDie: 0
+  ScoreMenu: {fileID: 0}
+  ScorePointMenu: {fileID: 0}
+  ScorePointOutMenu: {fileID: 0}
+  isEnd: 0
 --- !u!114 &5958540063063765384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99,8 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8ae362aac98274381af03e447fe6aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MusicSlider: {fileID: 0}
-  SoundSlider: {fileID: 0}
+  MusicCheckBox: {fileID: 0}
+  SoundCheckBox: {fileID: 0}
+  MusicAudioMixer: {fileID: 24100000, guid: bdcd8a2a661266c4482a53b3b8566ab6, type: 2}
+  SoundAudioMixer: {fileID: 24100000, guid: 2def746b82a2f254e976eb5fdf58f059, type: 2}
 --- !u!114 &5958540063063765385
 MonoBehaviour:
   m_ObjectHideFlags: 0

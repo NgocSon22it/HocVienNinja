@@ -15,16 +15,18 @@ public class SpecialBelly : Enemy
 
     new void Start()
     {
-        EnemyName = "Belly";
-        EnemyAttackRange = 4;
-        TotalHealthPoint = 500;
-        CurrentHealthPoint = 500;
-        EnemyDamage = 10;
-        EnemySpeed = 6;
-        Timer = 1.5f;
-        Coin = 30;
-        Score = 50;
         base.Start();
+        EnemyEntity enemyEntity = enemyDAO.GetEnemybyID(1003);
+        EnemyName = enemyEntity.EnemyName;
+        TotalHealthPoint = enemyEntity.TotalHealthPoint;
+        CurrentHealthPoint = TotalHealthPoint;
+        EnemyDamage = enemyEntity.EnemyDamage;
+        EnemySpeed = enemyEntity.EnemySpeed;
+        Coin = enemyEntity.EnemyCoin;
+        Score = 300;
+        RangeFoundPlayer = 20;
+        Timer = 1.8f;
+        EnemyAttackRange = 4;
     }
 
     new void Update()
@@ -59,8 +61,6 @@ public class SpecialBelly : Enemy
     {
         Animator.SetBool("Walk", true);
         Rigid.mass = 1;
-
-
         handleRotation(Player.transform);
         Vector2 targetPosition = new(Player.transform.position.x, transform.position.y);
         transform.position = Vector2.MoveTowards(transform.position, targetPosition, EnemySpeed * Time.deltaTime);

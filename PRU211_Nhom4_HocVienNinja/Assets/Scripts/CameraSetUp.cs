@@ -15,12 +15,13 @@ public class CameraSetUp : MonoBehaviour
     }
     IEnumerator SetUp()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2f);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
         cinemachine.m_Follow = player.transform;
         cinemachine.m_LookAt = player.transform;
         player.GetComponent<Character>().blurCamera = gameObject.transform.GetChild(1).gameObject;
-        if (player.gameObject.name.Equals("Phongsuke"))
+        player.GetComponent<Character>().IsStart = true;
+        if (player.gameObject.name.Equals("Phongsuke(Clone)"))
         {
             player.GetComponent<Phongsuke>().Sharingan = gameObject.transform.GetChild(2).gameObject;
         }

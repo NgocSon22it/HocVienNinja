@@ -23,10 +23,6 @@ public class SettingMenu : MonoBehaviour
         MusicCheckBox.isOn = MusicStatus;
         SoundCheckBox.isOn = SoundStatus;
     }
-    public void PlayGame()
-    {
-        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
-    }
     public void ToggleMusic()
     {
         if (MusicCheckBox.isOn)
@@ -53,6 +49,9 @@ public class SettingMenu : MonoBehaviour
             SoundStatus = false;
         }
     }
-
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 
 }

@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3096357052464725520
 Transform:
   m_ObjectHideFlags: 0
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 2.3
+  DefaultAngle: 0
 --- !u!1 &998476941823625815
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4038152552796909864
 Transform:
   m_ObjectHideFlags: 0
@@ -258,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 4.3
+  DefaultAngle: 0
 --- !u!1 &2521925991513028813
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +798,7 @@ GameObject:
   - component: {fileID: 7489453907293603733}
   - component: {fileID: 8327621056189913480}
   - component: {fileID: 441768584818822225}
+  - component: {fileID: 1656180509}
   m_Layer: 3
   m_Name: Luyldara
   m_TagString: Boss
@@ -867,7 +870,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 228110319
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 961905973, guid: deedbe6c7ebff87439df2ce7738dc250, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -965,12 +968,16 @@ MonoBehaviour:
   Animator: {fileID: 0}
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
+  Source: {fileID: 0}
   FacingRight: 1
   AttackPoint: {fileID: 0}
   LayerToAttack:
     serializedVersion: 2
     m_Bits: 0
   Range: 0
+  isOnFloor: 0
+  isNearFloor: 0
+  isGround: 0
   Score: 0
   Coin: 0
   SixPaths:
@@ -982,11 +989,14 @@ MonoBehaviour:
   - {fileID: 1421013259}
   rotationCenter: {fileID: 300959699759354512}
   rotationRadius: 5
-  angularSpeed: 2
+  angularSpeed: 3
+  isStart: 0
   FirstSkillPoint: {fileID: 2803127621553355266}
   DeadlineBullet: {fileID: 8616896675888241999, guid: 89dc825cd55fcea41900d97dede99a59, type: 3}
+  FirstSkillSound: {fileID: 8300000, guid: f7d48a4cb182ef947a008e1621017991, type: 3}
   SecondSkillPoint: {fileID: 8179995476740241463}
   IphoneBullet: {fileID: 1273594696191617453, guid: 33408f6b313d64045a7a47f0608e66a6, type: 3}
+  SecondSkillSound: {fileID: 8300000, guid: 7d283adf9c1269a4395c291f99b772c3, type: 3}
   Spike: {fileID: 3574820538578062276, guid: 04800e369d1c4564f9a3b42d7caa42b5, type: 3}
   PlaceForSpike:
   - {fileID: 0}
@@ -997,6 +1007,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  ThirdSkillSound: {fileID: 8300000, guid: 2ebe54d38456ef24eb7b9b6a1b72894b, type: 3}
   lineRenderer:
   - {fileID: 9027403494759405229}
   - {fileID: 2891923158315174894}
@@ -1019,6 +1030,7 @@ MonoBehaviour:
   StartLazer: {fileID: 1947379861128244698, guid: 312fd874096a5ef488f0fe489c471a47, type: 3}
   StartLazerPlaceEven: 0
   StartLazerPlaceOdd: 0
+  FourthSkillSound: {fileID: 8300000, guid: 1329942b9ebb18148bffbfc3ca6c8966, type: 3}
   Place:
   - {fileID: 0}
   - {fileID: 0}
@@ -1031,6 +1043,102 @@ MonoBehaviour:
   - {fileID: 6957745686212151552}
   - {fileID: 1790303770919598653}
   - {fileID: 8292882093276714162}
+--- !u!82 &1656180509
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5488170920047249298}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 2def746b82a2f254e976eb5fdf58f059, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5492795274679532945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,7 +1156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3367966355575141659
 Transform:
   m_ObjectHideFlags: 0
@@ -1129,6 +1237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 0.3
+  DefaultAngle: 0
 --- !u!1 &6027505551321239054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,7 +1386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8049639777819160929
 Transform:
   m_ObjectHideFlags: 0
@@ -1358,6 +1467,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 3.3
+  DefaultAngle: 0
 --- !u!1 &6974455110281145927
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9194940185320832252
 Transform:
   m_ObjectHideFlags: 0
@@ -1495,6 +1605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 1.3
+  DefaultAngle: 0
 --- !u!1 &7507195598282462741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1674,7 +1785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1044398400553040057
 Transform:
   m_ObjectHideFlags: 0
@@ -1755,6 +1866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 5.5
+  DefaultAngle: 0
 --- !u!1 &8519486197611980422
 GameObject:
   m_ObjectHideFlags: 0

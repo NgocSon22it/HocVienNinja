@@ -145,6 +145,56 @@ public class AccountDAO : MonoBehaviour
         }
         return null;
     }
+    public void updateAccountItem(int IdAccount, int IdItem, int Amount)
+    {
+        using (SqlConnection connection = new SqlConnection(ConnectionStr))
+        {
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "UPDATE Acc_Item set Amount = @Amount where Item_ID = @IdItem and Acc_ID = " + IdAccount;
+            cmd.Parameters.AddWithValue("@IdItem", IdItem);
+            cmd.Parameters.AddWithValue("@Amount", Amount);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
+    }
+    public int GetItemQuantity(int IdAccount, int IdItem)
+    {
+        int quantity = 0;
+        using (SqlConnection connection = new SqlConnection(ConnectionStr))
+        {
+            try
+            {
+                connection.Open();
+
+                SqlCommand cmd = connection.CreateCommand();
+                cmd.CommandText = "select Amount from Acc_Item where Item_ID = @IDItem and Acc_ID = " +  IdAccount;
+                cmd.Parameters.AddWithValue("@IDItem", IdItem);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dataTable = new DataTable();
+                adapter.Fill(dataTable);
+
+
+                foreach (DataRow dr in dataTable.Rows)
+                {
+                    if (dr["Amount"] == DBNull.Value)
+                    {
+                        connection.Close();
+                        return 0;
+                    }
+                    quantity = Convert.ToInt32(dr["Amount"]);
+
+                }
+
+            }
+            finally
+            {
+                connection.Close();
+
+            }
+        }
+        return quantity;
+    }
     public void CreateScore(int IdAccount, int Score)
     {
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
@@ -153,6 +203,18 @@ public class AccountDAO : MonoBehaviour
             cmd.CommandText = "Insert into Score values(@id, @score, GETDATE(), 0)";
             cmd.Parameters.AddWithValue("@id", IdAccount);
             cmd.Parameters.AddWithValue("@score", Score);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            connection.Close();
+        }
+    }
+    public void UpdateCoin(int IdAccount, int Coin)
+    {
+        using (SqlConnection connection = new SqlConnection(ConnectionStr))
+        {
+            SqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "Update Account set Coin = Coin + @coin where Acc_ID = " + IdAccount;
+            cmd.Parameters.AddWithValue("@coin", Coin);
             connection.Open();
             cmd.ExecuteNonQuery();
             connection.Close();

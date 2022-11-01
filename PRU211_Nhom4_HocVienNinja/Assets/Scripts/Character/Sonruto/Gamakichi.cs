@@ -22,8 +22,6 @@ public class Gamakichi : Character
         TotalHealthPoint = 300;
         TotalChakra = 100;
         CurrentChakra = 0;
-        SetHealthBar();
-        SetChakrahBar();
         FacingRight = true;
         SetupComponent();
     }
@@ -59,24 +57,25 @@ public class Gamakichi : Character
         {
             Destroy(gameObject);
         }
+        SetHealthBar();
         SetChakrahBar();
     }
 
     public void PlaySoundNormalAttack()
     {
-        Source.clip = ClipNormal;
-        Source.Play();
+        SkillSource.clip = ClipNormal;
+        SkillSource.Play();
     }
 
     public void PlaySoundSpecialAttack()
     {
-        Source.clip = ClipSpecial;
-        Source.Play();
+        SkillSource.clip = ClipSpecial;
+        SkillSource.Play();
     }
 
     public void ShootBubble()
     {
-        ClostestEnemy = FindClostestEnemy(12);
+        ClostestEnemy = FindClostestEnemy(20);
 
         if (ClostestEnemy != null)
         {
@@ -88,12 +87,13 @@ public class Gamakichi : Character
             BulletIns.transform.rotation = Rotation;
             BulletIns.GetComponent<Rigidbody2D>().AddForce(direction * 2000);
             CurrentChakra += 20;
+            Destroy(BulletIns, 3f);
         }
     }
 
     public void ShootSpecialBubble()
     {
-        ClostestEnemy = FindClostestEnemy(12);
+        ClostestEnemy = FindClostestEnemy(20);
         if (ClostestEnemy != null)
         {
             Vector2 direction = (Vector2)ClostestEnemy.transform.GetChild(0).position - (Vector2)transform.position;
@@ -103,6 +103,7 @@ public class Gamakichi : Character
             Rotation.eulerAngles = new Vector3(0, 0, angle);
             BulletIns.transform.rotation = Rotation;
             BulletIns.GetComponent<Rigidbody2D>().AddForce(direction * 1300);
+            Destroy(BulletIns, 3f);
         }
 
     }

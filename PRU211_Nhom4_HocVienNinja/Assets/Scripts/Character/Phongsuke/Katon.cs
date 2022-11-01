@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Katon : MonoBehaviour
+public class Katon : Skill
 {
     private Rigidbody2D rb;
     public GameObject Explosion;
     // Start is called before the first frame update
     void Start()
     {
+        SkillDAO skillDAO = GetComponent<SkillDAO>();
+        Damage = skillDAO.GetSkillbyID(1003).Damage;
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * 30;
         StartCoroutine(DestoyKaton());
@@ -18,7 +20,7 @@ public class Katon : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
-            collision.GetComponent<Enemy>().TakeDamage(100);
+            collision.GetComponent<Enemy>().TakeDamage(Damage);
             Instantiate(Explosion, transform.position, transform.rotation);
             Destroy(gameObject);
         }
@@ -26,7 +28,7 @@ public class Katon : MonoBehaviour
 
     IEnumerator DestoyKaton()
     {
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
 }

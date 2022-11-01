@@ -30,7 +30,7 @@ public class RasenShuriken : Skill
         CallSource.Play();
         yield return new WaitForSecondsRealtime(1f);
         rb.velocity = transform.right * 30;
-        yield return new WaitForSecondsRealtime(2.2f);
+        yield return new WaitForSeconds(2.2f);
         Destroy(gameObject);
     }
 }

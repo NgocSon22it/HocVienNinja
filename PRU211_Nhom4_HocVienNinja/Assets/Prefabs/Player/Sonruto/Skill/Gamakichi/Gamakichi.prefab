@@ -952,15 +952,20 @@ MonoBehaviour:
   Col: {fileID: 0}
   TrailRenderer: {fileID: 0}
   staticController: {fileID: 0}
-  Source: {fileID: 1835142366577262194}
+  SkillSource: {fileID: 1835142366577262194}
   characterDAO: {fileID: 0}
   AttackSource: {fileID: 0}
   NormalAttackClip: {fileID: 0}
   ThirdAttackClip: {fileID: 0}
+  UidaSource: {fileID: 0}
+  EffectSource: {fileID: 0}
+  EffectClip: []
+  Effect: []
   AttackPoint: {fileID: 0}
   LayerToAttack:
     serializedVersion: 2
     m_Bits: 8
+  IsDashing: 0
   FacingRight: 0
   Combo: 0
   CanCombo: 0
@@ -977,6 +982,8 @@ MonoBehaviour:
   Jumppower: 0
   blurCamera: {fileID: 0}
   isOnFloor: 0
+  IsStart: 0
+  IsReachPortal: 0
   FirePoint: {fileID: 2265219894806552682}
   Bullet: {fileID: 2000570433042563334, guid: 7b17e71c8278ef944968fb6b4fbfd7f4, type: 3}
   SpecialBullet: {fileID: 3698836826933953408, guid: a374c27b7001c2d4389e1df6c0d8c379, type: 3}

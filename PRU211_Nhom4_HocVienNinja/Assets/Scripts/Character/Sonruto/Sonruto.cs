@@ -38,7 +38,14 @@ public class Sonruto : Character
     // Update is called once per frame
     new void Update()
     {
-        
+        if (!IsStart)
+        {
+            return;
+        }
+        if (IsDashing)
+        {
+            return;
+        }
         base.Update();
         FirstSkill();
         SecondSkill();
@@ -47,13 +54,13 @@ public class Sonruto : Character
     }
     public void PlaysoundRasengan()
     {
-        Source.clip = ClipRasengan;
-        Source.Play();
+        SkillSource.clip = ClipRasengan;
+        SkillSource.Play();
     }
     public void PlaysoundSummonGamakichi()
     {
-        Source.clip = ClipSummomGamakichi;
-        Source.Play();
+        SkillSource.clip = ClipSummomGamakichi;
+        SkillSource.Play();
     }
 
     public override void FirstSkill()

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class AllCanvasUI : MonoBehaviour
 {
-
+    
     public Character Player;
     public GameObject PlayerUI;
     [Header("Health & Chakra")]
@@ -35,13 +35,16 @@ public class AllCanvasUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CostThirdSkill;
     CharacterDAO characterDAO;
 
+    [Header("Item")]
+    [SerializeField] private TextMeshProUGUI ItemOneText;
+    [SerializeField] private TextMeshProUGUI ItemTwoText;
+
     public bool isStart;
 
     // Start is called before the first frame update
     void Start()
-    {
-        
-        StartCoroutine(SetUpUI());
+    {       
+        StartCoroutine(SetUpUI());       
     }
 
     // Update is called once per frame
@@ -58,8 +61,10 @@ public class AllCanvasUI : MonoBehaviour
         CurrentCooldownFirstSkill.fillAmount = Player.ReloadFirstSkill / Player.CooldownFirstSkill;
         CurrentCooldownSecondSkill.fillAmount = Player.ReloadSecondSkill / Player.CooldownSecondSkill;
         CurrentCooldownThirdSkill.fillAmount = Player.ReloadThirdSkill / Player.CooldownThirdSkill;
+        ItemOneText.text = AccountManager.ItemOneQuantity.ToString();
+        ItemTwoText.text = AccountManager.ItemTwoQuantity.ToString();
 
-        if(Player.ReloadFirstSkill <= 0f)
+        if (Player.ReloadFirstSkill <= 0f)
         {
             NumberCooldownFirstSkill.text = "";
         }
@@ -101,10 +106,13 @@ public class AllCanvasUI : MonoBehaviour
 
     IEnumerator SetUpUI()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return new WaitForSeconds(2f);
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
         string CharacterName = Player.gameObject.name.Replace("(Clone)", "");
         characterDAO = GetComponent<CharacterDAO>();
+        AccountDAO accountDAO = GetComponent<AccountDAO>();
+        AccountManager.ItemOneQuantity = accountDAO.GetItemQuantity(2, 1);
+        AccountManager.ItemTwoQuantity = accountDAO.GetItemQuantity(2, 2);
         Avatar.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "Avatar");
         FirstSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "FirstSkill");
         SecondSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "SecondSkill");
@@ -122,6 +130,8 @@ public class AllCanvasUI : MonoBehaviour
         NumberCooldownThirdSkill.text = "";
         NumberHealth.text = Player.CurrentHealthPoint + " / " + Player.TotalHealthPoint;
         NumberChakra.text = Player.CurrentChakra + " / " + Player.TotalChakra;
+        ItemOneText.text = AccountManager.ItemOneQuantity.ToString();
+        ItemTwoText.text = AccountManager.ItemTwoQuantity.ToString();
         isStart = true;
         PlayerUI.SetActive(true);
     }

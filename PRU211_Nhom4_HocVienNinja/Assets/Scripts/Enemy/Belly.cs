@@ -11,21 +11,22 @@ public class Belly : Enemy
     private float IntTimer;
     private bool AttackMode;
     public int RangeFoundPlayer;
-    public int JumpPower;
     public float TimeMoveIdle = 3f;
 
     new void Start()
     {
-        EnemyName = "Belly";
-        EnemyAttackRange = 4;
-        TotalHealthPoint = 500;
-        CurrentHealthPoint = 500;
-        EnemyDamage = 10;
-        EnemySpeed = 6;
-        Timer = 1.8f;
-        Coin = 30;
-        Score = 50;
         base.Start();
+        EnemyEntity enemyEntity = enemyDAO.GetEnemybyID(1002);
+        EnemyName = enemyEntity.EnemyName;
+        TotalHealthPoint = enemyEntity.TotalHealthPoint;
+        CurrentHealthPoint = TotalHealthPoint;
+        EnemyDamage = enemyEntity.EnemyDamage;
+        EnemySpeed = enemyEntity.EnemySpeed;
+        Coin = enemyEntity.EnemyCoin;
+        Score = 100;
+        Timer = 1.8f;
+        EnemyAttackRange = 4;
+        RangeFoundPlayer = 20;
     }
 
     new void Update()

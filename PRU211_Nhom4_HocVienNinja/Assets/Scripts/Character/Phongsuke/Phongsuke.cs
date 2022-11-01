@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 
 public class Phongsuke : Character
-{
+{  
 
     //Katon
     public GameObject Katon;
@@ -25,6 +25,18 @@ public class Phongsuke : Character
     public AudioClip AmaterasuSound;
     public GameObject Sharingan;
     public GameObject Amaterasu;
+    public float AmaterasuRange;
+
+    private void Awake()
+    {
+        SkillDAO skillDAO = GetComponent<SkillDAO>();
+        CostFirstSkill = skillDAO.GetSkillbyID(1003).Chakra;
+        CooldownFirstSkill = skillDAO.GetSkillbyID(1003).Cooldown;
+        CostSecondSkill = skillDAO.GetSkillbyID(1004).Chakra;
+        CooldownSecondSkill = skillDAO.GetSkillbyID(1004).Cooldown;
+        CostThirdSkill = skillDAO.GetSkillbyID(1005).Chakra;
+        CooldownThirdSkill = skillDAO.GetSkillbyID(1005).Cooldown;
+    }
     new void Start()
     {
         base.Start();
@@ -32,6 +44,14 @@ public class Phongsuke : Character
 
     new void Update()
     {
+        if (!IsStart)
+        {
+            return;
+        }
+        if (IsDashing)
+        {
+            return;
+        }
         if (IsChidoriDash)
         {
             return;
@@ -44,19 +64,19 @@ public class Phongsuke : Character
 
     public void PlaySoundKaton()
     {
-        Source.clip = KatonSound;
-        Source.Play();
+        SkillSource.clip = KatonSound;
+        SkillSource.Play();
     }
 
     public void PlaySoundChidori()
     {
-        Source.clip = ChidoriSound;
-        Source.Play();
+        SkillSource.clip = ChidoriSound;
+        SkillSource.Play();
     }
     public void PlaySoundAmaterasu()
     {
-        Source.clip = AmaterasuSound;
-        Source.Play();
+        SkillSource.clip = AmaterasuSound;
+        SkillSource.Play();
     }
 
     public override void FirstSkill()
@@ -64,6 +84,12 @@ public class Phongsuke : Character
         if (Input.GetKeyDown(staticController.FirstSkill) && ReloadFirstSkill <= 0f && CurrentChakra >= CostFirstSkill && !IsSkilling)
         {
             Animator.SetTrigger("Katon");
+            CurrentChakra -= CostFirstSkill;
+            ReloadFirstSkill = CooldownFirstSkill;
+        }
+        else if (ReloadFirstSkill > 0)
+        {
+            ReloadFirstSkill -= Time.deltaTime;
         }
     }
 
@@ -71,33 +97,51 @@ public class Phongsuke : Character
     {
         if (Input.GetKeyDown(staticController.SecondSkill) && ReloadSecondSkill <= 0f && CurrentChakra >= CostSecondSkill && !IsSkilling)
         {
-            Source.clip = ChidoriSound;
-            Source.Play();
+            SkillSource.clip = ChidoriSound;
+            SkillSource.Play();
             Animator.SetTrigger("FirstChidori");
             Chidori.transform.position = FirstChidori.transform.position;
             Chidori.SetActive(true);
             StartCoroutine(ChidoriLogic());
-        } 
+            CurrentChakra -= CostSecondSkill;
+            ReloadSecondSkill = CooldownSecondSkill;
+        }
+        else if (ReloadSecondSkill > 0)
+        {
+            ReloadSecondSkill -= Time.deltaTime;
+        }
     }
 
     public override void ThirdSkill()
     {
         if (Input.GetKeyDown(staticController.ThirdSkill) && ReloadThirdSkill <= 0f && CurrentChakra >= CostThirdSkill && !IsSkilling)
         {
+            SkillSource.clip = AmaterasuSound;
+            SkillSource.Play();
             StartCoroutine(OpenSharingan());
+            CurrentChakra -= CostThirdSkill;
+            ReloadThirdSkill = CooldownThirdSkill;
+        }
+        else if (ReloadThirdSkill > 0)
+        {
+            ReloadThirdSkill -= Time.deltaTime;
         }
     }
     private IEnumerator ChidoriDash()
     {
         IsChidoriDash = true;
+        Rigid.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
         float origialGravity = Rigid.gravityScale;
         Rigid.gravityScale = 0f;
-        Rigid.velocity = new Vector2(transform.right.x * 2 * ChidoriDashPower, 0f);        
+        Rigid.velocity = new Vector2(transform.right.x * 2 * ChidoriDashPower, 0f);
         yield return new WaitForSecondsRealtime(ChidoriDashTime);
         ChidoriObject.CancauseDamage = false;
         Rigid.gravityScale = origialGravity;
         IsChidoriDash = false;
-        yield return new WaitForSecondsRealtime(2f);
+        yield return new WaitForSecondsRealtime(1f);
+        Rigid.constraints = RigidbodyConstraints2D.None;
+        Rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
+        yield return new WaitForSecondsRealtime(1f);
         Chidori.SetActive(false);
     }
 
@@ -105,7 +149,7 @@ public class Phongsuke : Character
     {
         Instantiate(Katon, KatonPoint.position, KatonPoint.rotation);
     }
-       
+
     IEnumerator ChidoriLogic()
     {
         yield return new WaitForSecondsRealtime(1.5f);
@@ -114,28 +158,35 @@ public class Phongsuke : Character
         ChidoriObject.CancauseDamage = true;
         StartCoroutine(ChidoriDash());
         yield return new WaitForSecondsRealtime(1f);
-        Source.Stop();
+        SkillSource.Stop();
         Animator.SetBool("LastChidori", false);
-        Chidori.SetActive(false);      
+        Chidori.SetActive(false);
     }
-
     private IEnumerator OpenSharingan()
     {
-        
+
         StartSkill();
         Sharingan.SetActive(true);
+        Collider2D[] hitEnemy = Physics2D.OverlapCircleAll(transform.position, AmaterasuRange, LayerToAttack);
         yield return new WaitForSecondsRealtime(2f);
-        Enemy[] allEnemies = FindObjectsOfType<Enemy>();
-
-        foreach (Enemy currentEnemy in allEnemies)
+        if (hitEnemy != null)
         {
-            if (Vector2.Distance(currentEnemy.transform.position, transform.position) <= 20)
+            foreach (Collider2D enemy in hitEnemy)
             {
-                Instantiate(Amaterasu, currentEnemy.transform.position, currentEnemy.transform.rotation);
-                Amaterasu.GetComponent<Amaterasu>().Enemy = currentEnemy;
+
+                GameObject instance = Instantiate(Amaterasu, enemy.transform.position, enemy.transform.rotation);
+                instance.GetComponent<Amaterasu>().Enemy = enemy.gameObject;
+                Destroy(instance, 10f);
+                Debug.Log(enemy.name);
             }
+
         }
         Sharingan.SetActive(false);
         EndSkill();
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, AmaterasuRange);
     }
 }

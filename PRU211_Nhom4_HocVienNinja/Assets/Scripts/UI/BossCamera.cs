@@ -11,40 +11,69 @@ public class BossCamera : MonoBehaviour
     public GameObject Boss;
     public GameObject[] AllCanvas;
     public GameObject[] SixPaths;
+    public AudioSource Source;
+    public AudioClip Nghiancom;
+    public bool AnCom;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SetupCamera());
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
-        player.blurCamera = gameObject.transform.GetChild(0).gameObject;
-        player.GetComponent<Sonruto>().enabled = false;
     }
 
-    IEnumerator SetupCamera() { 
 
+    public void SetupPositionAndCamera(Vector3 Place, int CameraSize)
+    {
+        transform.position = Place;
+        Maincamera.orthographicSize = CameraSize;
+    }
+    public void ToggleBossPaths(bool value)
+    {
+        foreach (GameObject sixpath in SixPaths)
+        {
+            sixpath.SetActive(value);
+        }
+    }
+    public void ToggleCanvasForIntro(bool value)
+    {
+        foreach (GameObject a in AllCanvas)
+        {
+            a.gameObject.SetActive(value);
+        }
+    }
+    IEnumerator SetupCamera()
+    {
 
         yield return new WaitForSeconds(2f);
-        transform.position = new Vector3(0, 25, -10);
-        Maincamera.orthographicSize = 7;
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
+        player.blurCamera = gameObject.transform.GetChild(0).gameObject;
+        if (player.gameObject.name.Equals("Phongsuke(Clone)"))
+        {
+            player.GetComponent<Phongsuke>().Sharingan = gameObject.transform.GetChild(1).gameObject;
+        }
+        SetupPositionAndCamera(new Vector3(0, 25, -10), 7);
         yield return new WaitForSeconds(1f);
         Boss.SetActive(true);
         yield return new WaitForSeconds(2f);
-        foreach(GameObject sixpath in SixPaths)
-        {
-            sixpath.SetActive(true);
-        }
+        Source.Play();
+        ToggleBossPaths(true);
         yield return new WaitForSeconds(1f);
         enemy.isStart = true;
         yield return new WaitForSeconds(3f);
-        transform.position = new Vector3(0, 11, -10);
-        Maincamera.orthographicSize = 20;
-        player.GetComponent<Sonruto>().enabled = true;
+        SetupPositionAndCamera(new Vector3(0, 11, -10), 20);
+        player.GetComponent<Character>().IsStart = true;
         StartCoroutine(enemy.Move());
-        foreach(GameObject a in AllCanvas)
-        {
-            a.gameObject.SetActive(true);
-        }
+        ToggleCanvasForIntro(true);
 
+    }
+    public void PlayNghiAnCom()
+    {
+        StartCoroutine(LastVoice());
+    }
+    public IEnumerator LastVoice()
+    {
+        yield return new WaitForSeconds(1f);
+        Source.clip = Nghiancom;
+        Source.Play();
     }
 }

@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chidori : MonoBehaviour
+public class Chidori : Skill
 {
     public bool CancauseDamage;
 
     private Collider2D collide;
+    public AudioSource ChidoriHitSound;
 
     private void Start()
     {
+        SkillDAO skillDAO = GetComponent<SkillDAO>();
+        Damage = skillDAO.GetSkillbyID(1004).Damage;
         collide = GetComponent<Collider2D>();
         collide.enabled = false;
     }
@@ -30,7 +33,8 @@ public class Chidori : MonoBehaviour
 
         if ((collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss")) && CancauseDamage)
         {
-            collision.GetComponent<Enemy>().TakeDamage(300);
+            collision.GetComponent<Enemy>().TakeDamage(Damage);
+            ChidoriHitSound.Play();
         }
     }
 }

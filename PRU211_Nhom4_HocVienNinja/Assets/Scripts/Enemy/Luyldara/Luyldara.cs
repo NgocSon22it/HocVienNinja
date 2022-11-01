@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Luyldara : Enemy
 {
+
     [Header("Ability")]
     public SixPaths[] SixPaths;
     public Transform rotationCenter;
@@ -16,14 +17,17 @@ public class Luyldara : Enemy
     [Header("First Skill")]
     public Transform FirstSkillPoint;
     public GameObject DeadlineBullet;
+    public AudioClip FirstSkillSound;
 
     [Header("Second Skill")]
     public Transform SecondSkillPoint;
     public GameObject IphoneBullet;
+    public AudioClip SecondSkillSound;
 
     [Header("Third Skill")]
     public GameObject Spike;
     public Transform[] PlaceForSpike;
+    public AudioClip ThirdSkillSound;
 
     [Header("Fouth Skill")]
     public LineRenderer[] lineRenderer;
@@ -32,18 +36,25 @@ public class Luyldara : Enemy
     public GameObject StartLazer;
     public bool StartLazerPlaceEven;
     public bool StartLazerPlaceOdd;
+    public AudioClip FourthSkillSound;
+
     [Header("Movement")]
     public Transform[] Place;
     public GameObject[] SixPathsObject;
+    public bool IsOut;
+
+
     private void Awake()
     {
-        TotalHealthPoint = 2000;
-        CurrentHealthPoint = 2000;
+        TotalHealthPoint = 1;
+        CurrentHealthPoint = 1;
         TurnOffLazer();
     }
 
     new void Start()
     {
+        Coin = 10000;
+        Score = 10000;
         base.Start();
     }
     // Update is called once per frame
@@ -58,7 +69,6 @@ public class Luyldara : Enemy
             line.enabled = false;
         }
     }
-
     public void TurnOnCollider()
     {
         Col.enabled = true;
@@ -83,10 +93,12 @@ public class Luyldara : Enemy
                     path.angle = path.DefaultAngle;
                 }
             }
-        } 
+        }
     }
     IEnumerator ExecuteThirdSkill()
     {
+        Source.clip = ThirdSkillSound;
+        Source.Play();
         yield return new WaitForSeconds(1f);
         for (int i = 0; i < PlaceForSpike.Length; i++)
         {
@@ -99,7 +111,9 @@ public class Luyldara : Enemy
     }
     IEnumerator ExecuteSecondSkill()
     {
-        yield return new WaitForSeconds(1f);       
+        Source.clip = SecondSkillSound;
+        Source.Play();
+        yield return new WaitForSeconds(1f);
         for (int i = 0; i < 3; i++)
         {
             Character player = FindClostestPlayer(100);
@@ -114,6 +128,8 @@ public class Luyldara : Enemy
     }
     IEnumerator ExecuteFirstSkill()
     {
+        Source.clip = FirstSkillSound;
+        Source.Play();
         yield return new WaitForSeconds(1f);
         for (int i = -1000; i <= 1000; i += 500)
         {
@@ -125,53 +141,56 @@ public class Luyldara : Enemy
     }
     public IEnumerator Move()
     {
-        int a = Random.Range(0, 5);
-        Animator.SetTrigger("Dissappear");
+        if (!IsOut)
+        {
+            int a = Random.Range(0, 5);
+            Animator.SetTrigger("Dissappear");
 
-        foreach (GameObject path in SixPathsObject)
-        {
-            path.gameObject.SetActive(false);
-        }
-        yield return new WaitForSeconds(1f);
-        if(a > 2)
-        {
-            transform.position = Place[3].position;
-        }
-        else
-        {
-            transform.position = Place[a].position;
-        }       
-        Animator.SetTrigger("Appear");
-        foreach (GameObject path in SixPathsObject)
-        {
-            path.gameObject.SetActive(true);
-        }
-
-
-        if (a > 2)
-        {
-            int b = Random.Range(0, 2);
-            if (b == 0)
+            foreach (GameObject path in SixPathsObject)
             {
-                StartCoroutine(ExecuteFirstSkill());
+                path.gameObject.SetActive(false);
+            }
+            yield return new WaitForSeconds(1f);
+            if (a > 2)
+            {
+                transform.position = Place[3].position;
             }
             else
             {
-                StartCoroutine(ExecuteFouthSkill());
-
+                transform.position = Place[a].position;
             }
-        }
-        else
-        {
-            int b = Random.Range(0, 2);
-            if (b == 0)
+            Animator.SetTrigger("Appear");
+            foreach (GameObject path in SixPathsObject)
             {
-                StartCoroutine(ExecuteSecondSkill());
+                path.gameObject.SetActive(true);
+            }
+
+
+            if (a > 2)
+            {
+                int b = Random.Range(0, 2);
+                if (b == 0)
+                {
+                    StartCoroutine(ExecuteFirstSkill());
+                }
+                else
+                {
+                    StartCoroutine(ExecuteFouthSkill());
+
+                }
             }
             else
             {
-                StartCoroutine(ExecuteThirdSkill());
+                int b = Random.Range(0, 2);
+                if (b == 0)
+                {
+                    StartCoroutine(ExecuteSecondSkill());
+                }
+                else
+                {
+                    StartCoroutine(ExecuteThirdSkill());
 
+                }
             }
         }
     }
@@ -222,13 +241,15 @@ public class Luyldara : Enemy
     }
     IEnumerator ExecuteFouthSkill()
     {
+        Source.clip = FourthSkillSound;
+        Source.Play();
         yield return new WaitForSeconds(.5f);
         GameObject MainLazer = Instantiate(StartLazer, transform.GetChild(0).position, Quaternion.identity);
+        Destroy(MainLazer, 5f);
         StartCoroutine(LogicFouthSkill(OddPlaceLazerFire));
         yield return new WaitForSeconds(2.5f);
         StartCoroutine(LogicFouthSkill(EvenPlaceLazerFire));
         yield return new WaitForSeconds(2.5f);
-        Destroy(MainLazer);
         StartCoroutine(Move());
     }
 }

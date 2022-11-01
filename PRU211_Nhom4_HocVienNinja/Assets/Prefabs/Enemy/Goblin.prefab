@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3204496074710286293}
   - component: {fileID: 3204496074710286286}
   - component: {fileID: 2066822201}
+  - component: {fileID: 2372706654119484651}
   m_Layer: 3
   m_Name: Goblin
   m_TagString: Enemy
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 228110319
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 1179855339, guid: aed5662a70fba04409cd6fa4b2366112, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -177,7 +178,9 @@ MonoBehaviour:
   Animator: {fileID: 0}
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
+  Source: {fileID: 0}
   FacingRight: 1
+  enemyDAO: {fileID: 0}
   AttackPoint: {fileID: 3204496075226604178}
   LayerToAttack:
     serializedVersion: 2
@@ -212,6 +215,18 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &2372706654119484651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3204496074710286292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1927822e298fdb439a372aec4d2f6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3204496075226604189
 GameObject:
   m_ObjectHideFlags: 0

@@ -54,15 +54,21 @@ TagManager:
   - name: BlurCamera
     uniqueID: 1232251807
     locked: 0
-  - name: Enemy
-    uniqueID: 228110319
-    locked: 0
   - name: Player
     uniqueID: 2391909285
+    locked: 0
+  - name: Enemy
+    uniqueID: 228110319
     locked: 0
   - name: EnemySkill
     uniqueID: 1259225671
     locked: 0
   - name: PlayerSkill
     uniqueID: 2805195443
+    locked: 0
+  - name: ForeGound
+    uniqueID: 438278643
+    locked: 0
+  - name: OnForeGround
+    uniqueID: 3089394291
     locked: 0

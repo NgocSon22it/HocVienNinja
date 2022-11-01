@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 4687800173101250196}
   - component: {fileID: 4687800173101250203}
   - component: {fileID: 4687800173101250202}
+  - component: {fileID: -9200842988574494373}
   m_Layer: 3
   m_Name: SpecialBelly
   m_TagString: Enemy
@@ -140,7 +141,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 228110319
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -2036573292, guid: c4bfdac07346c0f48ae2947b3dc6739a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -238,7 +239,9 @@ MonoBehaviour:
   Animator: {fileID: 0}
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
+  Source: {fileID: 0}
   FacingRight: 1
+  enemyDAO: {fileID: 0}
   AttackPoint: {fileID: 4687800172628917915}
   LayerToAttack:
     serializedVersion: 2
@@ -253,6 +256,18 @@ MonoBehaviour:
   Timer: 0
   RangeFoundPlayer: 20
   TimeMoveIdle: 3
+--- !u!114 &-9200842988574494373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687800173101250206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1927822e298fdb439a372aec4d2f6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4687800174323119717
 PrefabInstance:
   m_ObjectHideFlags: 0
