@@ -180,7 +180,7 @@ public class Phongsuke : Character
 
                 GameObject instance = Instantiate(Amaterasu, enemy.transform.position, enemy.transform.rotation);
                 instance.GetComponent<Amaterasu>().Enemy = enemy.gameObject;
-                Destroy(instance, 10f);
+                Destroy(instance, 5f);
                 Debug.Log(enemy.name);
             }
 

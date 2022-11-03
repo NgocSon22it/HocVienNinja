@@ -25177,6 +25177,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3552902989117174333, guid: 7612424a95d26a64aa052c0ac34c332a, type: 3}
+      propertyPath: m_Size.x
+      value: 13.546936
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552902989117174333, guid: 7612424a95d26a64aa052c0ac34c332a, type: 3}
+      propertyPath: m_Size.y
+      value: 52.07866
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552902989117174333, guid: 7612424a95d26a64aa052c0ac34c332a, type: 3}
+      propertyPath: m_Offset.x
+      value: 1.4801941
+      objectReference: {fileID: 0}
+    - target: {fileID: 3552902989117174333, guid: 7612424a95d26a64aa052c0ac34c332a, type: 3}
+      propertyPath: m_Offset.y
+      value: 10.1452675
+      objectReference: {fileID: 0}
     - target: {fileID: 7659105806775890423, guid: 7612424a95d26a64aa052c0ac34c332a, type: 3}
       propertyPath: m_Name
       value: Portal

@@ -51,7 +51,7 @@ MonoBehaviour:
   Chakra: 0
   Cooldown: 0
   Enemy: {fileID: 0}
-  TimeToDamage: 0.5
+  TimeToDamage: 0.2
 --- !u!114 &6352316679104744898
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Amaterasu : Skill
 {
     public GameObject Enemy;
-    public float TimeToDamage = 0.5f;
+    public float TimeToDamage = 0.2f;
     private void Start()
     {
         Damage = CommonValue.Skill[5].Damage;
@@ -20,7 +20,7 @@ public class Amaterasu : Skill
             if (TimeToDamage <= 0)
             {
                 Enemy.GetComponent<Enemy>().TakeDamage(Damage);
-                TimeToDamage = 0.5f;
+                TimeToDamage = 0.2f;
             }
         }
         else

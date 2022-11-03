@@ -410,10 +410,8 @@ MonoBehaviour:
   Animator: {fileID: 0}
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
-  TrailRenderer: {fileID: 0}
   staticController: {fileID: 0}
   SkillSource: {fileID: 461738770}
-  characterDAO: {fileID: 0}
   AttackSource: {fileID: 461738770}
   NormalAttackClip: {fileID: 8300000, guid: fff25b01c60bcbf46923440227ef4512, type: 3}
   ThirdAttackClip: {fileID: 8300000, guid: 945c7a130e3751f41b32f766f61ee91b, type: 3}
@@ -460,7 +458,7 @@ MonoBehaviour:
   AmaterasuSound: {fileID: 8300000, guid: 48de0d0c96151f0428f520e1432b95d1, type: 3}
   Sharingan: {fileID: 0}
   Amaterasu: {fileID: 5405349678185657414, guid: d20efc2611c9cf8489a2dea356428e61, type: 3}
-  AmaterasuRange: 20
+  AmaterasuRange: 30
 --- !u!114 &1306196323578560649
 MonoBehaviour:
   m_ObjectHideFlags: 0
