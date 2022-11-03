@@ -44,18 +44,19 @@ public class Luyldara : Enemy
     public bool IsOut;
 
     public AudioClip LazerClip;
-    private void Awake()
-    {
-        TotalHealthPoint = 1;
-        CurrentHealthPoint = 1;
-        TurnOffLazer();
-    }
 
     new void Start()
     {
-        Coin = 10000;
-        Score = 10000;
         base.Start();
+        TurnOffLazer();
+        EnemyEntity enemyEntity = CommonValue.Enemy[0];
+        EnemyName = enemyEntity.EnemyName;
+        TotalHealthPoint = enemyEntity.TotalHealthPoint;
+        CurrentHealthPoint = TotalHealthPoint;
+        EnemyDamage = enemyEntity.EnemyDamage;
+        EnemySpeed = enemyEntity.EnemySpeed;
+        Coin = enemyEntity.EnemyCoin;
+        Score = 10000;
     }
     // Update is called once per frame
     new void Update()

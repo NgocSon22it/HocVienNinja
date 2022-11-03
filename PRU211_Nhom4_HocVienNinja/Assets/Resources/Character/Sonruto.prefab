@@ -48,8 +48,6 @@ GameObject:
   - component: {fileID: 2870367257546121180}
   - component: {fileID: 2036426529}
   - component: {fileID: 2036426528}
-  - component: {fileID: 6318200659980721817}
-  - component: {fileID: 8708699023497633876}
   - component: {fileID: 759063309593041600}
   - component: {fileID: 4540508687542434288}
   - component: {fileID: 4913275980610611763}
@@ -234,10 +232,8 @@ MonoBehaviour:
   Animator: {fileID: 0}
   SpriteRenderer: {fileID: 0}
   Col: {fileID: 0}
-  TrailRenderer: {fileID: 0}
   staticController: {fileID: 0}
   SkillSource: {fileID: 2870367257546121180}
-  characterDAO: {fileID: 0}
   AttackSource: {fileID: 759063309593041600}
   NormalAttackClip: {fileID: 8300000, guid: bb178a1ce627fbd42a24210addb8a122, type: 3}
   ThirdAttackClip: {fileID: 8300000, guid: 2dfe2f24df747304d906c4c07558637e, type: 3}
@@ -271,7 +267,6 @@ MonoBehaviour:
   blurCamera: {fileID: 0}
   isOnFloor: 0
   IsStart: 0
-  IsReachPortal: 0
   PlaceRasengan: {fileID: 2870367258232778801}
   PlaceRasengan1: {fileID: 2870367257875993174}
   PlaceRasengan2: {fileID: 2870367257389720338}
@@ -299,7 +294,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 0
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -416,30 +411,6 @@ MonoBehaviour:
   FirstSkill: 0
   SecondSkill: 0
   ThirdSkill: 0
---- !u!114 &6318200659980721817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2870367257546121178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b6840946b7696544b7e17ff562417e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8708699023497633876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2870367257546121178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea7c62490ca4ce4a8b0e7a1be91a9ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &759063309593041600
 AudioSource:
   m_ObjectHideFlags: 0
@@ -452,7 +423,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 2def746b82a2f254e976eb5fdf58f059, type: 2}
   m_audioClip: {fileID: 8300000, guid: bb178a1ce627fbd42a24210addb8a122, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0

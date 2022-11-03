@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3204496074710286293}
   - component: {fileID: 3204496074710286286}
   - component: {fileID: 2066822201}
-  - component: {fileID: 2372706654119484651}
   - component: {fileID: 5499085613254490364}
   m_Layer: 3
   m_Name: Goblin
@@ -181,7 +180,6 @@ MonoBehaviour:
   Col: {fileID: 0}
   Source: {fileID: 0}
   FacingRight: 1
-  enemyDAO: {fileID: 0}
   AttackPoint: {fileID: 3204496075226604178}
   LayerToAttack:
     serializedVersion: 2
@@ -216,18 +214,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &2372706654119484651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3204496074710286292}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1927822e298fdb439a372aec4d2f6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &5499085613254490364
 AudioSource:
   m_ObjectHideFlags: 0

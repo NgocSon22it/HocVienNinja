@@ -5,8 +5,6 @@ using UnityEngine;
 public class AccountManager : MonoBehaviour
 {
     public static int AccountID;
-    public static int ItemOneQuantity;
-    public static int ItemTwoQuantity;
     public static string AccountFullName;
     public static int AccountCoin;
 
@@ -16,6 +14,7 @@ public class AccountManager : MonoBehaviour
     
     private void Start()
     {
+        
         if (AccountID != 0)
         {
             FormMenu.SetActive(false);

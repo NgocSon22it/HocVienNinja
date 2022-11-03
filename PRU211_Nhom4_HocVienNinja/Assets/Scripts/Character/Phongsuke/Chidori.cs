@@ -11,8 +11,7 @@ public class Chidori : Skill
 
     private void Start()
     {
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        Damage = skillDAO.GetSkillbyID(1004).Damage;
+        Damage = CommonValue.Skill[4].Damage;
         collide = GetComponent<Collider2D>();
         collide.enabled = false;
     }

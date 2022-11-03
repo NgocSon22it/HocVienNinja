@@ -16,7 +16,7 @@ public class Belly : Enemy
     new void Start()
     {
         base.Start();
-        EnemyEntity enemyEntity = enemyDAO.GetEnemybyID(1002);
+        EnemyEntity enemyEntity = CommonValue.Enemy[3];
         EnemyName = enemyEntity.EnemyName;
         TotalHealthPoint = enemyEntity.TotalHealthPoint;
         CurrentHealthPoint = TotalHealthPoint;
@@ -86,7 +86,6 @@ public class Belly : Enemy
                 handleRotation(Player.transform);
                 Rigid.mass = 1000;
                 Animator.SetBool("Attack", true);
-                Source.Play();
                 Animator.SetBool("Walk", false);
                 AttackMode = true;
                 IntTimer = Timer;

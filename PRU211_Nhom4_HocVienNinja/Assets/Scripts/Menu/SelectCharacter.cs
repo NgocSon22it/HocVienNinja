@@ -57,6 +57,6 @@ public class SelectCharacter : MonoBehaviour
         GameManager.Score = 0;
         GameManager.Coin = 0;
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SelectMap.MapName, LoadSceneMode.Single);
+        SceneManager.LoadScene("Level1", LoadSceneMode.Single);
     }
 }

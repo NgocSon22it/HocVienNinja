@@ -94,7 +94,7 @@ public class AccountDAO : MonoBehaviour
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
         {
             SqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "insert into Account values(@name,@username,@password,0,0,@avatar,0,'Customer',0)";
+            cmd.CommandText = "insert into Account values(@name,@username,@password,0,0,@avatar,0,'User',0)";
             cmd.Parameters.AddWithValue("@username", account.Username);
             cmd.Parameters.AddWithValue("@password", GetMD5(account.Password));
             cmd.Parameters.AddWithValue("@name", account.Name);

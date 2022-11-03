@@ -17,7 +17,7 @@ public class Dragon : Enemy
     new void Start()
     {
         base.Start();
-        EnemyEntity enemyEntity = enemyDAO.GetEnemybyID(3);
+        EnemyEntity enemyEntity = CommonValue.Enemy[2];
         EnemyName = enemyEntity.EnemyName;
         TotalHealthPoint = enemyEntity.TotalHealthPoint;
         CurrentHealthPoint = TotalHealthPoint;
@@ -98,10 +98,6 @@ public class Dragon : Enemy
         }
 
     }
-    public void PlaySoundAttack()
-    {
-        Source.Play();
-    }
     public void Fire()
     {
 
@@ -113,7 +109,7 @@ public class Dragon : Enemy
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Rotation.eulerAngles = new Vector3(0, 0, angle);
             BulletIns.transform.rotation = Rotation;
-            BulletIns.GetComponent<Rigidbody2D>().AddForce(direction * 1500);
+            BulletIns.GetComponent<Rigidbody2D>().AddForce(direction * 1200);
             Destroy(BulletIns, 3f);
         }
     }

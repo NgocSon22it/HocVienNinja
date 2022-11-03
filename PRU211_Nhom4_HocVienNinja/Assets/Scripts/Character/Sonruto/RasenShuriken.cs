@@ -11,8 +11,7 @@ public class RasenShuriken : Skill
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        Damage = skillDAO.GetSkillbyID(1).Damage;
+        Damage = CommonValue.Skill[0].Damage;
         StartCoroutine(SetSpeed());
     }
 

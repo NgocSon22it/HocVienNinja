@@ -11,8 +11,7 @@ public class Rasengan : Skill
     // Start is called before the first frame update
     void Start()
     {
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        Damage = skillDAO.GetSkillbyID(3).Damage;
+        Damage = CommonValue.Skill[2].Damage;
         StartCoroutine(SetupRasengan());
     }
 

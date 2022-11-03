@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour
     public Collider2D Col;
     public AudioSource Source;
     public bool FacingRight = true;
-    public EnemyDAO enemyDAO;
 
     // Setting Normal Attack
     public Transform AttackPoint;
@@ -41,6 +40,7 @@ public class Enemy : MonoBehaviour
     public void Start()
     {
         SetupComponent();
+
     }
 
     // Update is called once per frame
@@ -58,8 +58,7 @@ public class Enemy : MonoBehaviour
         Rigid = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Col = GetComponent<Collider2D>();
-        Source = GetComponent<AudioSource>();
-        enemyDAO = GetComponent<EnemyDAO>();           
+        Source = GetComponent<AudioSource>();          
     }
 
     // Abilites
@@ -81,6 +80,12 @@ public class Enemy : MonoBehaviour
             }
         }
 
+    }
+
+
+    public void PlaySoundAttack()
+    {
+        Source.Play();
     }
     // normal Attack
     public virtual void NormalAttack()

@@ -29,15 +29,17 @@ public class GameManager : MonoBehaviour
 
     GameObject player;
     public bool isEnd;
+    public bool GameOver;
     
     private void Start()
     {
         isEnd = false;
         isPause = false;
+        GameOver = false;
         StartCoroutine(SetUpUI());
         accountDAO = GetComponent<AccountDAO>();
         ScoreUI.text = Score.ToString();
-        CoinUI.text = Coin.ToString();       
+        CoinUI.text = Coin.ToString();
     }
     private void Update()
     {
@@ -58,7 +60,7 @@ public class GameManager : MonoBehaviour
                 SettingMenu.SetActive(false);
                 OutSetting();
             }
-            if (player.GetComponent<Character>().IsReachPortal || player.GetComponent<Character>().Die())
+            if (player.GetComponent<Character>().Die() || GameOver)
             {
                 isEnd = true;
                 ScoreMenu.SetActive(true);
@@ -82,17 +84,19 @@ public class GameManager : MonoBehaviour
     public void SaveButton()
     {
         accountDAO.CreateScore(AccountManager.AccountID, Score);
-        accountDAO.updateAccountItem(AccountManager.AccountID, 1, AccountManager.ItemOneQuantity);
-        accountDAO.updateAccountItem(AccountManager.AccountID, 2, AccountManager.ItemTwoQuantity);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 1, CommonValue.ItemOneQuantity);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 2, CommonValue.ItemTwoQuantity);
         accountDAO.UpdateCoin(AccountManager.AccountID, Coin);
+        AccountManager.AccountCoin = accountDAO.GetAccountbyID(AccountManager.AccountID).Coin;
         Time.timeScale = 1f;
         SceneManager.LoadScene("GameMenu", LoadSceneMode.Single);
     }
     public void DoNotSaveButton()
     {
-        accountDAO.updateAccountItem(AccountManager.AccountID, 1, AccountManager.ItemOneQuantity);
-        accountDAO.updateAccountItem(AccountManager.AccountID, 2, AccountManager.ItemTwoQuantity);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 1, CommonValue.ItemOneQuantity);
+        accountDAO.updateAccountItem(AccountManager.AccountID, 2, CommonValue.ItemTwoQuantity);
         accountDAO.UpdateCoin(AccountManager.AccountID, Coin);
+        AccountManager.AccountCoin = accountDAO.GetAccountbyID(AccountManager.AccountID).Coin;
         Time.timeScale = 1f;
         SceneManager.LoadScene("GameMenu", LoadSceneMode.Single);
     }
@@ -112,7 +116,6 @@ public class GameManager : MonoBehaviour
         {
             player = Instantiate(Resources.Load("Character/Phongsuke", typeof(GameObject)), SpawnPoint.position, SpawnPoint.rotation) as GameObject;
         }
-        yield return new WaitForSeconds(1f);
         BarUI.SetActive(true);
     }
 }

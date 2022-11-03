@@ -9,8 +9,7 @@ public class Katon : Skill
     // Start is called before the first frame update
     void Start()
     {
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        Damage = skillDAO.GetSkillbyID(1003).Damage;
+        Damage = CommonValue.Skill[3].Damage;
         rb = GetComponent<Rigidbody2D>();
         rb.velocity = transform.right * 30;
         StartCoroutine(DestoyKaton());

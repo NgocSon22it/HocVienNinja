@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4851723400011294327}
   - component: {fileID: 4851723400011294326}
   - component: {fileID: 4851723400011294312}
-  - component: {fileID: 240124022382250437}
   - component: {fileID: -1967942084664846469}
   m_Layer: 3
   m_Name: Belly
@@ -180,7 +179,6 @@ MonoBehaviour:
   Col: {fileID: 0}
   Source: {fileID: 0}
   FacingRight: 1
-  enemyDAO: {fileID: 0}
   AttackPoint: {fileID: 4851723401268303101}
   LayerToAttack:
     serializedVersion: 2
@@ -195,18 +193,6 @@ MonoBehaviour:
   Timer: 0
   RangeFoundPlayer: 20
   TimeMoveIdle: 2
---- !u!114 &240124022382250437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4851723400011294322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1927822e298fdb439a372aec4d2f6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &-1967942084664846469
 AudioSource:
   m_ObjectHideFlags: 0

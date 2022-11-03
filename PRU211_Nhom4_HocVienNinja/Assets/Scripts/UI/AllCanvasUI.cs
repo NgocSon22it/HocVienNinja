@@ -7,7 +7,6 @@ public class AllCanvasUI : MonoBehaviour
 {
     
     public Character Player;
-    public GameObject PlayerUI;
     [Header("Health & Chakra")]
     [SerializeField] private Image CurrentHealth;
     [SerializeField] private Image CurrentChakra;
@@ -61,8 +60,8 @@ public class AllCanvasUI : MonoBehaviour
         CurrentCooldownFirstSkill.fillAmount = Player.ReloadFirstSkill / Player.CooldownFirstSkill;
         CurrentCooldownSecondSkill.fillAmount = Player.ReloadSecondSkill / Player.CooldownSecondSkill;
         CurrentCooldownThirdSkill.fillAmount = Player.ReloadThirdSkill / Player.CooldownThirdSkill;
-        ItemOneText.text = AccountManager.ItemOneQuantity.ToString();
-        ItemTwoText.text = AccountManager.ItemTwoQuantity.ToString();
+        ItemOneText.text = CommonValue.ItemOneQuantity.ToString();
+        ItemTwoText.text = CommonValue.ItemTwoQuantity.ToString();
 
         if (Player.ReloadFirstSkill <= 0f)
         {
@@ -106,13 +105,11 @@ public class AllCanvasUI : MonoBehaviour
 
     IEnumerator SetUpUI()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Character>();
         string CharacterName = Player.gameObject.name.Replace("(Clone)", "");
         characterDAO = GetComponent<CharacterDAO>();
-        AccountDAO accountDAO = GetComponent<AccountDAO>();
-        AccountManager.ItemOneQuantity = accountDAO.GetItemQuantity(2, 1);
-        AccountManager.ItemTwoQuantity = accountDAO.GetItemQuantity(2, 2);
+        AccountDAO accountDAO = GetComponent<AccountDAO>();       
         Avatar.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "Avatar");
         FirstSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "FirstSkill");
         SecondSkillImage.sprite = Resources.Load<Sprite>("PlayerUI/" + CharacterName + "SecondSkill");
@@ -130,9 +127,8 @@ public class AllCanvasUI : MonoBehaviour
         NumberCooldownThirdSkill.text = "";
         NumberHealth.text = Player.CurrentHealthPoint + " / " + Player.TotalHealthPoint;
         NumberChakra.text = Player.CurrentChakra + " / " + Player.TotalChakra;
-        ItemOneText.text = AccountManager.ItemOneQuantity.ToString();
-        ItemTwoText.text = AccountManager.ItemTwoQuantity.ToString();
+        ItemOneText.text = CommonValue.ItemOneQuantity.ToString();
+        ItemTwoText.text = CommonValue.ItemTwoQuantity.ToString();
         isStart = true;
-        PlayerUI.SetActive(true);
     }
 }

@@ -4824,6 +4824,8 @@ GameObject:
   - component: {fileID: 4937494787631908505}
   - component: {fileID: 4544771145594758693}
   - component: {fileID: 3552902989117174333}
+  - component: {fileID: 3098081196802585929}
+  - component: {fileID: 8602129636784956365}
   m_Layer: 13
   m_Name: Portal
   m_TagString: Portal
@@ -9664,3 +9666,29 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 13.8547, y: 51.309357}
   m_EdgeRadius: 0
+--- !u!114 &3098081196802585929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659105806775890423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 191e82d61f645b348aace2d230ed1221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapName: Level2
+  Manager: {fileID: 0}
+--- !u!114 &8602129636784956365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7659105806775890423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0df28992a9db179498a497df19b58b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

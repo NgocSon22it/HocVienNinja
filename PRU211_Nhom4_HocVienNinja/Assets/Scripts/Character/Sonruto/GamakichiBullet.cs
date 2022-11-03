@@ -9,7 +9,7 @@ public class GamakichiBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
-            collision.GetComponent<Enemy>().TakeDamage(10);
+            collision.GetComponent<Enemy>().TakeDamage(35);
             Destroy(gameObject);
         }
     }

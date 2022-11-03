@@ -16,7 +16,7 @@ public class Goblin : Enemy
     new void Start()
     {
         base.Start();
-        EnemyEntity enemyEntity = enemyDAO.GetEnemybyID(2);
+        EnemyEntity enemyEntity = CommonValue.Enemy[1];
         EnemyName = enemyEntity.EnemyName;
         TotalHealthPoint = enemyEntity.TotalHealthPoint;
         CurrentHealthPoint = TotalHealthPoint;
@@ -28,6 +28,7 @@ public class Goblin : Enemy
         RangeFoundPlayer = 30;
         JumpPower = 20;
         EnemyAttackRange = 4;
+        Debug.Log(EnemyName + " " + TotalHealthPoint + " " + EnemySpeed + " " + EnemyDamage);
     }
 
     new void Update()
@@ -99,7 +100,6 @@ public class Goblin : Enemy
                 handleRotation(Player.transform);
                 Rigid.mass = 1000;
                 Animator.SetBool("Attack", true);
-                Source.Play();
                 Animator.SetBool("Walk", false);
                 AttackMode = true;
                 IntTimer = Timer;

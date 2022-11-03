@@ -14,6 +14,10 @@ public class BossCamera : MonoBehaviour
     public AudioSource Source;
     public AudioClip Nghiancom;
     public bool AnCom;
+    public GameObject Portal;
+
+    public AudioSource EndGameSource;
+    public AudioClip EndGameMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +69,12 @@ public class BossCamera : MonoBehaviour
         StartCoroutine(enemy.Move());
         ToggleCanvasForIntro(true);
 
+    }
+    public void ActivePortal()
+    {
+        EndGameSource.clip = EndGameMusic;
+        EndGameSource.Play();
+        Portal.SetActive(true);
     }
     public void PlayNghiAnCom()
     {

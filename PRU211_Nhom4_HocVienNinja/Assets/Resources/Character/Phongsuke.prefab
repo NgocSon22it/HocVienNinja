@@ -110,8 +110,6 @@ GameObject:
   - component: {fileID: 776379132403108118}
   - component: {fileID: 7620153407748945060}
   - component: {fileID: 1306196323578560649}
-  - component: {fileID: 2968814007986337674}
-  - component: {fileID: 5249318605259838703}
   - component: {fileID: 461738770}
   - component: {fileID: 4196656028482539017}
   - component: {fileID: 461738772}
@@ -449,7 +447,6 @@ MonoBehaviour:
   blurCamera: {fileID: 0}
   isOnFloor: 0
   IsStart: 0
-  IsReachPortal: 0
   Katon: {fileID: 4326862631773316752, guid: 0dd8feed210f8ec49b77f89b132eac24, type: 3}
   KatonSound: {fileID: 8300000, guid: 9445589d4a5f1bc41920a429531d0995, type: 3}
   KatonPoint: {fileID: 9090469563206945691}
@@ -484,30 +481,6 @@ MonoBehaviour:
   FirstSkill: 0
   SecondSkill: 0
   ThirdSkill: 0
---- !u!114 &2968814007986337674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4858692963035318703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b6840946b7696544b7e17ff562417e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5249318605259838703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4858692963035318703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea7c62490ca4ce4a8b0e7a1be91a9ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &461738770
 AudioSource:
   m_ObjectHideFlags: 0

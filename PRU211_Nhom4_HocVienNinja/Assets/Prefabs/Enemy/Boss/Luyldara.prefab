@@ -799,13 +799,14 @@ GameObject:
   - component: {fileID: 8327621056189913480}
   - component: {fileID: 441768584818822225}
   - component: {fileID: 1656180509}
+  - component: {fileID: 211552084291300421}
   m_Layer: 3
   m_Name: Luyldara
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8179995476740241463
 Transform:
   m_ObjectHideFlags: 0
@@ -942,7 +943,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 92f61ef31ee432549afc997ec94d64da, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -970,6 +971,7 @@ MonoBehaviour:
   Col: {fileID: 0}
   Source: {fileID: 0}
   FacingRight: 1
+  enemyDAO: {fileID: 0}
   AttackPoint: {fileID: 0}
   LayerToAttack:
     serializedVersion: 2
@@ -1043,6 +1045,8 @@ MonoBehaviour:
   - {fileID: 6957745686212151552}
   - {fileID: 1790303770919598653}
   - {fileID: 8292882093276714162}
+  IsOut: 0
+  LazerClip: {fileID: 8300000, guid: 9e4779a582650114e8158e0f42f17587, type: 3}
 --- !u!82 &1656180509
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1139,6 +1143,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &211552084291300421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5488170920047249298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1927822e298fdb439a372aec4d2f6c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5492795274679532945
 GameObject:
   m_ObjectHideFlags: 0

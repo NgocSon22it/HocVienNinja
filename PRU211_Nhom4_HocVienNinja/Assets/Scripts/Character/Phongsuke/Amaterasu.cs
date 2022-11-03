@@ -8,8 +8,7 @@ public class Amaterasu : Skill
     public float TimeToDamage = 0.5f;
     private void Start()
     {
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        Damage = skillDAO.GetSkillbyID(1005).Damage;
+        Damage = CommonValue.Skill[5].Damage;
     }
     // Update is called once per frame
     void Update()

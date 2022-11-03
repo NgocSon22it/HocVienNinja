@@ -39,10 +39,9 @@ public class Character : MonoBehaviour
     public Animator Animator;
     public SpriteRenderer SpriteRenderer;
     public Collider2D Col;
-    public TrailRenderer TrailRenderer;
     public StaticController staticController;
     public AudioSource SkillSource;
-    public CharacterDAO characterDAO;
+    
 
     public AudioSource AttackSource;
     public AudioClip NormalAttackClip;
@@ -86,21 +85,20 @@ public class Character : MonoBehaviour
     public GameObject blurCamera;
     public bool isOnFloor;
     public bool IsStart;
-    public bool IsReachPortal;
     // Start is called before the first frame update
     public void Start()
     {
         SetupComponent();
-        CharacterEntity character = characterDAO.GetCharacterbyID(2);
         InvokeRepeating(nameof(RegenChakra), 1f, 2f);
-        CharacterName = character.CharacterName;
-        TotalHealthPoint = character.TotalHealthPoint;
+        CharacterEntity characterEntity = CommonValue.CharacterSelected;
+        CharacterName = CommonValue.CharacterSelected.CharacterName;
+        TotalHealthPoint = CommonValue.CharacterSelected.TotalHealthPoint;
         CurrentHealthPoint = TotalHealthPoint;
-        TotalChakra = character.TotalChakra;
+        TotalChakra = CommonValue.CharacterSelected.TotalChakra;
         CurrentChakra = TotalChakra;
         AttackRange = 3f;
-        CharacterDamage = character.CharacterDamage;
-        CharacterSpeed = character.CharacterSpeed;
+        CharacterDamage = CommonValue.CharacterSelected.CharacterDamage;
+        CharacterSpeed = CommonValue.CharacterSelected.CharacterSpeed;
         FacingRight = true;
         CanTurn = true;
     }
@@ -158,9 +156,7 @@ public class Character : MonoBehaviour
         Rigid = GetComponent<Rigidbody2D>();
         SpriteRenderer = GetComponent<SpriteRenderer>();
         Col = GetComponent<Collider2D>();
-        TrailRenderer = GetComponent<TrailRenderer>();
         staticController = GetComponent<StaticController>();
-        characterDAO = GetComponent<CharacterDAO>();
     }
     public void StartSkill()
     {
@@ -270,35 +266,34 @@ public class Character : MonoBehaviour
 
     public void UseFirstItem()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && AccountManager.ItemOneQuantity > 0)
+        if (Input.GetKeyDown(KeyCode.Q) && CommonValue.ItemOneQuantity > 0)
         {
             EffectSource.clip = EffectClip[0];
             EffectSource.Play();
             GameObject effect = Instantiate(Effect[0], transform.position, Quaternion.identity);
             Destroy(effect, 3f);
-            CurrentHealthPoint += 20;
+            CurrentHealthPoint += 30;
             if (CurrentHealthPoint > TotalHealthPoint)
             {
                 CurrentHealthPoint = TotalHealthPoint;
             }
-            AccountManager.ItemOneQuantity--;
+            CommonValue.ItemOneQuantity--;
         }
     }
     public void UseSecondItem()
     {
-        if (Input.GetKeyDown(KeyCode.E) && AccountManager.ItemTwoQuantity > 0)
+        if (Input.GetKeyDown(KeyCode.E) && CommonValue.ItemTwoQuantity > 0)
         {
             EffectSource.clip = EffectClip[1];
             EffectSource.Play();
             GameObject effect = Instantiate(Effect[1], transform.position, Quaternion.identity);
             Destroy(effect, 3f);
-            CurrentChakra += 20;
+            CurrentChakra += 30;
             if (CurrentChakra > TotalChakra)
             {
                 CurrentChakra = TotalChakra;
             }
-            AccountManager.ItemTwoQuantity--;
-
+            CommonValue.ItemTwoQuantity--;
         }
     }
     //// player Jump
@@ -445,13 +440,6 @@ public class Character : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Portal"))
-        {
-            IsReachPortal = true;
-        }
-    }
 
     private void OnDrawGizmosSelected()
     {

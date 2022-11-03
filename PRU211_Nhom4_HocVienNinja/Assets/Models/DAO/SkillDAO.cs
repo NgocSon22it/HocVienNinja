@@ -9,15 +9,16 @@ public class SkillDAO : MonoBehaviour
 {
     string ConnectionStr = new HocVienNinjaConnect().GetConnectHocVienNinja();
 
-    public SkillEntity GetSkillbyID(int id)
+    public List<SkillEntity> GetAllSkill()
     {
+        List<SkillEntity> list = new List<SkillEntity>();
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
         {
             try
             {
                 connection.Open();
                 SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "select * from Skill where Skill_ID = " + id;
+                cmd.CommandText = "select * from Skill";
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
@@ -32,8 +33,8 @@ public class SkillDAO : MonoBehaviour
                         Damage = Convert.ToInt32(dr["Damage"]),
                         Cooldown = Convert.ToInt32(dr["Cooldown"]),
                     };
-                    connection.Close();
-                    return a;
+
+                    list.Add(a);
                 }
             }
             finally
@@ -43,6 +44,6 @@ public class SkillDAO : MonoBehaviour
 
         }
 
-        return null;
+        return list;
     }
 }

@@ -29,17 +29,19 @@ public class Phongsuke : Character
 
     private void Awake()
     {
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        CostFirstSkill = skillDAO.GetSkillbyID(1003).Chakra;
-        CooldownFirstSkill = skillDAO.GetSkillbyID(1003).Cooldown;
-        CostSecondSkill = skillDAO.GetSkillbyID(1004).Chakra;
-        CooldownSecondSkill = skillDAO.GetSkillbyID(1004).Cooldown;
-        CostThirdSkill = skillDAO.GetSkillbyID(1005).Chakra;
-        CooldownThirdSkill = skillDAO.GetSkillbyID(1005).Cooldown;
+        CostFirstSkill = CommonValue.Skill[3].Chakra;
+        CooldownFirstSkill = CommonValue.Skill[3].Cooldown;
+
+        CostSecondSkill = CommonValue.Skill[4].Chakra;
+        CooldownSecondSkill = CommonValue.Skill[4].Cooldown;
+
+        CostThirdSkill = CommonValue.Skill[5].Chakra;
+        CooldownThirdSkill = CommonValue.Skill[5].Cooldown;
     }
     new void Start()
     {
         base.Start();
+        Debug.Log(CostFirstSkill + " " + CostSecondSkill + " " + CostThirdSkill);
     }
 
     new void Update()
@@ -130,6 +132,7 @@ public class Phongsuke : Character
     private IEnumerator ChidoriDash()
     {
         IsChidoriDash = true;
+        IsHurt = true;
         Rigid.constraints = RigidbodyConstraints2D.FreezeRotation | RigidbodyConstraints2D.FreezePositionY;
         float origialGravity = Rigid.gravityScale;
         Rigid.gravityScale = 0f;
@@ -143,6 +146,7 @@ public class Phongsuke : Character
         Rigid.constraints = RigidbodyConstraints2D.FreezeRotation;
         yield return new WaitForSecondsRealtime(1f);
         Chidori.SetActive(false);
+        IsHurt = false;
     }
 
     public void KatonSkill()

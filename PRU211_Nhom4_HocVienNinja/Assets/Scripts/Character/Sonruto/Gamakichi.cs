@@ -18,8 +18,8 @@ public class Gamakichi : Character
     new void Start()
     {
         CharacterName = "Gamakichi";
-        CurrentHealthPoint = 300;
-        TotalHealthPoint = 300;
+        CurrentHealthPoint = 150;
+        TotalHealthPoint = 150;
         TotalChakra = 100;
         CurrentChakra = 0;
         FacingRight = true;
@@ -28,7 +28,7 @@ public class Gamakichi : Character
     // Update is called once per frame
     new void Update()
     {
-            ClostestEnemy = FindClostestEnemy(12);
+            ClostestEnemy = FindClostestEnemy(17);
             if (ClostestEnemy != null)
             {
                 if (transform.position.x > ClostestEnemy.transform.position.x && FacingRight)
@@ -75,7 +75,7 @@ public class Gamakichi : Character
 
     public void ShootBubble()
     {
-        ClostestEnemy = FindClostestEnemy(20);
+        ClostestEnemy = FindClostestEnemy(17);
 
         if (ClostestEnemy != null)
         {
@@ -93,7 +93,7 @@ public class Gamakichi : Character
 
     public void ShootSpecialBubble()
     {
-        ClostestEnemy = FindClostestEnemy(20);
+        ClostestEnemy = FindClostestEnemy(17);
         if (ClostestEnemy != null)
         {
             Vector2 direction = (Vector2)ClostestEnemy.transform.GetChild(0).position - (Vector2)transform.position;

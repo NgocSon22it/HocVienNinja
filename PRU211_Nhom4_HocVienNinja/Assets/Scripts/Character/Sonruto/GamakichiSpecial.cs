@@ -10,7 +10,7 @@ public class GamakichiSpecial : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Boss"))
         {
             HitSound.Play();
-            collision.GetComponent<Enemy>().TakeDamage(30);
+            collision.GetComponent<Enemy>().TakeDamage(40);
         }
     }
 }

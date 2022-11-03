@@ -20,13 +20,14 @@ public class Sonruto : Character
     public GameObject RasenShuriken;
     private void Awake()
     {
-        SkillDAO skillDAO = GetComponent<SkillDAO>();
-        CostFirstSkill = skillDAO.GetSkillbyID(1).Chakra;
-        CooldownFirstSkill = skillDAO.GetSkillbyID(1).Cooldown;
-        CostSecondSkill = skillDAO.GetSkillbyID(2).Chakra;
-        CooldownSecondSkill = skillDAO.GetSkillbyID(2).Cooldown;
-        CostThirdSkill = skillDAO.GetSkillbyID(3).Chakra;
-        CooldownThirdSkill = skillDAO.GetSkillbyID(3).Cooldown;
+        CostFirstSkill = CommonValue.Skill[0].Chakra;
+        CooldownFirstSkill = CommonValue.Skill[0].Cooldown;
+
+        CostSecondSkill = CommonValue.Skill[1].Chakra;
+        CooldownSecondSkill = CommonValue.Skill[1].Cooldown;
+
+        CostThirdSkill = CommonValue.Skill[2].Chakra;
+        CooldownThirdSkill = CommonValue.Skill[2].Cooldown;
     }
 
     // Start is called before the first frame update
@@ -114,7 +115,8 @@ public class Sonruto : Character
     }
     public void CallGamakichi()
     {
-        Instantiate(Gamakichi, PlaceGamakichi.position, Quaternion.identity);
+        GameObject instance =  Instantiate(Gamakichi, PlaceGamakichi.position, Quaternion.identity);
+        Destroy(instance, 12f);
     }
 
     IEnumerator MoveRasengan()

@@ -9,15 +9,16 @@ public class EnemyDAO : MonoBehaviour
 {
     string ConnectionStr = new HocVienNinjaConnect().GetConnectHocVienNinja();
 
-    public EnemyEntity GetEnemybyID(int id)
+    public List<EnemyEntity> GetAllEnemy()
     {
+        List<EnemyEntity> list = new List<EnemyEntity>();
         using (SqlConnection connection = new SqlConnection(ConnectionStr))
         {
             try
             {
                 connection.Open();
                 SqlCommand cmd = connection.CreateCommand();
-                cmd.CommandText = "Select * from Enemy where Ene_ID = " + id;
+                cmd.CommandText = "Select * from Enemy";
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dataTable = new DataTable();
                 adapter.Fill(dataTable);
@@ -25,7 +26,7 @@ public class EnemyDAO : MonoBehaviour
 
                 foreach (DataRow dr in dataTable.Rows)
                 {
-                    EnemyEntity a = new()
+                    list.Add(new EnemyEntity
                     {
                         EnemyID = Convert.ToInt32(dr["Ene_ID"]),
                         EnemyName = dr["Name"].ToString(),
@@ -35,19 +36,18 @@ public class EnemyDAO : MonoBehaviour
                         EnemyCoin = Convert.ToInt32(dr["Coin"]),
                         Description = dr["Description"].ToString(),
                         Link = dr["Link"].ToString(),
-                        Delete = Convert.ToBoolean(dr["Delete"])
-                    };
-                    connection.Close();
-                    return a;
+                        Delete = Convert.ToBoolean(dr["Delete"].ToString())
+                    });
                 }
+
             }
             finally
             {
                 connection.Close();
-            }
 
+            }
         }
 
-        return null;
+        return list;
     }
 }
