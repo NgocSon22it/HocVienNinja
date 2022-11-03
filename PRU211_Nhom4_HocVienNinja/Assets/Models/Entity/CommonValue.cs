@@ -24,7 +24,7 @@ public class CommonValue : MonoBehaviour
         skillDAO = GetComponent<SkillDAO>();
         enemyDAO = GetComponent<EnemyDAO>();
         accountDAO = GetComponent<AccountDAO>();
-        CharacterSelected = characterDAO.GetCharacterbyID(1);
+        CharacterSelected = characterDAO.GetCharacterbyID(SelectCharacter.CharacterID);
         Skill = skillDAO.GetAllSkill();
         Enemy = enemyDAO.GetAllEnemy();
         ItemOneQuantity = accountDAO.GetItemQuantity(AccountManager.AccountID, 1);
