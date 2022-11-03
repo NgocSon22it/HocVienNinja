@@ -33,7 +33,8 @@ public class Sonruto : Character
     // Start is called before the first frame update
     new void Start()
     {
-        base.Start();     
+        base.Start();
+        AttackRange = 2f;
     }
 
     // Update is called once per frame

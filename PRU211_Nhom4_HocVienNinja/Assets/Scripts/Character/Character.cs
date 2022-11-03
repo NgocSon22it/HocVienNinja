@@ -96,7 +96,6 @@ public class Character : MonoBehaviour
         CurrentHealthPoint = TotalHealthPoint;
         TotalChakra = CommonValue.CharacterSelected.TotalChakra;
         CurrentChakra = TotalChakra;
-        AttackRange = 3f;
         CharacterDamage = CommonValue.CharacterSelected.CharacterDamage;
         CharacterSpeed = CommonValue.CharacterSelected.CharacterSpeed;
         FacingRight = true;

@@ -41,7 +41,7 @@ public class Phongsuke : Character
     new void Start()
     {
         base.Start();
-        Debug.Log(CostFirstSkill + " " + CostSecondSkill + " " + CostThirdSkill);
+        AttackRange = 3f;
     }
 
     new void Update()
@@ -192,5 +192,7 @@ public class Phongsuke : Character
     {
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, AmaterasuRange);
+        Gizmos.DrawWireSphere(AttackPoint.position, AttackRange);
     }
+
 }
