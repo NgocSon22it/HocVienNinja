@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Portal : MonoBehaviour
-{   
+{
     [SerializeField]
     string MapName;
     [SerializeField]
@@ -17,20 +17,21 @@ public class Portal : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (MapName.Equals("Last"))
-        {
-            accountDAO.updateAccountItem(AccountManager.AccountID, 1, CommonValue.ItemOneQuantity);
-            accountDAO.updateAccountItem(AccountManager.AccountID, 2, CommonValue.ItemTwoQuantity);
-            Manager.GetComponent<GameManager>().GameOver = true;
-        }
-        else
-        {
+
         if (collision.gameObject.CompareTag("Player"))
         {
+            if (MapName.Equals("Last"))
+            {
+                accountDAO.updateAccountItem(AccountManager.AccountID, 1, CommonValue.ItemOneQuantity);
+                accountDAO.updateAccountItem(AccountManager.AccountID, 2, CommonValue.ItemTwoQuantity);
+                Manager.GetComponent<GameManager>().GameOver = true;
+            }
+            else
+            {
                 accountDAO.updateAccountItem(AccountManager.AccountID, 1, CommonValue.ItemOneQuantity);
                 accountDAO.updateAccountItem(AccountManager.AccountID, 2, CommonValue.ItemTwoQuantity);
                 SceneManager.LoadScene(MapName, LoadSceneMode.Single);
-        }
+            }
         }
     }
 }
