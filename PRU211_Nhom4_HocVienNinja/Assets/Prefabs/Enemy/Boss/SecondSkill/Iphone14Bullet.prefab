@@ -147,3 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Explode: {fileID: 501613759505896779, guid: 848fe19cc8a24084fa0f83dd62b1f52f, type: 3}
+  Sprite:
+  - {fileID: 21300000, guid: c74b719d1bef69b4bae4454fddcd0099, type: 3}
+  - {fileID: 21300000, guid: 85bdcc3bf197611448f30282c880f8a6, type: 3}
+  - {fileID: 21300000, guid: 41c607a19815422479b6c5cdfa560453, type: 3}
+  - {fileID: 21300000, guid: 038d0f1c752397c45b0530085ee40818, type: 3}
+  - {fileID: 21300000, guid: 2e9a86fb579c85842ad15bffef79d7a8, type: 3}
+  - {fileID: 21300000, guid: ec35b4dc4bc186e4aa6c608f111ce787, type: 3}

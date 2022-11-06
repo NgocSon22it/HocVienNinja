@@ -15,6 +15,7 @@ public class BossCamera : MonoBehaviour
     public AudioClip Nghiancom;
     public bool AnCom;
     public GameObject Portal;
+    public GameObject GoldenFrog;
 
     public AudioSource EndGameSource;
     public AudioClip EndGameMusic;
@@ -72,9 +73,14 @@ public class BossCamera : MonoBehaviour
     }
     public void ActivePortal()
     {
+        Portal.SetActive(true);
+    }
+
+    public void ActiveGoldenFrog()
+    {
         EndGameSource.clip = EndGameMusic;
         EndGameSource.Play();
-        Portal.SetActive(true);
+        GoldenFrog.SetActive(true);
     }
     public void PlayNghiAnCom()
     {
@@ -86,4 +92,5 @@ public class BossCamera : MonoBehaviour
         Source.clip = Nghiancom;
         Source.Play();
     }
+
 }

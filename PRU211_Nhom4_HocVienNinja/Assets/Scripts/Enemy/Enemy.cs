@@ -61,11 +61,6 @@ public class Enemy : MonoBehaviour
         Source = GetComponent<AudioSource>();          
     }
 
-    // Abilites
-    public virtual void Abilities()
-    {
-
-    }
 
     // give damage for normalAttack
     public void DamageNormalAttack()

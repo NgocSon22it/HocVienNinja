@@ -89,7 +89,7 @@ public class Character : MonoBehaviour
     public void Start()
     {
         SetupComponent();
-        InvokeRepeating(nameof(RegenChakra), 1f, 2f);
+        InvokeRepeating(nameof(RegenChakra), 1f, 1f);
         CharacterEntity characterEntity = CommonValue.CharacterSelected;
         CharacterName = CommonValue.CharacterSelected.CharacterName;
         TotalHealthPoint = CommonValue.CharacterSelected.TotalHealthPoint;
@@ -212,12 +212,6 @@ public class Character : MonoBehaviour
                 }
             }
         }
-
-    }
-
-    // Abilites
-    public virtual void Abilities()
-    {
 
     }
 

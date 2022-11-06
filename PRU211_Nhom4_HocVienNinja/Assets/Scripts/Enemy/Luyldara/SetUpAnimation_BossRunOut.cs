@@ -41,6 +41,7 @@ public class SetUpAnimation_BossRunOut : StateMachineBehaviour
         mainCamera.SetupPositionAndCamera(new Vector3(0, 11, -10), 20);
         mainCamera.ToggleBossPaths(true);
         mainCamera.ToggleCanvasForIntro(true);
+        mainCamera.ActiveGoldenFrog();
         mainCamera.ActivePortal();
         character.enabled = true;
         character.IsHurt = false;

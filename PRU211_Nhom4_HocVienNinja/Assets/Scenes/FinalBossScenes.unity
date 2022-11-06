@@ -1261,6 +1261,7 @@ MonoBehaviour:
   Nghiancom: {fileID: 8300000, guid: 25ba3c48d853e9f43954dbc7099f2c9f, type: 3}
   AnCom: 0
   Portal: {fileID: 1904831312}
+  GoldenFrog: {fileID: 1167532400}
   EndGameSource: {fileID: 483101929}
   EndGameMusic: {fileID: 8300000, guid: 57ccdf6bd2546c1408d6efa5d0a2f708, type: 3}
 --- !u!82 &483101928
@@ -2541,6 +2542,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1167532400 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 727076887435161160, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+  m_PrefabInstance: {fileID: 727076888416030520}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1173422287 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6957745686212151552, guid: 9a2fa07bbf3de4043a2d39e450a5b995, type: 3}
@@ -5686,6 +5692,67 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &727076888416030520
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 727076887435161160, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_Name
+      value: GoldenEgg
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161160, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 22.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727076887435161162, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d4e37a2c83ba0924cba769f358a91249, type: 3}
 --- !u!1001 &1111338033624135195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6158,6 +6225,18 @@ PrefabInstance:
     - target: {fileID: 7222857536962969576, guid: 24f7c365608dd3a4eac20cfe0ef88b26, type: 3}
       propertyPath: m_Name
       value: The Moon
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330488051309621956, guid: 24f7c365608dd3a4eac20cfe0ef88b26, type: 3}
+      propertyPath: m_Color.b
+      value: 0.052022934
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330488051309621956, guid: 24f7c365608dd3a4eac20cfe0ef88b26, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7330488051309621956, guid: 24f7c365608dd3a4eac20cfe0ef88b26, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24f7c365608dd3a4eac20cfe0ef88b26, type: 3}
